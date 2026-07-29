@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Yorka Tatuajes | Estudio & Booking</title>
+    <meta name="description" content="Estudio de tatuajes y arte corporal de Yorka. Concepción, Chile.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Tipografías Limpias y Minimalistas -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        yorkaBg: '#f7f8f6',     /* Blanco suave visualmente descanso */
+                        yorkaCard: '#ffffff',   /* Tarjetas blancas puras */
+                        yorkaBorder: '#e2e5e0', /* Borde sutil y minimalista */
+                        yorkaText: '#1a1c19',   /* Texto oscuro mate */
+                        yorkaMuted: '#68706b',  /* Texto secundario grisáceo */
+                        yorkaAccent: '#000000',
+                        yorkaHover: '#2c302d',
+                        danger: '#ef4444',
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        mono: ['"Space Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #f7f8f6;
+            color: #1a1c19;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        ::selection { background: #1a1c19; color: #f7f8f6; }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #f7f8f6; }
+        ::-webkit-scrollbar-thumb { background: #d0d4cf; }
+        ::-webkit-scrollbar-thumb:hover { background: #1a1c19; }
+
+        /* PANTALLA DE CARGA */
+        #pantalla-carga {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #f7f8f6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 999999;
+            transition: opacity 0.8s ease, visibility 0.8s;
+        }
+        .ocultar-carga { opacity: 0; visibility: hidden; }
+        .spinner {
+            width: 36px; height: 36px;
+            border: 2px solid #e2e5e0;
+            border-top: 2px solid #1a1c19;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-bottom: 16px;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* NAVBAR */
+        .navbar { transition: all 0.4s ease; background-color: rgba(247, 248, 246, 0.92); backdrop-filter: blur(8px); padding: 20px 0; border-bottom: 1px solid #e2e5e0; }
+        .navbar.scrolled { padding: 14px 0; box-shadow: 0 4px 20px rgba(0,0,0,0.02); }
+        .nav-link { position: relative; padding-bottom: 2px; cursor: pointer; }
+        .nav-link::after {
+            content: ''; position: absolute; width: 0; height: 1px; bottom: 0; left: 50%;
+            background-color: #1a1c19; transition: all 0.3s ease; transform: translateX(-50%);
+        }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+        /* CARRUSEL */
+        .carousel-slide { display: none; animation: fadeIn 0.6s ease-in-out; }
+        .carousel-slide.active { display: grid; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .carousel-dot {
+            width: 6px; height: 6px; border-radius: 50%; background-color: #d0d4cf; cursor: pointer; transition: all 0.3s;
+        }
+        .carousel-dot.active { background-color: #1a1c19; transform: scale(1.3); }
+
+        /* TARJETAS Y FORMULARIOS */
+        .minimal-card {
+            background: #ffffff;
+            border: 1px solid #e2e5e0;
+            transition: all 0.3s ease;
+        }
+        .minimal-card:hover {
+            border-color: #b0b8b2;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.03);
+        }
+        .btn-black {
+            background: #1a1c19;
+            color: #ffffff;
+            transition: all 0.3s ease;
+        }
+        .btn-black:hover:not(:disabled) {
+            background: #373b38;
+            transform: translateY(-1px);
+        }
+
+        .slot-btn {
+            border: 1px solid #e2e5e0;
+            background: #f7f8f6;
+            transition: all 0.2s ease;
+        }
+        .slot-btn:hover:not(:disabled) {
+            background: #eef1ec;
+            border-color: #b0b8b2;
+        }
+        .slot-btn.selected {
+            background: #1a1c19;
+            color: #ffffff;
+            border-color: #1a1c19;
+        }
+        .slot-btn:disabled {
+            opacity: 0.25;
+            cursor: not-allowed;
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- PANTALLA DE CARGA -->
+<div id="pantalla-carga">
+    <div class="spinner"></div>
+    <h2 class="font-mono text-xs tracking-widest uppercase text-yorkaText">Yorka Tatuajes</h2>
+</div>
+
+<!-- NAVBAR -->
+<nav id="navbar" class="navbar fixed top-0 w-full z-50 flex items-center justify-between px-6 md:px-16">
+    <div class="flex items-center gap-3">
+        <a href="https://www.instagram.com/yorka_tatuajes/" target="_blank" rel="noopener noreferrer" class="text-yorkaText text-xl hover:rotate-12 transition-transform duration-300" title="Ver Instagram @yorka_tatuajes">
+            <i class="fa-brands fa-instagram"></i>
+        </a>
+        <a href="#" onclick="showPublicLanding()" class="font-mono text-lg font-bold tracking-tight text-yorkaText">Yorka Tatuajes</a>
+    </div>
+    
+    <div class="hidden md:flex items-center gap-8 font-sans text-xs font-medium tracking-wider uppercase text-yorkaMuted">
+        <a href="#inicio" onclick="showPublicLanding()" class="nav-link hover:text-yorkaText transition-colors">Inicio</a>
+        <a href="#portafolio" onclick="showPublicLanding()" class="nav-link hover:text-yorkaText transition-colors">Portafolio</a>
+        <a href="#agendar" onclick="showPublicLanding()" class="nav-link hover:text-yorkaText transition-colors">Reserva</a>
+        <a href="https://www.instagram.com/yorka_tatuajes/" target="_blank" rel="noopener noreferrer" class="nav-link text-yorkaText hover:text-yorkaMuted transition-colors flex items-center gap-1">
+            <i class="fa-brands fa-instagram text-xs"></i> Instagram
+        </a>
+        <span class="w-px h-3 bg-gray-300"></span>
+        <div id="auth-nav-slot">
+            <button onclick="handleAdminNavClick()" id="nav-admin-toggle" class="nav-link text-yorkaText hover:text-yorkaMuted transition-colors flex items-center gap-1.5 font-mono">
+                <i class="fa-solid fa-user-gear text-xs"></i>
+                <span id="nav-admin-label">Admin</span>
+            </button>
+        </div>
+    </div>
+
+    <button id="mobileBtn" class="md:hidden text-yorkaText text-xl focus:outline-none">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mobileMenu" class="fixed inset-0 bg-[#f7f8f6] z-40 hidden flex-col justify-center items-center gap-6 font-mono text-xl text-yorkaText">
+    <a href="#inicio" onclick="showPublicLanding()" class="hover:text-yorkaMuted mobile-link transition-colors">Inicio</a>
+    <a href="#portafolio" onclick="showPublicLanding()" class="hover:text-yorkaMuted mobile-link transition-colors">Portafolio</a>
+    <a href="#agendar" onclick="showPublicLanding()" class="hover:text-yorkaMuted mobile-link transition-colors">Reserva</a>
+    <a href="https://www.instagram.com/yorka_tatuajes/" target="_blank" rel="noopener noreferrer" class="hover:text-yorkaMuted mobile-link transition-colors flex items-center gap-2">
+        <i class="fa-brands fa-instagram"></i> Instagram
+    </a>
+    <button onclick="handleAdminNavClick()" class="hover:text-yorkaMuted mobile-link text-yorkaText transition-colors flex items-center gap-2 text-lg">
+        <i class="fa-solid fa-user-gear"></i>
+        <span id="mobile-admin-label">Panel Admin</span>
+    </button>
+</div>
+
+<!-- ================================================================= -->
+<!-- CONTENEDOR PRINCIPAL VISTA PÚBLICA -->
+<!-- ================================================================= -->
+<div id="landing-container">
+    
+    <!-- ENCABEZADO / PRESENTACIÓN DE INICIO -->
+    <header id="inicio" class="pt-36 pb-16 px-6 max-w-4xl mx-auto text-center">
+        <a href="https://www.instagram.com/yorka_tatuajes/" target="_blank" rel="noopener noreferrer" class="inline-block text-3xl md:text-4xl text-yorkaText mb-4 hover:scale-110 transition-transform duration-300" title="@yorka_tatuajes en Instagram">
+            <i class="fa-brands fa-instagram"></i>
+        </a>
+        <h1 class="font-sans text-3xl md:text-5xl font-light tracking-tight text-yorkaText mb-4">
+            Arte Corporal & Tatuajes
+        </h1>
+        <p class="font-sans text-xs md:text-sm text-yorkaMuted max-w-xl mx-auto leading-relaxed mb-6">
+            Estudio privado especializado en proyectos personalizados y flashes de autor. Explora la galería a continuación y completa tu solicitud de reserva en el formulario al final.
+        </p>
+
+        <a href="https://www.instagram.com/yorka_tatuajes/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 font-mono text-xs border border-yorkaBorder px-4 py-2 rounded-full bg-white shadow-xs hover:border-yorkaText transition">
+            <i class="fa-brands fa-instagram text-xs"></i> @yorka_tatuajes
+        </a>
+    </header>
+
+    <!-- GALERÍA / PORTAFOLIO -->
+    <section id="portafolio" class="py-20 bg-white border-y border-yorkaBorder">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="mb-10 text-center">
+                <h2 class="font-mono text-xs uppercase tracking-widest text-yorkaMuted mb-2">Trabajos Recientes</h2>
+                <h3 class="font-sans text-2xl font-light text-yorkaText">Portafolio Flash & Custom</h3>
+            </div>
+
+            <div class="minimal-card rounded-2xl p-6 md:p-8 bg-[#f7f8f6] shadow-sm">
+                <div class="min-h-[380px] relative w-full overflow-hidden">
+                    <div class="carousel-slide active grid-cols-1 md:grid-cols-3 gap-4 h-full items-center">
+                        <div class="h-[320px] bg-white rounded-lg border border-yorkaBorder"></div>
+                        <div class="flex flex-col gap-4 h-[320px]">
+                            <div class="h-1/2 bg-white rounded-lg border border-yorkaBorder"></div>
+                            <div class="h-1/2 bg-white rounded-lg border border-yorkaBorder"></div>
+                        </div>
+                        <div class="h-[320px] bg-white rounded-lg border border-yorkaBorder"></div>
+                    </div>
+                    <div class="carousel-slide grid-cols-1 md:grid-cols-3 gap-4 h-full items-center">
+                        <div class="h-[320px] bg-white rounded-lg border border-yorkaBorder"></div>
+                        <div class="h-[320px] bg-white rounded-lg border border-yorkaBorder"></div>
+                        <div class="h-[320px] bg-white rounded-lg border border-yorkaBorder"></div>
+                    </div>
+                </div>
+
+                <div class="border-t border-yorkaBorder pt-4 mt-4 flex justify-center items-center gap-6 text-yorkaMuted text-xs font-mono">
+                    <button onclick="prevSlide()" class="hover:text-yorkaText transition cursor-pointer p-1">&larr; Anterior</button>
+                    <div class="flex gap-3 items-center">
+                        <button onclick="goToSlide(0)" class="carousel-dot active"></button>
+                        <button onclick="goToSlide(1)" class="carousel-dot"></button>
+                    </div>
+                    <button onclick="nextSlide()" class="hover:text-yorkaText transition cursor-pointer p-1">Siguiente &rarr;</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DE RESERVA / FORMULARIO AL FINAL -->
+    <section id="agendar" class="py-24 px-6 max-w-3xl mx-auto">
+        <div class="text-center mb-10">
+            <div class="flex items-center justify-center gap-2 text-yorkaText mb-2">
+                <i class="fa-solid fa-pen text-sm"></i>
+                <h2 class="font-sans text-2xl md:text-3xl font-light">Formulario de Reserva</h2>
+            </div>
+            <p class="font-sans text-xs text-yorkaMuted">Selecciona tu disponibilidad e ingresa tus datos para agendar.</p>
+        </div>
+
+        <div class="minimal-card rounded-2xl p-6 md:p-10 w-full text-left shadow-sm space-y-6 bg-white">
+            
+            <!-- Selector de Fecha y Hora -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pb-4 border-b border-gray-100">
+                <div>
+                    <label class="block font-mono text-[11px] text-yorkaMuted uppercase tracking-wider mb-1.5">Fecha de Cita</label>
+                    <input type="date" id="client-date-picker" 
+                           class="w-full bg-[#f7f8f6] border border-yorkaBorder rounded-xl px-3.5 py-2.5 text-yorkaText font-sans text-xs focus:outline-none focus:border-yorkaText">
+                    <p id="date-availability-status" class="mt-1 text-[10px] font-mono text-yorkaMuted"></p>
+                </div>
+                <div>
+                    <label class="block font-mono text-[11px] text-yorkaMuted uppercase tracking-wider mb-1.5">Bloque Horario</label>
+                    <div id="client-slots-container" class="flex flex-wrap gap-1.5">
+                        <!-- Generado dinámicamente -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulario de Contacto -->
+            <form id="booking-form" onsubmit="processClientBooking(event)" class="space-y-4">
+                <div>
+                    <label class="block font-sans text-xs font-semibold text-yorkaText mb-1.5">Nombre completo (Nombre + Apellido)</label>
+                    <input type="text" id="client-name" required placeholder="Ej: Juan Pérez"
+                           class="w-full bg-[#f7f8f6] border border-yorkaBorder rounded-lg px-3.5 py-2.5 text-yorkaText text-xs focus:outline-none focus:border-yorkaText">
+                </div>
+
+                <div>
+                    <label class="block font-sans text-xs font-semibold text-yorkaText mb-1.5">Nombre de usuario de Instagram</label>
+                    <input type="text" id="client-instagram" required placeholder="@tu_instagram"
+                           class="w-full bg-[#f7f8f6] border border-yorkaBorder rounded-lg px-3.5 py-2.5 text-yorkaText text-xs focus:outline-none focus:border-yorkaText">
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block font-sans text-xs font-semibold text-yorkaText mb-1.5">¿De dónde eres?</label>
+                        <input type="text" id="client-origin" required placeholder="Ej: Concepción, Chile"
+                               class="w-full bg-[#f7f8f6] border border-yorkaBorder rounded-lg px-3.5 py-2.5 text-yorkaText text-xs focus:outline-none focus:border-yorkaText">
+                    </div>
+                    <div>
+                        <label class="block font-sans text-xs font-semibold text-yorkaText mb-1.5">Presupuesto ($ CLP)</label>
+                        <input type="text" id="client-budget" required placeholder="Ej: $50.000"
+                               class="w-full bg-[#f7f8f6] border border-yorkaBorder rounded-lg px-3.5 py-2.5 text-yorkaText text-xs focus:outline-none focus:border-yorkaText">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-sans text-xs font-semibold text-yorkaText mb-1.5">¿Qué te gustaría? (Diseño personalizado o uno de mis flash)</label>
+                    <textarea id="client-notes" rows="2" placeholder="Detalla tu idea..."
+                              class="w-full bg-[#f7f8f6] border border-yorkaBorder rounded-lg px-3.5 py-2.5 text-yorkaText text-xs focus:outline-none focus:border-yorkaText"></textarea>
+                </div>
+
+                <!-- Campos ocultos requeridos -->
+                <input type="hidden" id="client-email" value="cliente.temporal@yorka.cl">
+                <input type="hidden" id="client-phone" value="+56900000000">
+
+                <div class="pt-2">
+                    <button type="submit" id="btn-submit-booking" disabled
+                            class="btn-black w-full flex items-center justify-center gap-2 font-mono text-xs font-bold tracking-wider py-3.5 rounded-lg uppercase cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed">
+                        <span>Enviar Solicitud</span> <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-white py-12 border-t border-yorkaBorder text-center">
+        <div class="max-w-7xl mx-auto px-6 space-y-3">
+            <p class="font-mono text-xs tracking-widest text-yorkaText uppercase">Yorka Tatuajes</p>
+            <div class="flex justify-center items-center gap-2">
+                <a href="https://www.instagram.com/yorka_tatuajes/" target="_blank" rel="noopener noreferrer" class="text-yorkaMuted hover:text-yorkaText transition text-sm flex items-center gap-1.5 font-sans">
+                    <i class="fa-brands fa-instagram"></i> @yorka_tatuajes
+                </a>
+            </div>
+            <p class="font-sans text-[11px] text-yorkaMuted pt-2">Concepción, Chile. © 2026.</p>
+        </div>
+    </footer>
+
+</div>
+
+<!-- MODAL DE ÉXITO -->
+<div id="success-modal" class="fixed inset-0 bg-black/40 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+    <div class="minimal-card rounded-2xl p-8 max-w-sm w-full text-center bg-white shadow-xl space-y-4">
+        <div class="text-yorkaText text-3xl mb-2"><i class="fa-regular fa-circle-check"></i></div>
+        <h3 class="font-sans text-xl font-semibold text-yorkaText">¡Solicitud Enviada!</h3>
+        <p class="font-sans text-xs text-yorkaMuted leading-relaxed">
+            Tu reserva ha sido registrada correctamente. Puedes sincronizar directamente la cita en tu calendario.
+        </p>
+        <div id="client-gcal-container" class="pt-2">
+            <!-- Link Google Calendar dinámico -->
+        </div>
+        <button onclick="closeSuccessModal()" class="btn-black w-full font-mono text-xs font-bold py-3 rounded-lg uppercase cursor-pointer">
+            Entendido
+        </button>
+    </div>
+</div>
+
+<!-- VISTA DE LOGIN ADMIN -->
+<div id="login-container" class="hidden min-h-screen pt-36 pb-20 px-4 max-w-md mx-auto flex flex-col justify-center">
+    <div class="minimal-card rounded-2xl p-8 text-center bg-white shadow-sm">
+        <div class="text-yorkaText text-2xl mb-3"><i class="fa-solid fa-lock"></i></div>
+        <h2 class="font-sans text-xl font-semibold text-yorkaText mb-1">Acceso Administrativo</h2>
+        <p class="font-sans text-xs text-yorkaMuted mb-6">Ingresa las credenciales de Yorka Tatuajes.</p>
+
+        <form id="login-form" onsubmit="processDirectLogin(event)" class="space-y-4 text-left mb-6" autocomplete="off">
+            <div>
+                <label class="block font-mono text-[10px] uppercase text-yorkaMuted tracking-wider mb-1 font-semibold">Correo</label>
+                <input type="email" id="login-email" required placeholder="correo@ejemplo.com" autocomplete="off"
+                       class="w-full bg-[#f7f8f6] border border-yorkaBorder rounded-xl px-3.5 py-2.5 text-yorkaText text-xs focus:outline-none focus:border-yorkaText">
+            </div>
+
+            <div>
+                <label class="block font-mono text-[10px] uppercase text-yorkaMuted tracking-wider mb-1 font-semibold">Contraseña</label>
+                <input type="password" id="login-password" required placeholder="••••••••" autocomplete="off"
+                       class="w-full bg-[#f7f8f6] border border-yorkaBorder rounded-xl px-3.5 py-2.5 text-yorkaText text-xs focus:outline-none focus:border-yorkaText">
+            </div>
+
+            <button type="submit" class="btn-black w-full font-mono text-xs font-bold tracking-wider py-3 rounded-xl uppercase cursor-pointer mt-2">
+                Ingresar al Panel
+            </button>
+        </form>
+
+        <button onclick="showPublicLanding()" class="font-sans text-xs text-yorkaMuted hover:text-yorkaText transition">
+            &larr; Volver a la página principal
+        </button>
+    </div>
+</div>
+
+<!-- SECCIÓN PANEL ADMIN -->
+<div id="admin-container" class="hidden min-h-screen pt-32 pb-20 px-4 md:px-12 max-w-6xl mx-auto">
+    
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 pb-6 border-b border-yorkaBorder gap-4">
+        <div>
+            <div class="flex items-center gap-2 mb-1">
+                <span class="font-mono text-[10px] uppercase tracking-widest text-yorkaMuted">Panel de Administración</span>
+                <span class="bg-white text-yorkaText border border-yorkaBorder text-[10px] px-2 py-0.5 rounded font-mono">Yorka Tatuajes</span>
+            </div>
+            <h1 class="font-sans text-2xl font-light text-yorkaText">Gestión de Bookings & Horarios</h1>
+        </div>
+        <div class="flex gap-2 items-center flex-wrap">
+            <button onclick="forceCleanStorage()" class="font-mono text-xs bg-red-100 hover:bg-red-200 text-red-700 border border-red-300 px-3.5 py-2 rounded-lg transition font-bold" title="Forzar vaciado total de horarios de ejemplo">
+                <i class="fa-solid fa-broom mr-1"></i> Borrar Todo
+            </button>
+            <button onclick="logoutAdmin()" class="font-mono text-xs bg-white border border-yorkaBorder hover:bg-gray-50 text-yorkaText px-3.5 py-2 rounded-lg transition">
+                Cerrar Sesión
+            </button>
+            <button onclick="showPublicLanding()" class="font-mono text-xs bg-black text-white px-4 py-2 rounded-lg transition">
+                Ver Web
+            </button>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- CONTROLES DE HORARIOS -->
+        <div class="lg:col-span-5 space-y-6">
+            
+            <!-- 1. Horarios Semana por Semana -->
+            <div class="minimal-card rounded-2xl p-6 bg-white">
+                <div class="flex items-center justify-between mb-2">
+                    <h3 class="font-sans text-sm font-semibold text-yorkaText">Horarios Semana por Semana</h3>
+                    <i class="fa-regular fa-calendar-check text-yorkaMuted"></i>
+                </div>
+                <p class="text-[11px] text-yorkaMuted mb-3">Agrega y configura manualmente los bloques de hora de cada día.</p>
+
+                <!-- Selectores de Mes y Semana -->
+                <div class="grid grid-cols-2 gap-2 mb-4 bg-[#f7f8f6] p-2.5 rounded-xl border border-yorkaBorder">
+                    <div>
+                        <label class="block font-mono text-[9px] uppercase text-yorkaMuted font-bold mb-1">Mes:</label>
+                        <input type="month" id="admin-schedule-month" onchange="changeScheduleConfigMonth()" class="w-full bg-white border border-yorkaBorder rounded px-2 py-1 text-xs font-mono text-yorkaText focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block font-mono text-[9px] uppercase text-yorkaMuted font-bold mb-1">Semana del Mes:</label>
+                        <select id="admin-schedule-week" onchange="changeScheduleConfigWeek()" class="w-full bg-white border border-yorkaBorder rounded px-2 py-1 text-xs font-mono text-yorkaText focus:outline-none">
+                            <option value="1">Semana 1</option>
+                            <option value="2">Semana 2</option>
+                            <option value="3">Semana 3</option>
+                            <option value="4">Semana 4</option>
+                            <option value="5">Semana 5</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="admin-days-config" class="space-y-3">
+                    <!-- Render interactivo JS -->
+                </div>
+
+                <!-- BOTÓN GUARDAR CAMBIOS -->
+                <div class="pt-4 border-t border-gray-100 mt-4">
+                    <button onclick="saveChangesNotification()" class="btn-black w-full font-mono text-xs font-bold py-2.5 rounded-lg flex items-center justify-center gap-2 uppercase">
+                        <i class="fa-regular fa-floppy-disk"></i> Guardar Cambios
+                    </button>
+                </div>
+            </div>
+
+            <!-- 2. CAMBIAR HORARIO DE UN DÍA ESPECÍFICO -->
+            <div class="minimal-card rounded-2xl p-6 bg-white">
+                <div class="flex items-center justify-between mb-1">
+                    <h3 class="font-sans text-sm font-semibold text-yorkaText flex items-center gap-2">
+                        <i class="fa-solid fa-sliders text-yorkaMuted"></i>
+                        <span>Cambiar Horario de un Día Específico</span>
+                    </h3>
+                </div>
+                <p class="text-[11px] text-yorkaMuted mb-4">Modifica horas de una fecha exacta sin alterar la semana general.</p>
+
+                <div class="space-y-3">
+                    <div>
+                        <label class="block font-mono text-[10px] uppercase text-yorkaMuted tracking-wider mb-1 font-semibold">Seleccionar Fecha Exacta</label>
+                        <input type="date" id="admin-specific-date-picker" onchange="loadSpecificDateConfig()" class="w-full bg-[#f7f8f6] border border-yorkaBorder rounded-xl px-3 py-2 text-yorkaText text-xs font-sans focus:outline-none focus:border-yorkaText">
+                    </div>
+
+                    <!-- Panel interactivo para el día específico elegido -->
+                    <div id="specific-date-panel" class="hidden bg-[#f7f8f6] p-3 rounded-xl border border-yorkaBorder space-y-3">
+                        <div class="flex items-center justify-between border-b border-yorkaBorder pb-2">
+                            <span id="specific-date-label" class="font-mono text-xs font-bold text-yorkaText">--</span>
+                            <div class="flex items-center gap-1.5">
+                                <button onclick="addSlotToSpecificDate()" id="btn-add-specific-slot" class="text-[10px] font-mono bg-white text-yorkaText border border-yorkaBorder px-2 py-0.5 rounded hover:bg-gray-100">
+                                    + Horario
+                                </button>
+                                <button onclick="toggleSpecificDateActive()" id="btn-toggle-specific-active" class="px-2 py-0.5 rounded text-[10px] font-mono uppercase bg-black text-white">
+                                    Activo
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="specific-date-slots" class="flex flex-wrap gap-1.5 min-h-[24px]">
+                            <!-- Badges de horarios para la fecha exacta -->
+                        </div>
+
+                        <div class="pt-2 flex gap-2">
+                            <button onclick="saveSpecificDateConfig()" class="btn-black flex-1 font-mono text-[11px] py-2 rounded-lg font-bold">
+                                Guardar Horario Especial
+                            </button>
+                            <button onclick="clearSpecificDateConfig()" title="Eliminar excepción y volver al horario regular" class="bg-white border border-yorkaBorder hover:bg-gray-100 text-red-600 font-mono text-[10px] px-2.5 py-2 rounded-lg transition">
+                                Restablecer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Bloqueo de Fechas / Vacaciones -->
+            <div class="minimal-card rounded-2xl p-6 bg-white">
+                <h3 class="font-sans text-sm font-semibold text-yorkaText mb-1 flex items-center justify-between">
+                    <span>Bloqueo de Fechas / Vacaciones</span>
+                    <i class="fa-solid fa-plane-departure text-yorkaMuted"></i>
+                </h3>
+                <p class="text-[11px] text-yorkaMuted mb-4">Bloquea un día individual o un rango completo de fechas.</p>
+                
+                <div class="space-y-3">
+                    <div>
+                        <label class="block font-mono text-[10px] uppercase text-yorkaMuted tracking-wider mb-1 font-semibold">Desde</label>
+                        <input type="date" id="admin-block-start-date" class="w-full bg-[#f7f8f6] border border-yorkaBorder rounded-lg px-3 py-2 text-yorkaText text-xs focus:outline-none focus:border-yorkaText">
+                    </div>
+                    <div>
+                        <label class="block font-mono text-[10px] uppercase text-yorkaMuted tracking-wider mb-1 font-semibold">Hasta</label>
+                        <input type="date" id="admin-block-end-date" class="w-full bg-[#f7f8f6] border border-yorkaBorder rounded-lg px-3 py-2 text-yorkaText text-xs focus:outline-none focus:border-yorkaText">
+                    </div>
+                    <div class="flex gap-2 pt-1">
+                        <button onclick="toggleBlockDateRange(true)" class="flex-1 bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-xs font-mono py-2 rounded-lg transition">
+                            Bloquear
+                        </button>
+                        <button onclick="toggleBlockDateRange(false)" class="flex-1 bg-gray-50 hover:bg-gray-100 text-yorkaText border border-yorkaBorder text-xs font-mono py-2 rounded-lg transition">
+                            Liberar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TABLA REGISTRO DE CITAS FILTRADO MES A MES -->
+        <div class="lg:col-span-7">
+            <div class="minimal-card rounded-2xl p-6 bg-white">
+                
+                <!-- Encabezado con Filtro por Mes -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-gray-100">
+                    <h3 class="font-sans text-sm font-semibold text-yorkaText flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-yorkaMuted"></i>
+                        <span>Registro de Citas</span>
+                    </h3>
+                    
+                    <div class="flex items-center gap-2">
+                        <div class="relative">
+                            <input type="month" id="admin-month-filter" onchange="filterBookingsByMonth()" 
+                                   class="bg-[#f7f8f6] border border-yorkaBorder rounded-lg px-3 py-1.5 font-mono text-xs text-yorkaText focus:outline-none focus:border-yorkaText cursor-pointer">
+                        </div>
+                        
+                        <button onclick="resetMonthFilter()" title="Ver todas las citas" class="bg-[#f7f8f6] hover:bg-gray-100 border border-yorkaBorder text-yorkaText font-mono text-xs px-2.5 py-1.5 rounded-lg transition">
+                            Todos
+                        </button>
+
+                        <span id="booking-counter" class="font-mono text-xs bg-[#f7f8f6] border border-yorkaBorder px-2.5 py-1.5 rounded">0 Citas</span>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs font-sans">
+                        <thead class="text-yorkaMuted border-b border-gray-100 uppercase tracking-wider font-mono text-[10px]">
+                            <tr>
+                                <th class="pb-3">Fecha/Hora</th>
+                                <th class="pb-3">Cliente</th>
+                                <th class="pb-3">Contacto</th>
+                                <th class="pb-3">Estado</th>
+                                <th class="pb-3 text-right">Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-bookings-table" class="divide-y divide-gray-50 text-yorkaText">
+                            <!-- Render JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- SCRIPT GENERAL Y LÓGICA -->
+<script>
+    const ADMIN_EMAIL = "yorka.tatuajes@gmail.com";
+    const ADMIN_PASS = "yorka2026";
+
+    /* PLANTILLA COMPLETAMENTE VACÍA Y SIN HORARIOS PRECARGADOS */
+    const DEFAULT_WEEKLY_SCHEDULE = {
+        0: { active: false, slots: [] },
+        1: { active: false, slots: [] },
+        2: { active: false, slots: [] },
+        3: { active: false, slots: [] },
+        4: { active: false, slots: [] },
+        5: { active: false, slots: [] },
+        6: { active: false, slots: [] },
+    };
+
+    let weeklySchedules = JSON.parse(localStorage.getItem('yorka_weekly_schedules_v3')) || {};
+    let specificDateSchedules = JSON.parse(localStorage.getItem('yorka_specific_date_schedules_v3')) || {};
+    let blockedDates = JSON.parse(localStorage.getItem('yorka_blocked_dates_v3')) || [];
+    let bookings = JSON.parse(localStorage.getItem('yorka_bookings_v3')) || [];
+    let currentUser = JSON.parse(localStorage.getItem('yorka_user_v3')) || null;
+
+    let selectedClientDate = "";
+    let selectedClientSlot = "";
+    let selectedMonthFilter = "";
+    let selectedScheduleMonth = "";
+    let selectedScheduleWeek = "1";
+
+    let tempSpecificDate = "";
+    let tempSpecificConfig = { active: false, slots: [] };
+
+    window.addEventListener('load', function() {
+        const loader = document.getElementById('pantalla-carga');
+        setTimeout(() => {
+            loader.classList.add('ocultar-carga');
+        }, 800);
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const today = new Date().toISOString().split('T')[0];
+        const dateInput = document.getElementById('client-date-picker');
+        
+        // Buscar automáticamente la primera fecha con disponibilidad
+        const firstAvailableDate = findFirstAvailableDate(today);
+
+        if (dateInput) {
+            dateInput.min = today;
+            dateInput.value = firstAvailableDate;
+            selectedClientDate = firstAvailableDate;
+
+            dateInput.addEventListener('change', (e) => {
+                const targetDate = e.target.value;
+                if (!checkDateHasAvailableSlots(targetDate)) {
+                    alert("Esta fecha no se encuentra disponible o no tiene cupos configurados. Por favor selecciona otro día.");
+                    e.target.value = selectedClientDate; // Revertir al último válido
+                    return;
+                }
+                selectedClientDate = targetDate;
+                selectedClientSlot = "";
+                renderClientSlots();
+                validateBookingForm();
+            });
+        }
+
+        const currentMonth = today.substring(0, 7);
+        const monthPicker = document.getElementById('admin-month-filter');
+        if (monthPicker) {
+            monthPicker.value = currentMonth;
+            selectedMonthFilter = currentMonth;
+        }
+
+        const scheduleMonthPicker = document.getElementById('admin-schedule-month');
+        if (scheduleMonthPicker) {
+            scheduleMonthPicker.value = currentMonth;
+            selectedScheduleMonth = currentMonth;
+        }
+
+        updateAuthUI();
+        renderClientSlots();
+        renderAdminDashboard();
+    });
+
+    /* Función que verifica si una fecha dada tiene cupos o está activa */
+    function checkDateHasAvailableSlots(dateStr) {
+        if (!dateStr || blockedDates.includes(dateStr)) return false;
+
+        let dayConfig;
+        if (specificDateSchedules[dateStr]) {
+            dayConfig = specificDateSchedules[dateStr];
+        } else {
+            const dateObj = new Date(dateStr + 'T00:00:00');
+            const dayOfWeek = dateObj.getDay();
+            const clientMonth = dateStr.substring(0, 7);
+            const clientWeek = getWeekOfMonth(dateStr);
+
+            const scheduleForSelectedWeek = getScheduleForWeek(clientMonth, clientWeek);
+            dayConfig = scheduleForSelectedWeek[dayOfWeek];
+        }
+
+        if (!dayConfig || !dayConfig.active || dayConfig.slots.length === 0) return false;
+
+        // Verificar si le quedan slots no ocupados por citas
+        const freeSlots = dayConfig.slots.filter(slot => 
+            !bookings.some(b => b.date === dateStr && b.time === slot && b.status !== 'Cancelada')
+        );
+
+        return freeSlots.length > 0;
+    }
+
+    /* Busca la primera fecha hacia adelante con horarios disponibles */
+    function findFirstAvailableDate(startDateStr) {
+        let curr = new Date(startDateStr + 'T00:00:00');
+        for (let i = 0; i < 90; i++) { // Busca en los próximos 90 días
+            const dateStr = curr.toISOString().split('T')[0];
+            if (checkDateHasAvailableSlots(dateStr)) {
+                return dateStr;
+            }
+            curr.setDate(curr.getDate() + 1);
+        }
+        return startDateStr;
+    }
+
+    function processDirectLogin(e) {
+        e.preventDefault();
+        const emailInput = document.getElementById('login-email').value.trim().toLowerCase();
+        const passInput = document.getElementById('login-password').value;
+
+        if (emailInput === ADMIN_EMAIL.toLowerCase() && passInput === ADMIN_PASS) {
+            currentUser = { email: ADMIN_EMAIL, name: "Yorka Admin" };
+            localStorage.setItem('yorka_user_v3', JSON.stringify(currentUser));
+            document.getElementById('login-form').reset();
+            updateAuthUI();
+            showAdminPanel();
+        } else {
+            alert("Credenciales incorrectas.");
+        }
+    }
+
+    function logoutAdmin() {
+        currentUser = null;
+        localStorage.removeItem('yorka_user_v3');
+        updateAuthUI();
+        showPublicLanding();
+    }
+
+    function updateAuthUI() {
+        const navSlot = document.getElementById('auth-nav-slot');
+        if (currentUser && currentUser.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
+            navSlot.innerHTML = `
+                <button onclick="showAdminPanel()" class="nav-link text-yorkaText font-mono transition-colors flex items-center gap-1.5">
+                    <i class="fa-solid fa-user-gear text-xs"></i>
+                    <span>Admin</span>
+                </button>
+            `;
+        } else {
+            navSlot.innerHTML = `
+                <button onclick="handleAdminNavClick()" class="nav-link text-yorkaText font-mono transition-colors flex items-center gap-1.5">
+                    <i class="fa-solid fa-user-gear text-xs"></i>
+                    <span>Admin</span>
+                </button>
+            `;
+        }
+    }
+
+    function handleAdminNavClick() {
+        if (currentUser && currentUser.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
+            showAdminPanel();
+        } else {
+            showLoginView();
+        }
+    }
+
+    function showPublicLanding() {
+        document.getElementById('landing-container').classList.remove('hidden');
+        document.getElementById('admin-container').classList.add('hidden');
+        document.getElementById('login-container').classList.add('hidden');
+        renderClientSlots();
+    }
+
+    function showLoginView() {
+        document.getElementById('landing-container').classList.add('hidden');
+        document.getElementById('admin-container').classList.add('hidden');
+        document.getElementById('login-container').classList.remove('hidden');
+    }
+
+    function showAdminPanel() {
+        if (!currentUser || currentUser.email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
+            showLoginView();
+            return;
+        }
+        document.getElementById('landing-container').classList.add('hidden');
+        document.getElementById('login-container').classList.add('hidden');
+        document.getElementById('admin-container').classList.remove('hidden');
+        renderAdminDashboard();
+    }
+
+    function getWeekOfMonth(dateStr) {
+        const date = new Date(dateStr + 'T00:00:00');
+        const day = date.getDate();
+        const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+        const dayOfWeekFirst = (firstDayOfMonth.getDay() + 6) % 7; 
+        
+        const weekNum = Math.ceil((day + dayOfWeekFirst) / 7);
+        return Math.min(weekNum, 5).toString();
+    }
+
+    function getDateForDayInWeek(yearMonthStr, weekNum, targetDayIdx) {
+        const parts = yearMonthStr.split('-');
+        const year = parseInt(parts[0]);
+        const month = parseInt(parts[1]) - 1;
+        
+        let targetJSDay = targetDayIdx;
+        
+        for (let d = 1; d <= 31; d++) {
+            const tempDate = new Date(year, month, d);
+            if (tempDate.getMonth() !== month) break;
+            
+            const tempStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+            if (getWeekOfMonth(tempStr) === weekNum && tempDate.getDay() === targetJSDay) {
+                return d;
+            }
+        }
+        return null;
+    }
+
+    function getScheduleForWeek(monthStr, weekNum) {
+        const key = `${monthStr}-W${weekNum}`;
+        if (!weeklySchedules[key]) {
+            weeklySchedules[key] = JSON.parse(JSON.stringify(DEFAULT_WEEKLY_SCHEDULE));
+            saveState();
+        }
+        return weeklySchedules[key];
+    }
+
+    function renderClientSlots() {
+        const container = document.getElementById('client-slots-container');
+        const statusText = document.getElementById('date-availability-status');
+        if (!container) return;
+        container.innerHTML = "";
+
+        if (!selectedClientDate) return;
+
+        if (blockedDates.includes(selectedClientDate)) {
+            container.innerHTML = `<span class="text-[11px] text-red-500 italic">Estudio cerrado en esta fecha.</span>`;
+            if (statusText) statusText.innerText = "Día bloqueado";
+            return;
+        }
+
+        let dayConfig;
+
+        if (specificDateSchedules[selectedClientDate]) {
+            dayConfig = specificDateSchedules[selectedClientDate];
+        } else {
+            const dateObj = new Date(selectedClientDate + 'T00:00:00');
+            const dayOfWeek = dateObj.getDay();
+            const clientMonth = selectedClientDate.substring(0, 7);
+            const clientWeek = getWeekOfMonth(selectedClientDate);
+
+            const scheduleForSelectedWeek = getScheduleForWeek(clientMonth, clientWeek);
+            dayConfig = scheduleForSelectedWeek[dayOfWeek];
+        }
+
+        if (!dayConfig || !dayConfig.active || dayConfig.slots.length === 0) {
+            container.innerHTML = `<span class="text-[11px] text-yorkaMuted italic">No hay bloques disponibles este día.</span>`;
+            if (statusText) statusText.innerText = "Sin bloques creados";
+            return;
+        }
+
+        let freeCount = 0;
+        dayConfig.slots.forEach(slot => {
+            const isBooked = bookings.some(b => b.date === selectedClientDate && b.time === slot && b.status !== 'Cancelada');
+            if (!isBooked) freeCount++;
+
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = `slot-btn py-1.5 px-3 rounded-lg text-xs font-mono ${selectedClientSlot === slot ? 'selected' : 'text-yorkaText'}`;
+            btn.disabled = isBooked;
+            btn.innerText = isBooked ? `${slot} (Ocupado)` : slot;
+
+            if (!isBooked) {
+                btn.onclick = () => {
+                    selectedClientSlot = slot;
+                    renderClientSlots();
+                    validateBookingForm();
+                };
+            }
+            container.appendChild(btn);
+        });
+
+        if (statusText) {
+            statusText.innerText = freeCount > 0 ? `${freeCount} cupo(s) disponible(s)` : "Día completo / sin cupos";
+        }
+    }
+
+    function validateBookingForm() {
+        const name = document.getElementById('client-name').value;
+        const ig = document.getElementById('client-instagram').value;
+        const submitBtn = document.getElementById('btn-submit-booking');
+
+        if (selectedClientDate && selectedClientSlot && name && ig) {
+            submitBtn.disabled = false;
+        } else {
+            submitBtn.disabled = true;
+        }
+    }
+
+    ['client-name', 'client-instagram'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('input', validateBookingForm);
+    });
+
+    function processClientBooking(e) {
+        e.preventDefault();
+
+        const newBooking = {
+            id: 'YORKA-' + Date.now().toString().slice(-5),
+            date: selectedClientDate,
+            time: selectedClientSlot,
+            clientName: document.getElementById('client-name').value,
+            instagram: document.getElementById('client-instagram').value,
+            origin: document.getElementById('client-origin').value,
+            budget: document.getElementById('client-budget').value,
+            notes: document.getElementById('client-notes').value,
+            status: 'Pendiente',
+            createdAt: new Date().toISOString()
+        };
+
+        bookings.push(newBooking);
+        saveState();
+
+        const gcalUrl = getGoogleCalendarUrl(newBooking);
+        const gcalContainer = document.getElementById('client-gcal-container');
+        if (gcalContainer) {
+            gcalContainer.innerHTML = `
+                <a href="${gcalUrl}" target="_blank" class="w-full bg-[#f7f8f6] border border-yorkaBorder hover:bg-gray-100 text-yorkaText font-mono text-xs py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition font-semibold mb-2">
+                    <i class="fa-brands fa-google text-xs"></i> Agregar a Google Calendar
+                </a>
+            `;
+        }
+
+        document.getElementById('success-modal').classList.remove('hidden');
+    }
+
+    function closeSuccessModal() {
+        document.getElementById('success-modal').classList.add('hidden');
+        document.getElementById('booking-form').reset();
+        selectedClientSlot = "";
+        renderClientSlots();
+        validateBookingForm();
+    }
+
+    function renderAdminDashboard() {
+        renderAdminWeeklySchedule();
+        renderAdminBookingsTable();
+    }
+
+    function changeScheduleConfigMonth() {
+        selectedScheduleMonth = document.getElementById('admin-schedule-month').value;
+        renderAdminWeeklySchedule();
+    }
+
+    function changeScheduleConfigWeek() {
+        selectedScheduleWeek = document.getElementById('admin-schedule-week').value;
+        renderAdminWeeklySchedule();
+    }
+
+    function renderAdminWeeklySchedule() {
+        const container = document.getElementById('admin-days-config');
+        if (!container) return;
+        container.innerHTML = "";
+
+        if (!selectedScheduleMonth) {
+            const todayMonth = new Date().toISOString().substring(0, 7);
+            selectedScheduleMonth = todayMonth;
+            document.getElementById('admin-schedule-month').value = todayMonth;
+        }
+
+        const currentWeekSchedule = getScheduleForWeek(selectedScheduleMonth, selectedScheduleWeek);
+        const daysOrder = [1, 2, 3, 4, 5, 6, 0];
+
+        daysOrder.forEach(dayIdx => {
+            const dayData = currentWeekSchedule[dayIdx] || { active: false, slots: [] };
+            const dayName = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'][dayIdx];
+            
+            const realDayNum = getDateForDayInWeek(selectedScheduleMonth, selectedScheduleWeek, dayIdx);
+            const labelDay = realDayNum ? `${dayName} ${realDayNum}` : dayName;
+
+            const card = document.createElement('div');
+            card.className = "bg-[#f7f8f6] border border-yorkaBorder rounded-xl p-3 space-y-2";
+
+            let slotsBadges = dayData.slots.map((s, idx) => `
+                <span class="inline-flex items-center gap-1 bg-white border border-yorkaBorder text-yorkaText text-[10px] font-mono px-2 py-0.5 rounded">
+                    ${s}
+                    <button onclick="removeSlotFromDay(${dayIdx}, ${idx})" class="text-red-500 hover:text-red-700 ml-1">×</button>
+                </span>
+            `).join('');
+
+            card.innerHTML = `
+                <div class="flex items-center justify-between">
+                    <span class="font-medium text-xs text-yorkaText">${labelDay}</span>
+                    <div class="flex items-center gap-1.5">
+                        <button onclick="addSlotToDay(${dayIdx})" ${!dayData.active ? 'disabled' : ''} class="text-[10px] font-mono bg-white text-yorkaText border border-yorkaBorder px-2 py-0.5 rounded hover:bg-gray-100 disabled:opacity-30">
+                            + Horario
+                        </button>
+                        <button onclick="toggleDayActive(${dayIdx})" class="px-2 py-0.5 rounded text-[10px] font-mono uppercase transition ${dayData.active ? 'bg-black text-white' : 'bg-gray-200 text-yorkaMuted'}">
+                            ${dayData.active ? 'Activo' : 'Inactivo'}
+                        </button>
+                    </div>
+                </div>
+                ${dayData.active ? `<div class="flex flex-wrap gap-1.5 pt-1">${slotsBadges || '<span class="text-[10px] text-yorkaMuted italic">Sin bloques asignados</span>'}</div>` : ''}
+            `;
+
+            container.appendChild(card);
+        });
+    }
+
+    function toggleDayActive(dayIdx) {
+        const schedule = getScheduleForWeek(selectedScheduleMonth, selectedScheduleWeek);
+        schedule[dayIdx].active = !schedule[dayIdx].active;
+        saveState();
+        renderAdminWeeklySchedule();
+        renderClientSlots();
+    }
+
+    function addSlotToDay(dayIdx) {
+        const time = prompt(`Ingrese un nuevo bloque de hora para el día en la Semana ${selectedScheduleWeek} (${selectedScheduleMonth}) (ej: 13:00):`);
+        if (time) {
+            const schedule = getScheduleForWeek(selectedScheduleMonth, selectedScheduleWeek);
+            if (!schedule[dayIdx].slots.includes(time)) {
+                schedule[dayIdx].slots.push(time);
+                schedule[dayIdx].slots.sort();
+                saveState();
+                renderAdminWeeklySchedule();
+                renderClientSlots();
+            }
+        }
+    }
+
+    function removeSlotFromDay(dayIdx, slotIdx) {
+        const schedule = getScheduleForWeek(selectedScheduleMonth, selectedScheduleWeek);
+        schedule[dayIdx].slots.splice(slotIdx, 1);
+        saveState();
+        renderAdminWeeklySchedule();
+        renderClientSlots();
+    }
+
+    function saveChangesNotification() {
+        saveState();
+        renderClientSlots();
+        alert("¡Los cambios de horarios han sido guardados con éxito!");
+    }
+
+    function loadSpecificDateConfig() {
+        const picker = document.getElementById('admin-specific-date-picker');
+        tempSpecificDate = picker.value;
+        const panel = document.getElementById('specific-date-panel');
+
+        if (!tempSpecificDate) {
+            panel.classList.add('hidden');
+            return;
+        }
+
+        panel.classList.remove('hidden');
+        document.getElementById('specific-date-label').innerText = `Fecha: ${tempSpecificDate}`;
+
+        if (specificDateSchedules[tempSpecificDate]) {
+            tempSpecificConfig = JSON.parse(JSON.stringify(specificDateSchedules[tempSpecificDate]));
+        } else {
+            const dateObj = new Date(tempSpecificDate + 'T00:00:00');
+            const dayOfWeek = dateObj.getDay();
+            const month = tempSpecificDate.substring(0, 7);
+            const week = getWeekOfMonth(tempSpecificDate);
+            const baseSched = getScheduleForWeek(month, week)[dayOfWeek];
+            
+            tempSpecificConfig = JSON.parse(JSON.stringify(baseSched));
+        }
+
+        renderSpecificDatePanel();
+    }
+
+    function renderSpecificDatePanel() {
+        const container = document.getElementById('specific-date-slots');
+        const btnToggle = document.getElementById('btn-toggle-specific-active');
+        const btnAdd = document.getElementById('btn-add-specific-slot');
+
+        if (!container) return;
+        container.innerHTML = "";
+
+        btnToggle.innerText = tempSpecificConfig.active ? 'Activo' : 'Inactivo';
+        btnToggle.className = tempSpecificConfig.active ? 'px-2 py-0.5 rounded text-[10px] font-mono uppercase bg-black text-white' : 'px-2 py-0.5 rounded text-[10px] font-mono uppercase bg-gray-200 text-yorkaMuted';
+        btnAdd.disabled = !tempSpecificConfig.active;
+
+        if (!tempSpecificConfig.active) {
+            container.innerHTML = `<span class="text-[10px] text-yorkaMuted italic">El día está desactivado para agendamiento.</span>`;
+            return;
+        }
+
+        if (tempSpecificConfig.slots.length === 0) {
+            container.innerHTML = `<span class="text-[10px] text-yorkaMuted italic">Sin bloques asignados.</span>`;
+            return;
+        }
+
+        tempSpecificConfig.slots.forEach((s, idx) => {
+            const badge = document.createElement('span');
+            badge.className = "inline-flex items-center gap-1 bg-white border border-yorkaBorder text-yorkaText text-[10px] font-mono px-2 py-0.5 rounded";
+            badge.innerHTML = `
+                ${s}
+                <button onclick="removeSlotFromSpecificDate(${idx})" class="text-red-500 hover:text-red-700 ml-1">×</button>
+            `;
+            container.appendChild(badge);
+        });
+    }
+
+    function toggleSpecificDateActive() {
+        tempSpecificConfig.active = !tempSpecificConfig.active;
+        renderSpecificDatePanel();
+    }
+
+    function addSlotToSpecificDate() {
+        const time = prompt(`Ingrese un nuevo bloque de hora para la fecha ${tempSpecificDate} (ej: 14:30):`);
+        if (time && !tempSpecificConfig.slots.includes(time)) {
+            tempSpecificConfig.slots.push(time);
+            tempSpecificConfig.slots.sort();
+            renderSpecificDatePanel();
+        }
+    }
+
+    function removeSlotFromSpecificDate(idx) {
+        tempSpecificConfig.slots.splice(idx, 1);
+        renderSpecificDatePanel();
+    }
+
+    function saveSpecificDateConfig() {
+        if (!tempSpecificDate) return;
+        specificDateSchedules[tempSpecificDate] = tempSpecificConfig;
+        saveState();
+        renderClientSlots();
+        alert(`¡Horario para el día ${tempSpecificDate} guardado con éxito!`);
+    }
+
+    function clearSpecificDateConfig() {
+        if (!tempSpecificDate) return;
+        if (confirm(`¿Deseas eliminar la excepción para el día ${tempSpecificDate} y volver al horario regular?`)) {
+            delete specificDateSchedules[tempSpecificDate];
+            saveState();
+            loadSpecificDateConfig();
+            renderClientSlots();
+            alert("Excepción eliminada.");
+        }
+    }
+
+    function forceCleanStorage() {
+        if (confirm("¿Deseas eliminar todos los registros antiguos de tu navegador para vaciar las listas completamente?")) {
+            localStorage.clear();
+            weeklySchedules = {};
+            specificDateSchedules = {};
+            blockedDates = [];
+            bookings = [];
+            saveState();
+            renderAdminWeeklySchedule();
+            renderClientSlots();
+            alert("Memorias antiguas borradas. Ahora todo está en cero.");
+        }
+    }
+
+    function resetOnlySchedule() {
+        if (confirm(`¿Deseas vaciar los horarios de la Semana ${selectedScheduleWeek} (${selectedScheduleMonth})?`)) {
+            const key = `${selectedScheduleMonth}-W${selectedScheduleWeek}`;
+            weeklySchedules[key] = JSON.parse(JSON.stringify(DEFAULT_WEEKLY_SCHEDULE));
+            saveState();
+            renderAdminWeeklySchedule();
+            renderClientSlots();
+            alert("Horarios de la semana limpiados.");
+        }
+    }
+
+    function toggleBlockDateRange(block) {
+        const start = document.getElementById('admin-block-start-date').value;
+        const end = document.getElementById('admin-block-end-date').value || start;
+
+        if (!start) return alert("Selecciona al menos una fecha inicial.");
+
+        let currentDate = new Date(start + 'T00:00:00');
+        const endDate = new Date(end + 'T00:00:00');
+
+        if (currentDate > endDate) {
+            return alert("La fecha inicial no puede ser posterior a la fecha final.");
+        }
+
+        while (currentDate <= endDate) {
+            const dateStr = currentDate.toISOString().split('T')[0];
+            if (block) {
+                if (!blockedDates.includes(dateStr)) blockedDates.push(dateStr);
+            } else {
+                blockedDates = blockedDates.filter(d => d !== dateStr);
+            }
+            currentDate.setDate(currentDate.getDate() + 1);
+        }
+
+        saveState();
+        renderClientSlots();
+        alert(block ? "Fechas bloqueadas correctamente." : "Fechas liberadas correctamente.");
+    }
+
+    function getGoogleCalendarUrl(b) {
+        const title = encodeURIComponent(`Cita Tatuaje: ${b.clientName} (${b.instagram})`);
+        const details = encodeURIComponent(`Idea: ${b.notes || 'Sin detalles'}\nPresupuesto: ${b.budget}\nOrigen: ${b.origin}`);
+        const location = encodeURIComponent("Concepción, Chile");
+        
+        const fechaLimpia = b.date.replace(/-/g, '');
+        const horaLimpia = b.time.replace(':', '') + '00';
+        const fechaInicio = `${fechaLimpia}T${horaLimpia}`;
+        
+        return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&location=${location}&dates=${fechaInicio}/${fechaInicio}`;
+    }
+
+    function filterBookingsByMonth() {
+        selectedMonthFilter = document.getElementById('admin-month-filter').value;
+        renderAdminBookingsTable();
+    }
+
+    function resetMonthFilter() {
+        selectedMonthFilter = "";
+        document.getElementById('admin-month-filter').value = "";
+        renderAdminBookingsTable();
+    }
+
+    function deleteSingleBooking(id) {
+        if (confirm("¿Estás seguro de que deseas eliminar esta cita de forma permanente?")) {
+            bookings = bookings.filter(b => b.id !== id);
+            saveState();
+            renderAdminBookingsTable();
+            renderClientSlots();
+        }
+    }
+
+    function renderAdminBookingsTable() {
+        const tbody = document.getElementById('admin-bookings-table');
+        const counter = document.getElementById('booking-counter');
+        if (!tbody) return;
+        tbody.innerHTML = "";
+
+        let filtered = [...bookings];
+
+        if (selectedMonthFilter) {
+            filtered = filtered.filter(b => b.date.startsWith(selectedMonthFilter));
+        }
+
+        counter.innerText = `${filtered.length} Citas`;
+
+        if (filtered.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center text-yorkaMuted italic">No hay citas registradas en este período.</td></tr>`;
+            return;
+        }
+
+        filtered.reverse().forEach(b => {
+            const tr = document.createElement('tr');
+            const gcalLink = getGoogleCalendarUrl(b);
+
+            tr.innerHTML = `
+                <td class="py-3 font-mono">
+                    <div class="font-semibold text-yorkaText">${b.date}</div>
+                    <div class="text-yorkaMuted text-[10px]">${b.time}</div>
+                </td>
+                <td class="py-3">
+                    <div class="font-medium text-yorkaText">${b.clientName}</div>
+                    <div class="text-yorkaMuted font-mono text-[10px]">${b.instagram}</div>
+                </td>
+                <td class="py-3 text-[11px] text-yorkaMuted">
+                    <div>De: ${b.origin}</div>
+                    <div>Presupuesto: ${b.budget}</div>
+                </td>
+                <td class="py-3">
+                    <span class="inline-block bg-[#f7f8f6] border border-yorkaBorder px-2 py-0.5 rounded text-[10px] font-mono text-yorkaText">${b.status}</span>
+                </td>
+                <td class="py-3 text-right">
+                    <div class="flex items-center justify-end gap-1.5">
+                        <a href="${gcalLink}" target="_blank" title="Sincronizar en Google Calendar" class="bg-white hover:bg-gray-100 text-yorkaText border border-yorkaBorder px-2 py-1 rounded text-[10px] transition font-mono inline-flex items-center gap-1">
+                            <i class="fa-brands fa-google text-[10px]"></i> G Calendar
+                        </a>
+                        <select onchange="updateBookingStatus('${b.id}', this.value)" class="bg-[#f7f8f6] border border-yorkaBorder rounded px-1.5 py-1 text-[11px] text-yorkaText focus:outline-none">
+                            <option value="Pendiente" ${b.status === 'Pendiente' ? 'selected' : ''}>Pendiente</option>
+                            <option value="Confirmada" ${b.status === 'Confirmada' ? 'selected' : ''}>Confirmar</option>
+                            <option value="Cancelada" ${b.status === 'Cancelada' ? 'selected' : ''}>Cancelar</option>
+                        </select>
+                        <button onclick="deleteSingleBooking('${b.id}')" title="Eliminar cita" class="bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 p-1 rounded text-[11px] transition">
+                            <i class="fa-regular fa-trash-can"></i>
+                        </button>
+                    </div>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    function updateBookingStatus(id, newStatus) {
+        const item = bookings.find(b => b.id === id);
+        if (item) {
+            item.status = newStatus;
+            saveState();
+            renderAdminBookingsTable();
+        }
+    }
+
+    function saveState() {
+        localStorage.setItem('yorka_weekly_schedules_v3', JSON.stringify(weeklySchedules));
+        localStorage.setItem('yorka_specific_date_schedules_v3', JSON.stringify(specificDateSchedules));
+        localStorage.setItem('yorka_blocked_dates_v3', JSON.stringify(blockedDates));
+        localStorage.setItem('yorka_bookings_v3', JSON.stringify(bookings));
+    }
+
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.carousel-slide');
+    const dots = document.querySelectorAll('.carousel-dot');
+
+    function showSlide(index) {
+        if (!slides.length) return;
+        slides.forEach(s => s.classList.remove('active'));
+        dots.forEach(d => d.classList.remove('active'));
+        slides[index].classList.add('active');
+        dots[index].classList.add('active');
+        currentSlide = index;
+    }
+
+    function nextSlide() { showSlide((currentSlide + 1) % slides.length); }
+    function prevSlide() { showSlide((currentSlide - 1 + slides.length) % slides.length); }
+    function goToSlide(i) { showSlide(i); }
+
+    const mobileBtn = document.getElementById('mobileBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+    if (mobileBtn) {
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('flex');
+        });
+    }
+    mobileLinks.forEach(l => l.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        mobileMenu.classList.remove('flex');
+    }));
+</script>
+
+</body>
+</html>
