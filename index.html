@@ -396,7 +396,7 @@
         <div>
             <div class="flex items-center gap-2 mb-1">
                 <span class="font-mono text-[10px] uppercase tracking-widest text-yorkaMuted">Panel de Administración</span>
-                <span class="bg-white text-yorkaText border border-yorkaBorder text-[10px] px-2 py-0.5 rounded font-mono">Yorka Tatuajes</span>
+                <span class="bg-white text-yorkaText border border-yorkaBorder text-[10px] px-2 py-0.5 rounded font-mono">Yorka Tatuajes Cloud</span>
             </div>
             <h1 class="font-sans text-2xl font-light text-yorkaText">Gestión de Bookings & Horarios</h1>
         </div>
@@ -535,7 +535,7 @@
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-gray-100">
                     <h3 class="font-sans text-sm font-semibold text-yorkaText flex items-center gap-2">
                         <i class="fa-solid fa-list-check text-yorkaMuted"></i>
-                        <span>Registro de Citas (Supabase Cloud)</span>
+                        <span>Registro de Citas (Tabla yorka_bookings)</span>
                     </h3>
                     
                     <div class="flex items-center gap-2">
@@ -576,7 +576,7 @@
 
 <!-- SCRIPT GENERAL, SUPABASE Y LÓGICA -->
 <script>
-    // CREDENCIALES DIRECTAS DE TU PROYECTO SUPABASE
+    // CREDENCIALES DE TU PROYECTO SUPABASE
     const SUPABASE_URL = 'https://kxldsjodgfonrrlwjbws.supabase.co';
     const SUPABASE_KEY = 'sb_publishable_J5s_2YqtASIYSqu2k00SGA_copdr39x';
     const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -584,6 +584,7 @@
     const ADMIN_EMAIL = "yorka.tatuajes@gmail.com";
     const ADMIN_PASS = "yorka2026";
 
+    /* PLANTILLA COMPLETAMENTE VACÍA Y SIN HORARIOS PRECARGADOS */
     const DEFAULT_WEEKLY_SCHEDULE = {
         0: { active: false, slots: [] },
         1: { active: false, slots: [] },
@@ -660,7 +661,7 @@
         renderAdminDashboard();
     });
 
-    // INICIALIZACIÓN Y CARGA DESDE LA NUBE SUPABASE
+    // INICIALIZACIÓN Y CONEXIÓN CON TABLAS yorka_settings Y yorka_bookings EN SUPABASE
     async function initSupabaseSync() {
         await loadConfigFromSupabase();
         await loadBookingsFromSupabase();
@@ -668,7 +669,7 @@
 
     async function loadConfigFromSupabase() {
         try {
-            const { data, error } = await supabaseClient.from('settings').select('*').eq('id', 1).single();
+            const { data, error } = await supabaseClient.from('yorka_settings').select('*').eq('id', 1).single();
             if (data && data.config_json) {
                 const cfg = data.config_json;
                 weeklySchedules = cfg.weeklySchedules || weeklySchedules;
@@ -680,14 +681,14 @@
                 updateBadgeStatus(true);
             }
         } catch (e) {
-            console.warn("Conectado localmente / Tabla settings pendiente en Supabase.");
+            console.warn("Conectado localmente / Recuerda ejecutar el script SQL para yorka_settings en Supabase.");
             updateBadgeStatus(false);
         }
     }
 
     async function loadBookingsFromSupabase() {
         try {
-            const { data, error } = await supabaseClient.from('bookings').select('*');
+            const { data, error } = await supabaseClient.from('yorka_bookings').select('*');
             if (data) {
                 bookings = data.map(b => ({
                     id: b.id,
@@ -705,7 +706,7 @@
                 renderClientSlots();
             }
         } catch (e) {
-            console.warn("Tabla bookings no lista en Supabase.");
+            console.warn("Tabla yorka_bookings no lista aún en Supabase.");
         }
     }
 
@@ -714,7 +715,7 @@
         if (!badge) return;
         if (connected) {
             badge.className = "font-mono text-[10px] bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full";
-            badge.innerText = "Sincronizado con Supabase Cloud ☁️";
+            badge.innerText = "Sincronizado con Supabase Cloud (yorka_settings) ☁️";
         } else {
             badge.className = "font-mono text-[10px] bg-amber-100 text-amber-800 px-3 py-1 rounded-full";
             badge.innerText = "Modo Local / Sincronizando con Supabase";
@@ -729,11 +730,11 @@
         };
         saveStateLocally();
         try {
-            const { error } = await supabaseClient.from('settings').upsert([{ id: 1, config_json: payload }]);
+            const { error } = await supabaseClient.from('yorka_settings').upsert([{ id: 1, config_json: payload }]);
             if (error) throw error;
             updateBadgeStatus(true);
         } catch (e) {
-            console.warn("Guardado localmente. Recuerda crear la tabla 'settings' en Supabase.");
+            console.warn("Guardado localmente. Ejecuta el script SQL en Supabase para crear yorka_settings.");
         }
     }
 
@@ -981,9 +982,9 @@
         bookings.push(newBooking);
         saveStateLocally();
 
-        // Enviar a Supabase
+        // Guardar reserva en la tabla yorka_bookings de Supabase
         try {
-            await supabaseClient.from('bookings').insert([{
+            await supabaseClient.from('yorka_bookings').insert([{
                 id: newBooking.id,
                 date: newBooking.date,
                 time: newBooking.time,
@@ -1092,7 +1093,7 @@
     }
 
     function addSlotToDay(dayIdx) {
-        const time = prompt(`Ingrese un nuevo bloque de hora para el día en la Semana ${selectedScheduleWeek} (${selectedScheduleMonth}) (ej: 13:00):`);
+        const time = prompt(`Ingrese un nuevo bloque de hora para la Semana ${selectedScheduleWeek} (${selectedScheduleMonth}) (ej: 13:00):`);
         if (time) {
             const schedule = getScheduleForWeek(selectedScheduleMonth, selectedScheduleWeek);
             if (!schedule[dayIdx].slots.includes(time)) {
@@ -1219,7 +1220,7 @@
     }
 
     function forceCleanStorage() {
-        if (confirm("¿Deseas eliminar los registros locales?")) {
+        if (confirm("¿Deseas eliminar todos los registros locales?")) {
             localStorage.clear();
             weeklySchedules = {};
             specificDateSchedules = {};
@@ -1299,7 +1300,7 @@
             bookings = bookings.filter(b => b.id !== id);
             saveStateLocally();
             try {
-                await supabaseClient.from('bookings').delete().eq('id', id);
+                await supabaseClient.from('yorka_bookings').delete().eq('id', id);
             } catch(e){}
             renderAdminBookingsTable();
             renderClientSlots();
@@ -1371,7 +1372,7 @@
             item.status = newStatus;
             saveStateLocally();
             try {
-                await supabaseClient.from('bookings').update({ status: newStatus }).eq('id', id);
+                await supabaseClient.from('yorka_bookings').update({ status: newStatus }).eq('id', id);
             } catch(e){}
             renderAdminBookingsTable();
         }
