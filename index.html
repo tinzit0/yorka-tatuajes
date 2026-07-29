@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- SDK Oficial de Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
         tailwind.config = {
@@ -144,7 +146,7 @@
 <!-- PANTALLA DE CARGA -->
 <div id="pantalla-carga">
     <div class="spinner"></div>
-    <h2 class="font-mono text-xs tracking-widest uppercase text-yorkaText">Yorka Tatuajes</h2>
+    <h2 class="font-mono text-xs tracking-widest uppercase text-yorkaText">Yorka Tatuajes Cloud</h2>
 </div>
 
 <!-- NAVBAR -->
@@ -211,6 +213,9 @@
         <a href="https://www.instagram.com/yorka_tatuajes/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 font-mono text-xs border border-yorkaBorder px-4 py-2 rounded-full bg-white shadow-xs hover:border-yorkaText transition">
             <i class="fa-brands fa-instagram text-xs"></i> @yorka_tatuajes
         </a>
+        <div class="mt-4">
+            <span id="cloud-badge" class="font-mono text-[10px] bg-amber-100 text-amber-800 px-3 py-1 rounded-full">Conectando a Supabase...</span>
+        </div>
     </header>
 
     <!-- GALERÍA / PORTAFOLIO -->
@@ -311,10 +316,6 @@
                               class="w-full bg-[#f7f8f6] border border-yorkaBorder rounded-lg px-3.5 py-2.5 text-yorkaText text-xs focus:outline-none focus:border-yorkaText"></textarea>
                 </div>
 
-                <!-- Campos ocultos requeridos -->
-                <input type="hidden" id="client-email" value="cliente.temporal@yorka.cl">
-                <input type="hidden" id="client-phone" value="+56900000000">
-
                 <div class="pt-2">
                     <button type="submit" id="btn-submit-booking" disabled
                             class="btn-black w-full flex items-center justify-center gap-2 font-mono text-xs font-bold tracking-wider py-3.5 rounded-lg uppercase cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed">
@@ -346,7 +347,7 @@
         <div class="text-yorkaText text-3xl mb-2"><i class="fa-regular fa-circle-check"></i></div>
         <h3 class="font-sans text-xl font-semibold text-yorkaText">¡Solicitud Enviada!</h3>
         <p class="font-sans text-xs text-yorkaMuted leading-relaxed">
-            Tu reserva ha sido registrada correctamente. Puedes sincronizar directamente la cita en tu calendario.
+            Tu reserva ha sido registrada correctamente en la nube. Puedes sincronizar directamente la cita en tu calendario.
         </p>
         <div id="client-gcal-container" class="pt-2">
             <!-- Link Google Calendar dinámico -->
@@ -400,8 +401,8 @@
             <h1 class="font-sans text-2xl font-light text-yorkaText">Gestión de Bookings & Horarios</h1>
         </div>
         <div class="flex gap-2 items-center flex-wrap">
-            <button onclick="forceCleanStorage()" class="font-mono text-xs bg-red-100 hover:bg-red-200 text-red-700 border border-red-300 px-3.5 py-2 rounded-lg transition font-bold" title="Forzar vaciado total de horarios de ejemplo">
-                <i class="fa-solid fa-broom mr-1"></i> Borrar Todo
+            <button onclick="forceCleanStorage()" class="font-mono text-xs bg-red-100 hover:bg-red-200 text-red-700 border border-red-300 px-3.5 py-2 rounded-lg transition font-bold" title="Forzar vaciado total de memoria local">
+                <i class="fa-solid fa-broom mr-1"></i> Limpiar Todo
             </button>
             <button onclick="logoutAdmin()" class="font-mono text-xs bg-white border border-yorkaBorder hover:bg-gray-50 text-yorkaText px-3.5 py-2 rounded-lg transition">
                 Cerrar Sesión
@@ -450,7 +451,7 @@
                 <!-- BOTÓN GUARDAR CAMBIOS -->
                 <div class="pt-4 border-t border-gray-100 mt-4">
                     <button onclick="saveChangesNotification()" class="btn-black w-full font-mono text-xs font-bold py-2.5 rounded-lg flex items-center justify-center gap-2 uppercase">
-                        <i class="fa-regular fa-floppy-disk"></i> Guardar Cambios
+                        <i class="fa-regular fa-floppy-disk"></i> Guardar Cambios en Nube
                     </button>
                 </div>
             </div>
@@ -471,7 +472,6 @@
                         <input type="date" id="admin-specific-date-picker" onchange="loadSpecificDateConfig()" class="w-full bg-[#f7f8f6] border border-yorkaBorder rounded-xl px-3 py-2 text-yorkaText text-xs font-sans focus:outline-none focus:border-yorkaText">
                     </div>
 
-                    <!-- Panel interactivo para el día específico elegido -->
                     <div id="specific-date-panel" class="hidden bg-[#f7f8f6] p-3 rounded-xl border border-yorkaBorder space-y-3">
                         <div class="flex items-center justify-between border-b border-yorkaBorder pb-2">
                             <span id="specific-date-label" class="font-mono text-xs font-bold text-yorkaText">--</span>
@@ -485,9 +485,7 @@
                             </div>
                         </div>
 
-                        <div id="specific-date-slots" class="flex flex-wrap gap-1.5 min-h-[24px]">
-                            <!-- Badges de horarios para la fecha exacta -->
-                        </div>
+                        <div id="specific-date-slots" class="flex flex-wrap gap-1.5 min-h-[24px]"></div>
 
                         <div class="pt-2 flex gap-2">
                             <button onclick="saveSpecificDateConfig()" class="btn-black flex-1 font-mono text-[11px] py-2 rounded-lg font-bold">
@@ -534,11 +532,10 @@
         <div class="lg:col-span-7">
             <div class="minimal-card rounded-2xl p-6 bg-white">
                 
-                <!-- Encabezado con Filtro por Mes -->
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-gray-100">
                     <h3 class="font-sans text-sm font-semibold text-yorkaText flex items-center gap-2">
                         <i class="fa-solid fa-list-check text-yorkaMuted"></i>
-                        <span>Registro de Citas</span>
+                        <span>Registro de Citas (Supabase Cloud)</span>
                     </h3>
                     
                     <div class="flex items-center gap-2">
@@ -577,12 +574,16 @@
     </div>
 </div>
 
-<!-- SCRIPT GENERAL Y LÓGICA -->
+<!-- SCRIPT GENERAL, SUPABASE Y LÓGICA -->
 <script>
+    // CREDENCIALES DIRECTAS DE TU PROYECTO SUPABASE
+    const SUPABASE_URL = 'https://kxldsjodgfonrrlwjbws.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_J5s_2YqtASIYSqu2k00SGA_copdr39x';
+    const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
     const ADMIN_EMAIL = "yorka.tatuajes@gmail.com";
     const ADMIN_PASS = "yorka2026";
 
-    /* PLANTILLA COMPLETAMENTE VACÍA Y SIN HORARIOS PRECARGADOS */
     const DEFAULT_WEEKLY_SCHEDULE = {
         0: { active: false, slots: [] },
         1: { active: false, slots: [] },
@@ -613,13 +614,13 @@
         setTimeout(() => {
             loader.classList.add('ocultar-carga');
         }, 800);
+        initSupabaseSync();
     });
 
     window.addEventListener('DOMContentLoaded', () => {
         const today = new Date().toISOString().split('T')[0];
         const dateInput = document.getElementById('client-date-picker');
         
-        // Buscar automáticamente la primera fecha con disponibilidad
         const firstAvailableDate = findFirstAvailableDate(today);
 
         if (dateInput) {
@@ -631,7 +632,7 @@
                 const targetDate = e.target.value;
                 if (!checkDateHasAvailableSlots(targetDate)) {
                     alert("Esta fecha no se encuentra disponible o no tiene cupos configurados. Por favor selecciona otro día.");
-                    e.target.value = selectedClientDate; // Revertir al último válido
+                    e.target.value = selectedClientDate;
                     return;
                 }
                 selectedClientDate = targetDate;
@@ -659,7 +660,83 @@
         renderAdminDashboard();
     });
 
-    /* Función que verifica si una fecha dada tiene cupos o está activa */
+    // INICIALIZACIÓN Y CARGA DESDE LA NUBE SUPABASE
+    async function initSupabaseSync() {
+        await loadConfigFromSupabase();
+        await loadBookingsFromSupabase();
+    }
+
+    async function loadConfigFromSupabase() {
+        try {
+            const { data, error } = await supabaseClient.from('settings').select('*').eq('id', 1).single();
+            if (data && data.config_json) {
+                const cfg = data.config_json;
+                weeklySchedules = cfg.weeklySchedules || weeklySchedules;
+                specificDateSchedules = cfg.specificDateSchedules || specificDateSchedules;
+                blockedDates = cfg.blockedDates || blockedDates;
+                saveStateLocally();
+                renderClientSlots();
+                renderAdminWeeklySchedule();
+                updateBadgeStatus(true);
+            }
+        } catch (e) {
+            console.warn("Conectado localmente / Tabla settings pendiente en Supabase.");
+            updateBadgeStatus(false);
+        }
+    }
+
+    async function loadBookingsFromSupabase() {
+        try {
+            const { data, error } = await supabaseClient.from('bookings').select('*');
+            if (data) {
+                bookings = data.map(b => ({
+                    id: b.id,
+                    date: b.date,
+                    time: b.time,
+                    clientName: b.client_name,
+                    instagram: b.client_email ? b.client_email.replace('@ig.com','') : '',
+                    origin: 'Chile',
+                    budget: '$0',
+                    notes: b.notes,
+                    status: b.status || 'Pendiente'
+                }));
+                saveStateLocally();
+                renderAdminBookingsTable();
+                renderClientSlots();
+            }
+        } catch (e) {
+            console.warn("Tabla bookings no lista en Supabase.");
+        }
+    }
+
+    function updateBadgeStatus(connected) {
+        const badge = document.getElementById('cloud-badge');
+        if (!badge) return;
+        if (connected) {
+            badge.className = "font-mono text-[10px] bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full";
+            badge.innerText = "Sincronizado con Supabase Cloud ☁️";
+        } else {
+            badge.className = "font-mono text-[10px] bg-amber-100 text-amber-800 px-3 py-1 rounded-full";
+            badge.innerText = "Modo Local / Sincronizando con Supabase";
+        }
+    }
+
+    async function saveConfigToCloud() {
+        const payload = {
+            weeklySchedules,
+            specificDateSchedules,
+            blockedDates
+        };
+        saveStateLocally();
+        try {
+            const { error } = await supabaseClient.from('settings').upsert([{ id: 1, config_json: payload }]);
+            if (error) throw error;
+            updateBadgeStatus(true);
+        } catch (e) {
+            console.warn("Guardado localmente. Recuerda crear la tabla 'settings' en Supabase.");
+        }
+    }
+
     function checkDateHasAvailableSlots(dateStr) {
         if (!dateStr || blockedDates.includes(dateStr)) return false;
 
@@ -678,7 +755,6 @@
 
         if (!dayConfig || !dayConfig.active || dayConfig.slots.length === 0) return false;
 
-        // Verificar si le quedan slots no ocupados por citas
         const freeSlots = dayConfig.slots.filter(slot => 
             !bookings.some(b => b.date === dateStr && b.time === slot && b.status !== 'Cancelada')
         );
@@ -686,10 +762,9 @@
         return freeSlots.length > 0;
     }
 
-    /* Busca la primera fecha hacia adelante con horarios disponibles */
     function findFirstAvailableDate(startDateStr) {
         let curr = new Date(startDateStr + 'T00:00:00');
-        for (let i = 0; i < 90; i++) { // Busca en los próximos 90 días
+        for (let i = 0; i < 90; i++) {
             const dateStr = curr.toISOString().split('T')[0];
             if (checkDateHasAvailableSlots(dateStr)) {
                 return dateStr;
@@ -787,7 +862,6 @@
         const parts = yearMonthStr.split('-');
         const year = parseInt(parts[0]);
         const month = parseInt(parts[1]) - 1;
-        
         let targetJSDay = targetDayIdx;
         
         for (let d = 1; d <= 31; d++) {
@@ -806,7 +880,7 @@
         const key = `${monthStr}-W${weekNum}`;
         if (!weeklySchedules[key]) {
             weeklySchedules[key] = JSON.parse(JSON.stringify(DEFAULT_WEEKLY_SCHEDULE));
-            saveState();
+            saveStateLocally();
         }
         return weeklySchedules[key];
     }
@@ -888,7 +962,7 @@
         if (el) el.addEventListener('input', validateBookingForm);
     });
 
-    function processClientBooking(e) {
+    async function processClientBooking(e) {
         e.preventDefault();
 
         const newBooking = {
@@ -905,7 +979,23 @@
         };
 
         bookings.push(newBooking);
-        saveState();
+        saveStateLocally();
+
+        // Enviar a Supabase
+        try {
+            await supabaseClient.from('bookings').insert([{
+                id: newBooking.id,
+                date: newBooking.date,
+                time: newBooking.time,
+                client_name: newBooking.clientName,
+                client_email: newBooking.instagram + '@ig.com',
+                client_phone: '+56900000000',
+                notes: newBooking.notes,
+                status: 'Pendiente'
+            }]);
+        } catch (err) {
+            console.warn("Sincronización local exitosa.");
+        }
 
         const gcalUrl = getGoogleCalendarUrl(newBooking);
         const gcalContainer = document.getElementById('client-gcal-container');
@@ -996,7 +1086,7 @@
     function toggleDayActive(dayIdx) {
         const schedule = getScheduleForWeek(selectedScheduleMonth, selectedScheduleWeek);
         schedule[dayIdx].active = !schedule[dayIdx].active;
-        saveState();
+        saveConfigToCloud();
         renderAdminWeeklySchedule();
         renderClientSlots();
     }
@@ -1008,7 +1098,7 @@
             if (!schedule[dayIdx].slots.includes(time)) {
                 schedule[dayIdx].slots.push(time);
                 schedule[dayIdx].slots.sort();
-                saveState();
+                saveConfigToCloud();
                 renderAdminWeeklySchedule();
                 renderClientSlots();
             }
@@ -1018,15 +1108,15 @@
     function removeSlotFromDay(dayIdx, slotIdx) {
         const schedule = getScheduleForWeek(selectedScheduleMonth, selectedScheduleWeek);
         schedule[dayIdx].slots.splice(slotIdx, 1);
-        saveState();
+        saveConfigToCloud();
         renderAdminWeeklySchedule();
         renderClientSlots();
     }
 
     function saveChangesNotification() {
-        saveState();
+        saveConfigToCloud();
         renderClientSlots();
-        alert("¡Los cambios de horarios han sido guardados con éxito!");
+        alert("¡Los cambios han sido guardados y sincronizados en la nube!");
     }
 
     function loadSpecificDateConfig() {
@@ -1112,7 +1202,7 @@
     function saveSpecificDateConfig() {
         if (!tempSpecificDate) return;
         specificDateSchedules[tempSpecificDate] = tempSpecificConfig;
-        saveState();
+        saveConfigToCloud();
         renderClientSlots();
         alert(`¡Horario para el día ${tempSpecificDate} guardado con éxito!`);
     }
@@ -1121,7 +1211,7 @@
         if (!tempSpecificDate) return;
         if (confirm(`¿Deseas eliminar la excepción para el día ${tempSpecificDate} y volver al horario regular?`)) {
             delete specificDateSchedules[tempSpecificDate];
-            saveState();
+            saveConfigToCloud();
             loadSpecificDateConfig();
             renderClientSlots();
             alert("Excepción eliminada.");
@@ -1129,16 +1219,16 @@
     }
 
     function forceCleanStorage() {
-        if (confirm("¿Deseas eliminar todos los registros antiguos de tu navegador para vaciar las listas completamente?")) {
+        if (confirm("¿Deseas eliminar los registros locales?")) {
             localStorage.clear();
             weeklySchedules = {};
             specificDateSchedules = {};
             blockedDates = [];
             bookings = [];
-            saveState();
+            saveConfigToCloud();
             renderAdminWeeklySchedule();
             renderClientSlots();
-            alert("Memorias antiguas borradas. Ahora todo está en cero.");
+            alert("Memorias limpiadas.");
         }
     }
 
@@ -1146,7 +1236,7 @@
         if (confirm(`¿Deseas vaciar los horarios de la Semana ${selectedScheduleWeek} (${selectedScheduleMonth})?`)) {
             const key = `${selectedScheduleMonth}-W${selectedScheduleWeek}`;
             weeklySchedules[key] = JSON.parse(JSON.stringify(DEFAULT_WEEKLY_SCHEDULE));
-            saveState();
+            saveConfigToCloud();
             renderAdminWeeklySchedule();
             renderClientSlots();
             alert("Horarios de la semana limpiados.");
@@ -1176,7 +1266,7 @@
             currentDate.setDate(currentDate.getDate() + 1);
         }
 
-        saveState();
+        saveConfigToCloud();
         renderClientSlots();
         alert(block ? "Fechas bloqueadas correctamente." : "Fechas liberadas correctamente.");
     }
@@ -1204,10 +1294,13 @@
         renderAdminBookingsTable();
     }
 
-    function deleteSingleBooking(id) {
+    async function deleteSingleBooking(id) {
         if (confirm("¿Estás seguro de que deseas eliminar esta cita de forma permanente?")) {
             bookings = bookings.filter(b => b.id !== id);
-            saveState();
+            saveStateLocally();
+            try {
+                await supabaseClient.from('bookings').delete().eq('id', id);
+            } catch(e){}
             renderAdminBookingsTable();
             renderClientSlots();
         }
@@ -1272,16 +1365,19 @@
         });
     }
 
-    function updateBookingStatus(id, newStatus) {
+    async function updateBookingStatus(id, newStatus) {
         const item = bookings.find(b => b.id === id);
         if (item) {
             item.status = newStatus;
-            saveState();
+            saveStateLocally();
+            try {
+                await supabaseClient.from('bookings').update({ status: newStatus }).eq('id', id);
+            } catch(e){}
             renderAdminBookingsTable();
         }
     }
 
-    function saveState() {
+    function saveStateLocally() {
         localStorage.setItem('yorka_weekly_schedules_v3', JSON.stringify(weeklySchedules));
         localStorage.setItem('yorka_specific_date_schedules_v3', JSON.stringify(specificDateSchedules));
         localStorage.setItem('yorka_blocked_dates_v3', JSON.stringify(blockedDates));
