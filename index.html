@@ -447,17 +447,30 @@
                                     </div>
                                     <div>
                                         <label class="block text-[10px] font-mono uppercase text-yorkaMuted tracking-wider mb-1">Idea o Flash deseado</label>
-                                        <textarea id="client-notes" rows="3" placeholder="Detalla idea, zona del cuerpo, tamaño aprox..."
-                                                  class="w-full bg-yorkaBg border border-yorkaBorder rounded-lg px-3 py-2 text-yorkaText text-xs leading-relaxed focus:outline-none focus:border-yorkaDarkAccent resize-y min-h-[64px]"></textarea>
+                                        <textarea id="client-notes" rows="2" placeholder="Detalla idea, zona del cuerpo, tamaño aprox..."
+                                                  class="w-full bg-yorkaBg border border-yorkaBorder rounded-lg px-3 py-2 text-yorkaText text-xs leading-relaxed focus:outline-none focus:border-yorkaDarkAccent resize-y min-h-[56px]"></textarea>
                                     </div>
 
-                                    <div class="bg-yorkaPanel p-3 rounded-lg border border-yorkaBorder text-[11px] text-yorkaMuted space-y-1 mt-2">
+                                    <!-- SELECTOR DE IMAGEN DE REFERENCIA -->
+                                    <div>
+                                        <label class="block text-[10px] uppercase text-yorkaMuted tracking-wider mb-1">Imagen de Referencia (Opcional)</label>
+                                        <div class="relative flex items-center">
+                                            <input type="file" id="client-image" accept="image/*" onchange="previewSelectedImage(event)"
+                                                   class="w-full text-xs text-yorkaMuted bg-yorkaBg border border-yorkaBorder rounded-lg p-1.5 focus:outline-none focus:border-yorkaDarkAccent file:mr-2 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-[10px] file:font-semibold file:bg-yorkaPanel file:text-yorkaDarkAccent hover:file:bg-yorkaBorder cursor-pointer">
+                                        </div>
+                                        <div id="image-preview-container" class="hidden mt-2 relative w-16 h-16 rounded-lg overflow-hidden border border-yorkaBorder bg-white">
+                                            <img id="image-preview" src="" class="w-full h-full object-cover">
+                                            <button type="button" onclick="removeSelectedImage()" class="absolute top-0 right-0 bg-black/70 text-white w-4 h-4 text-[9px] flex items-center justify-center rounded-bl">×</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="bg-yorkaPanel p-3 rounded-lg border border-yorkaBorder text-[11px] text-yorkaMuted space-y-1 mt-1">
                                         <div class="flex justify-between"><span>Fecha:</span> <strong id="summary-date" class="text-yorkaText">--</strong></div>
                                         <div class="flex justify-between"><span>Hora:</span> <strong id="summary-time" class="text-yorkaText">--</strong></div>
                                     </div>
 
                                     <button type="submit" id="btn-submit-booking" disabled
-                                            class="btn-primary-action mt-3 w-full flex items-center justify-center gap-2 text-yorkaText font-mono text-xs font-bold tracking-widest py-3 rounded-xl uppercase cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed">
+                                            class="btn-primary-action mt-2 w-full flex items-center justify-center gap-2 text-yorkaText font-mono text-xs font-bold tracking-widest py-3 rounded-xl uppercase cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed">
                                         <i class="fa-regular fa-paper-plane text-xs"></i>
                                         <span id="btn-submit-booking-label">Enviar Solicitud de Reserva</span>
                                     </button>
@@ -494,6 +507,18 @@
     </div>
 </div>
 
+<!-- VISOR DE IMAGEN (LIGHTBOX) PARA EL ADMIN -->
+<div id="lightbox-modal" class="fixed inset-0 bg-black/70 backdrop-blur-xs z-50 hidden flex flex-col items-center justify-center p-4" onclick="closeImageLightbox()">
+    <div class="absolute top-6 right-6 z-10">
+        <button onclick="closeImageLightbox()" class="w-10 h-10 rounded-full bg-white border border-yorkaBorder text-yorkaText flex items-center justify-center text-lg transition cursor-pointer" title="Cerrar">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+    <div class="max-w-[95vw] max-h-[85vh] flex items-center justify-center" onclick="event.stopPropagation()">
+        <img id="lightbox-img" src="" alt="Referencia de Tatuaje" class="max-h-[85vh] max-w-[95vw] object-contain rounded-xl shadow-2xl border border-yorkaBorder bg-white p-2">
+    </div>
+</div>
+
 <!-- LOGIN ADMIN -->
 <div id="login-container" class="hidden min-h-[85vh] pt-32 pb-16 px-4 max-w-sm mx-auto flex flex-col justify-center">
     <div class="action-card rounded-2xl p-6 md:p-8 text-center">
@@ -524,7 +549,7 @@
     </div>
 </div>
 
-<!-- PANEL ADMIN COMPLETO (ESTILO HIPSO) -->
+<!-- PANEL ADMIN COMPLETO -->
 <div id="admin-container" class="hidden relative z-30 min-h-screen pt-32 md:pt-36 pb-16 px-3 md:px-8 max-w-7xl mx-auto">
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 pb-4 border-b border-yorkaBorder gap-3">
         <div>
@@ -587,7 +612,7 @@
                     <thead class="text-yorkaMuted border-b border-yorkaBorder uppercase tracking-wider font-semibold font-mono text-[9px]">
                         <tr>
                             <th class="pb-2 w-1/5">Fecha/Hora</th>
-                            <th class="pb-2 w-1/4">Cliente / IG / Idea</th>
+                            <th class="pb-2 w-1/4">Cliente / IG / Idea / Foto</th>
                             <th class="pb-2 w-1/5">Origen / Presupuesto</th>
                             <th class="pb-2 w-1/6">Estado</th>
                             <th class="pb-2 text-right">Opciones</th>
@@ -823,6 +848,7 @@
     let currentEditingTemplateState = {};
     let clientCalendarViewDate = new Date();
     let isLoadingData = false;
+    let currentSelectedImageFile = null;
 
     function getLocalDateString(d = new Date()) {
         const year = d.getFullYear();
@@ -882,6 +908,62 @@
         if (loader) loader.classList.add('ocultar-carga');
     }
 
+    // Funciones para previsualización de imágenes locales
+    function previewSelectedImage(event) {
+        const file = event.target.files[0];
+        const previewContainer = document.getElementById('image-preview-container');
+        const previewImg = document.getElementById('image-preview');
+
+        if (file) {
+            currentSelectedImageFile = file;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                previewImg.src = e.target.result;
+                previewContainer.classList.remove('hidden');
+            }
+            reader.readAsDataURL(file);
+        } else {
+            removeSelectedImage();
+        }
+    }
+
+    function removeSelectedImage() {
+        currentSelectedImageFile = null;
+        const fileInput = document.getElementById('client-image');
+        const previewContainer = document.getElementById('image-preview-container');
+        if (fileInput) fileInput.value = "";
+        if (previewContainer) previewContainer.classList.add('hidden');
+    }
+
+    // Subir imagen a Supabase Storage (Bucket: tattoo-ideas)
+    async function uploadClientImageToStorage(file) {
+        try {
+            const fileExt = file.name.split('.').pop();
+            const fileName = `${Date.now()}_${Math.random().toString(36).substring(2, 7)}.${fileExt}`;
+            const filePath = `references/${fileName}`;
+
+            const { data, error } = await supabaseClient
+                .storage
+                .from('tattoo-ideas')
+                .upload(filePath, file);
+
+            if (error) {
+                console.error("Error al subir archivo a Storage:", error);
+                return null;
+            }
+
+            const { data: publicUrlData } = supabaseClient
+                .storage
+                .from('tattoo-ideas')
+                .getPublicUrl(filePath);
+
+            return publicUrlData.publicUrl;
+        } catch (err) {
+            console.error("Error inesperado en uploadClientImageToStorage:", err);
+            return null;
+        }
+    }
+
     async function loadDataFromSupabase(showLoading = true) {
         if (isLoadingData) return;
         isLoadingData = true;
@@ -913,6 +995,7 @@
                     origin: b.origin || 'Chile',
                     budget: b.budget || '$0',
                     notes: b.notes,
+                    imageUrl: b.image_url || null,
                     status: b.status || 'Pendiente',
                     createdAt: b.created_at
                 }));
@@ -931,16 +1014,25 @@
     async function saveState() {
         setSyncStatus('syncing');
         try {
-            const { error } = await supabaseClient.from('yorka_settings').upsert({ key: 'main_config', value: config }, { onConflict: 'key' });
-            if (error) {
-                console.error("Supabase settings error:", error);
-                throw error;
+            const { data: updateData, error: updateError } = await supabaseClient
+                .from('yorka_settings')
+                .update({ value: config })
+                .eq('key', 'main_config')
+                .select();
+
+            if (updateError || !updateData || updateData.length === 0) {
+                const { error: upsertError } = await supabaseClient
+                    .from('yorka_settings')
+                    .upsert({ key: 'main_config', value: config }, { onConflict: 'key' });
+                if (upsertError) throw upsertError;
             }
+
             setSyncStatus('synced');
             renderAllViews();
             showToast("Cambios guardados en la nube.", "success");
             return true;
         } catch (err) {
+            console.error("Supabase error detail:", err);
             showToast("Error guardando en la nube.", "error");
             setSyncStatus('error');
             return false;
@@ -959,6 +1051,7 @@
                 origin: b.origin,
                 budget: b.budget,
                 notes: b.notes,
+                image_url: b.imageUrl || null,
                 status: b.status || 'Pendiente',
                 created_at: b.createdAt || new Date().toISOString()
             }, { onConflict: 'id' });
@@ -1255,8 +1348,18 @@
             return;
         }
 
+        const submitBtn = document.getElementById('btn-submit-booking');
+        const originalBtnText = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-xs"></i> <span>Subiendo imagen y procesando...</span>';
+
+        let uploadedImageUrl = null;
+        if (currentSelectedImageFile) {
+            uploadedImageUrl = await uploadClientImageToStorage(currentSelectedImageFile);
+        }
+
         const pendingBookingData = {
-            id: 'YORKA-' + Date.now().toString().slice(-5) + '-' + Math.random().toString(36).slice(2, 5),
+            id: 'YORKA-' + Date.now().toString().slice(-5) + '-' + Math.random().toString(36).slice(2, 6),
             date: selectedClientDate,
             time: selectedClientSlot,
             clientName: document.getElementById('client-name').value,
@@ -1264,17 +1367,22 @@
             origin: document.getElementById('client-origin').value,
             budget: document.getElementById('client-budget').value,
             notes: document.getElementById('client-notes').value,
+            imageUrl: uploadedImageUrl,
             status: 'Pendiente',
             createdAt: new Date().toISOString()
         };
 
         const success = await saveBookingToSupabase(pendingBookingData);
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnText;
+
         if (!success) {
             showToast("Ocurrió un problema al enviar la reserva.", "error");
             return;
         }
 
         bookings.push(pendingBookingData);
+        removeSelectedImage();
         renderAllViews();
 
         const gcalUrl = getGoogleCalendarUrl(pendingBookingData);
@@ -1295,6 +1403,24 @@
         selectedClientSlot = "";
         renderClientSlots();
         validateBookingForm();
+    }
+
+    function openImageLightbox(url) {
+        const modal = document.getElementById('lightbox-modal');
+        const img = document.getElementById('lightbox-img');
+        if (modal && img) {
+            img.src = url;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+    }
+
+    function closeImageLightbox() {
+        const modal = document.getElementById('lightbox-modal');
+        if (modal) {
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
     }
 
     function renderAdminDashboard() {
@@ -2007,6 +2133,11 @@
             else statusBadge = '<span class="bg-red-100 text-red-800 border border-red-200 px-1.5 py-0.5 rounded text-[9px]">Cancelada</span>';
 
             const gcalLink = getGoogleCalendarUrl(b);
+            const imageButton = b.imageUrl ? `
+                <button onclick="openImageLightbox('${b.imageUrl}')" class="mt-1 bg-yorkaPanel hover:bg-yorkaBorder text-yorkaDarkAccent border border-yorkaBorder px-2 py-0.5 rounded text-[9px] font-mono flex items-center gap-1 transition cursor-pointer">
+                    <i class="fa-solid fa-image text-[9px]"></i> Ver Foto
+                </button>
+            ` : '';
 
             tr.innerHTML = `
                 <td class="py-3 font-mono align-top">
@@ -2017,6 +2148,7 @@
                     <div class="text-yorkaText font-medium text-[10px] md:text-[11px] break-words">${b.clientName}</div>
                     <div class="text-yorkaDarkAccent font-mono text-[10px]">${b.instagram || '@sining'}</div>
                     <div class="text-yorkaMuted text-[10px] leading-relaxed break-words whitespace-pre-wrap mt-0.5">${b.notes || 'Sin idea especificada'}</div>
+                    ${imageButton}
                 </td>
                 <td class="py-3 text-[10px] align-top">
                     <div class="text-yorkaText font-mono">${b.budget}</div>
