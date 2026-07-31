@@ -220,6 +220,9 @@
             <a href="#portafolio" onclick="showPublicLanding()" class="nav-link hover:text-yorkaText transition-colors">Portafolio</a>
             <a href="#info" onclick="showPublicLanding()" class="nav-link hover:text-yorkaText transition-colors">Información</a>
             <a href="#agendar" onclick="showPublicLanding()" class="nav-link hover:text-yorkaText transition-colors">Reserva</a>
+            <button onclick="openClientManageModal()" class="nav-link text-yorkaDarkAccent hover:text-yorkaText transition-colors flex items-center gap-1.5">
+                <i class="fa-solid fa-calendar-check text-xs"></i> Mis Citas
+            </button>
             <a href="https://www.instagram.com/yorka_tatuajes/" target="_blank" rel="noopener noreferrer" class="nav-link text-yorkaDarkAccent hover:text-yorkaText transition-colors flex items-center gap-1">
                 <i class="fa-brands fa-instagram text-xs"></i> @yorka_tatuajes
             </a>
@@ -249,6 +252,10 @@
     <a href="#portafolio" onclick="showPublicLanding()" class="hover:text-yorkaDarkAccent mobile-link transition-colors">Portafolio</a>
     <a href="#info" onclick="showPublicLanding()" class="hover:text-yorkaDarkAccent mobile-link transition-colors">Información</a>
     <a href="#agendar" onclick="showPublicLanding()" class="hover:text-yorkaDarkAccent mobile-link transition-colors">Reserva</a>
+    <button onclick="openClientManageModal(); toggleMobileMenu();" class="hover:text-yorkaDarkAccent text-yorkaDarkAccent transition-colors flex items-center gap-2 text-lg font-serif">
+        <i class="fa-solid fa-calendar-check"></i>
+        <span>Mis Citas</span>
+    </button>
     <a href="https://www.instagram.com/yorka_tatuajes/" target="_blank" rel="noopener noreferrer" class="hover:text-yorkaDarkAccent mobile-link transition-colors flex items-center gap-2 text-base font-sans">
         <i class="fa-brands fa-instagram"></i> Instagram
     </a>
@@ -492,6 +499,34 @@
     </footer>
 </div>
 
+<!-- MODAL CONSULTAR / CANCELAR CITAS (CLIENTE) -->
+<div id="client-manage-modal" class="fixed inset-0 bg-black/40 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
+    <div class="action-card rounded-2xl p-6 max-w-md w-full shadow-xl border border-yorkaBorder space-y-4">
+        <div class="flex items-center justify-between border-b border-yorkaBorder pb-3">
+            <h3 class="font-serif text-lg text-yorkaText flex items-center gap-2">
+                <i class="fa-solid fa-calendar-check text-yorkaDarkAccent"></i>
+                Consultar o Cancelar mi Cita
+            </h3>
+            <button onclick="closeClientManageModal()" class="text-yorkaMuted hover:text-yorkaText text-lg cursor-pointer">×</button>
+        </div>
+        <p class="text-xs text-yorkaMuted leading-relaxed">
+            Ingresa tu usuario de Instagram o parte de tu nombre con el que agendaste para revisar tus citas activas.
+        </p>
+        <form onsubmit="searchClientBookings(event)" class="space-y-3">
+            <div>
+                <input type="text" id="client-search-input" required placeholder="Ej: @tu_instagram o nombre"
+                       class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-3 py-2 text-yorkaText text-xs focus:outline-none focus:border-yorkaDarkAccent">
+            </div>
+            <button type="submit" class="btn-primary-action w-full py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider text-yorkaText cursor-pointer">
+                Buscar Citas
+            </button>
+        </form>
+
+        <div id="client-bookings-results" class="space-y-3 max-h-60 overflow-y-auto pt-2 border-t border-yorkaBorder">
+        </div>
+    </div>
+</div>
+
 <!-- MODAL DE ÉXITO DE RESERVA -->
 <div id="success-modal" class="fixed inset-0 bg-black/40 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
     <div class="action-card rounded-2xl p-6 max-w-sm w-full text-center space-y-4">
@@ -519,7 +554,7 @@
     </div>
 </div>
 
-<!-- LOGIN ADMIN (CON CREDENCIALES NUEVAS Y PLACEHOLDER OCULTO) -->
+<!-- LOGIN ADMIN -->
 <div id="login-container" class="hidden min-h-[85vh] pt-32 pb-16 px-4 max-w-sm mx-auto flex flex-col justify-center">
     <div class="action-card rounded-2xl p-6 md:p-8 text-center">
         <div class="text-yorkaDarkAccent text-3xl mb-2"><i class="fa-solid fa-shield-halved"></i></div>
@@ -706,6 +741,10 @@
                     <input type="date" id="admin-custom-date" onchange="renderCustomDateEditor()"
                            class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-3 py-2 text-yorkaText text-xs font-mono focus:outline-none">
                     <div id="custom-date-editor-container" class="hidden bg-yorkaPanel p-3 rounded-xl border border-yorkaBorder space-y-2"></div>
+                </div>
+                <div class="pt-2 border-t border-yorkaBorder mt-3">
+                    <p class="text-[9px] font-mono text-yorkaMuted uppercase mb-2 font-semibold">Excepciones Guardadas Actualmente</p>
+                    <div id="saved-exceptions-list" class="space-y-1.5 max-h-56 overflow-y-auto"></div>
                 </div>
             </div>
 
@@ -906,6 +945,80 @@
     function hideLoadingScreen() {
         const loader = document.getElementById('pantalla-carga');
         if (loader) loader.classList.add('ocultar-carga');
+    }
+
+    // GESTIÓN DEL MODAL "MIS CITAS" PARA CLIENTES
+    function openClientManageModal() {
+        const modal = document.getElementById('client-manage-modal');
+        const results = document.getElementById('client-bookings-results');
+        if (modal) {
+            if (results) results.innerHTML = "";
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+    }
+
+    function closeClientManageModal() {
+        const modal = document.getElementById('client-manage-modal');
+        if (modal) {
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+    }
+
+    function searchClientBookings(e) {
+        e.preventDefault();
+        const inputVal = document.getElementById('client-search-input').value.trim().toLowerCase();
+        const container = document.getElementById('client-bookings-results');
+        if (!container) return;
+        container.innerHTML = "";
+
+        if (!inputVal) {
+            showToast("Ingresa un dato para buscar.", "error");
+            return;
+        }
+
+        const matchInput = inputVal.replace('@', '');
+
+        const userBookings = bookings.filter(b => {
+            const nameMatch = b.clientName && b.clientName.toLowerCase().includes(matchInput);
+            const igMatch = b.instagram && b.instagram.toLowerCase().replace('@', '').includes(matchInput);
+            return nameMatch || igMatch;
+        });
+
+        if (userBookings.length === 0) {
+            container.innerHTML = `<p class="text-xs text-yorkaMuted italic text-center py-2">No se encontraron citas activas asociadas a esa búsqueda.</p>`;
+            return;
+        }
+
+        userBookings.forEach(b => {
+            const card = document.createElement('div');
+            card.className = "bg-yorkaPanel border border-yorkaBorder rounded-xl p-3 flex flex-col sm:flex-row justify-between sm:items-center gap-3";
+            card.innerHTML = `
+                <div>
+                    <div class="font-mono text-xs font-semibold text-yorkaText">${formatDateReadable(b.date)} a las ${b.time}</div>
+                    <div class="text-[10px] text-yorkaDarkAccent">${b.clientName} (@${b.instagram})</div>
+                    <div class="text-[9px] text-yorkaMuted truncate max-w-[200px]">${b.notes || 'Sin especificaciones'}</div>
+                </div>
+                <button onclick="cancelClientBooking('${b.id}')" class="bg-red-50 hover:bg-red-100 border border-red-200 text-danger text-[10px] px-3 py-1.5 rounded-lg transition font-mono self-start sm:self-auto cursor-pointer">
+                    Cancelar Cita
+                </button>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    async function cancelClientBooking(id) {
+        showConfirm("¿Estás seguro de cancelar tu reserva? Se eliminará de la agenda y el horario quedará libre.", async () => {
+            const success = await deleteBookingFromSupabase(id);
+            if (success) {
+                bookings = bookings.filter(b => b.id !== id);
+                await loadDataFromSupabase(false);
+                renderAllViews();
+                closeClientManageModal();
+                showToast("Tu cita ha sido eliminada y el horario ha quedado libre.", "success");
+            }
+        });
     }
 
     function previewSelectedImage(event) {
@@ -1178,6 +1291,17 @@
         return { active: false, slots: [] };
     }
 
+    function getWeeklyScheduleForDate(dateStr) {
+        if (config.weekCustomSchedules) {
+            for (let weekKey in config.weekCustomSchedules) {
+                if (config.weekCustomSchedules[weekKey] && config.weekCustomSchedules[weekKey][dateStr]) {
+                    return config.weekCustomSchedules[weekKey][dateStr];
+                }
+            }
+        }
+        return null;
+    }
+
     function getRemainingSlotsForDate(dateStr) {
         const sched = getEffectiveScheduleForDate(dateStr);
         if (sched.blocked || !sched.active || !sched.slots) return [];
@@ -1427,6 +1551,7 @@
         renderTemplateEditor();
         renderCustomDateEditor();
         renderBlockedRangesList();
+        renderSavedExceptionsList();
         renderAdminBookingsTable();
     }
 
@@ -1559,6 +1684,7 @@
             mergeSlotsInto(config.dateExceptions[dateStr], generated);
             await saveState();
             renderCustomDateEditor();
+            renderSavedExceptionsList();
             renderAllViews();
         }
 
@@ -1602,6 +1728,7 @@
             mergeSlotsInto(config.dateExceptions[dateStr], generated);
             await saveState();
             renderCustomDateEditor();
+            renderSavedExceptionsList();
             renderAllViews();
         }
 
@@ -1652,6 +1779,13 @@
             const dayState = currentEditingWeekState[dateStr] || { active: false, slots: [] };
             const dayName = getDayName(dayOfWeek);
 
+            const isBlockedDate = config.blockedDates && config.blockedDates.includes(dateStr);
+            const hasException = config.dateExceptions && !!config.dateExceptions[dateStr];
+            const hasOverride = isBlockedDate || hasException;
+            const overrideTitle = isBlockedDate
+                ? 'Esta fecha está bloqueada (vacaciones/viaje) y anulará este horario.'
+                : 'Esta fecha tiene una excepción guardada que anulará este horario.';
+
             const card = document.createElement('div');
             card.className = "bg-yorkaBg border border-yorkaBorder rounded-xl p-3 space-y-2";
 
@@ -1664,7 +1798,10 @@
 
             card.innerHTML = `
                 <div class="flex items-center justify-between flex-wrap gap-2">
-                    <span class="font-medium text-xs text-yorkaText">${dayName} ${dayNumber}</span>
+                    <span class="font-medium text-xs text-yorkaText flex items-center gap-1.5">
+                        ${dayName} ${dayNumber}
+                        ${hasOverride ? `<span class="text-danger text-[11px]" title="${overrideTitle}">⚠️</span>` : ''}
+                    </span>
                     <div class="flex items-center gap-1 font-mono">
                         <button onclick="openSingleSlotModal({type:'week', dateStr:'${dateStr}'}, '${dayName} ${dayNumber}')" ${!dayState.active ? 'disabled' : ''} class="text-[10px] bg-white border border-yorkaBorder text-yorkaText px-2 py-1 rounded hover:bg-yorkaPanel disabled:opacity-30 cursor-pointer">
                             + Hora
@@ -1677,6 +1814,7 @@
                         </button>
                     </div>
                 </div>
+                ${hasOverride ? `<div class="text-[9px] text-danger italic">⚠️ ${overrideTitle}</div>` : ''}
                 ${dayState.active ? `<div class="flex flex-wrap gap-1.5 pt-0.5">${slotsBadges || '<span class="text-[9px] text-yorkaMuted italic">Sin horarios</span>'}</div>` : ''}
             `;
             container.appendChild(card);
@@ -1850,12 +1988,35 @@
         }
 
         container.classList.remove('hidden');
-        if (!config.dateExceptions) config.dateExceptions = {};
 
-        let dateData = config.dateExceptions[dateStr];
-        if (!dateData) {
-            dateData = { active: true, slots: [], note: "", noteVisible: false };
-            config.dateExceptions[dateStr] = dateData;
+        const isBlocked = config.blockedDates && config.blockedDates.includes(dateStr);
+        const savedException = (config.dateExceptions && config.dateExceptions[dateStr]) || null;
+        const weeklySchedule = getWeeklyScheduleForDate(dateStr);
+
+        // OJO: esto es solo una vista previa en memoria. NO se escribe en `config`
+        // hasta que el usuario ejecute una acción explícita (agregar hora, activar/
+        // desactivar, o escribir una nota) — cada una de esas funciones crea la
+        // excepción en `config.dateExceptions` por sí misma si aún no existe.
+        const dateData = savedException || { active: true, slots: [], note: "", noteVisible: false };
+
+        let warningHtml = "";
+        if (isBlocked) {
+            const reason = config.blockedReasons ? config.blockedReasons[dateStr] : "";
+            warningHtml = `
+                <div class="bg-red-50 border border-red-200 text-danger text-[10px] rounded-lg px-3 py-2 leading-relaxed">
+                    <strong>⚠️ Este día está bloqueado</strong> (vacaciones/viaje)${reason ? `: ${reason}` : ''}.
+                    El bloqueo manda por sobre cualquier excepción u horario semanal configurado — el día se mostrará como cerrado a los clientes.
+                </div>
+            `;
+        } else if (savedException) {
+            const weeklyNote = (weeklySchedule && weeklySchedule.active)
+                ? `El horario semanal de este día (${(weeklySchedule.slots || []).length} horario(s) configurados) está siendo ignorado mientras esta excepción exista.`
+                : `De todas formas, este día no tenía horario semanal configurado.`;
+            warningHtml = `
+                <div class="bg-yorkaPanel border border-yorkaBorder text-yorkaDarkAccent text-[10px] rounded-lg px-3 py-2 leading-relaxed">
+                    <strong>⚠️ Esta fecha tiene una excepción guardada.</strong> La excepción manda por sobre el horario semanal. ${weeklyNote}
+                </div>
+            `;
         }
 
         let slotsBadges = (dateData.slots || []).map((s, idx) => `
@@ -1866,6 +2027,7 @@
         `).join('');
 
         container.innerHTML = `
+            ${warningHtml}
             <div class="flex items-center justify-between pb-1 border-b border-yorkaBorder flex-wrap gap-2">
                 <span class="font-semibold text-xs text-yorkaText font-mono">${formatDateReadable(dateStr)}</span>
                 <div class="flex gap-1 font-mono">
@@ -1892,9 +2054,10 @@
                     Mostrar nota a clientes
                 </label>
             </div>
+            ${savedException ? `
             <button onclick="removeCustomDateException('${dateStr}')" class="text-[10px] text-yorkaMuted hover:text-danger underline pt-1 font-mono cursor-pointer">
                 Limpiar este día
-            </button>
+            </button>` : `<p class="text-[9px] text-yorkaMuted italic pt-1">Aún no se ha guardado ninguna excepción para este día. Se creará automáticamente al agregar una hora, activar/desactivar el día, o escribir una nota.</p>`}
         `;
     }
 
@@ -1903,6 +2066,7 @@
         config.dateExceptions[dateStr].active = !config.dateExceptions[dateStr].active;
         await saveState();
         renderCustomDateEditor();
+        renderSavedExceptionsList();
         renderAllViews();
     }
 
@@ -1911,6 +2075,7 @@
             config.dateExceptions[dateStr].slots.splice(slotIdx, 1);
             await saveState();
             renderCustomDateEditor();
+            renderSavedExceptionsList();
             renderAllViews();
         }
     }
@@ -1919,6 +2084,7 @@
         if (!config.dateExceptions[dateStr]) config.dateExceptions[dateStr] = { active: true, slots: [], note: "", noteVisible: false };
         config.dateExceptions[dateStr].note = value;
         await saveState();
+        renderSavedExceptionsList();
     }
 
     async function toggleCustomDateNoteVisible(dateStr, checked) {
@@ -1933,8 +2099,68 @@
             delete config.dateExceptions[dateStr];
             await saveState();
             renderCustomDateEditor();
+            renderSavedExceptionsList();
             renderAllViews();
         }
+    }
+
+    function renderSavedExceptionsList() {
+        const container = document.getElementById('saved-exceptions-list');
+        if (!container) return;
+        const exceptions = config.dateExceptions || {};
+        const dates = Object.keys(exceptions).sort();
+
+        if (dates.length === 0) {
+            container.innerHTML = `<p class="text-[10px] text-yorkaMuted italic py-1">No hay excepciones guardadas.</p>`;
+            return;
+        }
+
+        container.innerHTML = dates.map(dateStr => {
+            const exc = exceptions[dateStr];
+            const isBlocked = config.blockedDates && config.blockedDates.includes(dateStr);
+            const slotCount = (exc.slots || []).length;
+            const statusLabel = exc.active ? `${slotCount} horario(s)` : 'Inactivo';
+            return `
+                <div class="flex items-center justify-between gap-2 bg-yorkaBg border border-yorkaBorder rounded-lg px-3 py-1.5">
+                    <div class="min-w-0">
+                        <div class="text-[11px] text-yorkaText font-mono flex items-center gap-1.5">
+                            ${formatDateReadable(dateStr)}
+                            ${isBlocked ? '<span class="text-danger" title="También está bloqueada por vacaciones">⚠️</span>' : ''}
+                        </div>
+                        <div class="text-[9px] text-yorkaMuted truncate max-w-[220px]">${statusLabel}${exc.note ? ' · ' + exc.note : ''}</div>
+                    </div>
+                    <div class="flex items-center gap-1 shrink-0">
+                        <button onclick="editSavedException('${dateStr}')" title="Editar" class="bg-white hover:bg-yorkaPanel text-yorkaText border border-yorkaBorder w-5 h-5 rounded flex items-center justify-center cursor-pointer">
+                            <i class="fa-solid fa-pen text-[9px]"></i>
+                        </button>
+                        <button onclick="deleteSavedException('${dateStr}')" title="Eliminar" class="text-danger border border-red-200 bg-red-50 w-5 h-5 rounded flex items-center justify-center cursor-pointer">
+                            <i class="fa-solid fa-trash text-[9px]"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    function editSavedException(dateStr) {
+        const dateInput = document.getElementById('admin-custom-date');
+        if (dateInput) {
+            dateInput.value = dateStr;
+            renderCustomDateEditor();
+            dateInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }
+
+    function deleteSavedException(dateStr) {
+        showConfirm(`¿Eliminar la excepción guardada del ${formatDateReadable(dateStr)}?`, async () => {
+            if (config.dateExceptions && config.dateExceptions[dateStr]) {
+                delete config.dateExceptions[dateStr];
+                await saveState();
+                renderCustomDateEditor();
+                renderSavedExceptionsList();
+                renderAllViews();
+            }
+        });
     }
 
     async function toggleBlockDateRange(block) {
@@ -1972,6 +2198,7 @@
         await saveState();
         renderAllViews();
         renderBlockedRangesList();
+        renderSavedExceptionsList();
     }
 
     function getBlockedRangesGrouped() {
@@ -2046,6 +2273,7 @@
             await saveState();
             renderAllViews();
             renderBlockedRangesList();
+            renderSavedExceptionsList();
         });
     }
 
@@ -2084,7 +2312,7 @@
     }
 
     function getGoogleCalendarUrl(b) {
-        const title = encodeURIComponent(`Cita Tatuaje: ${b.clientName} (${b.instagram})`);
+        const title = encodeURIComponent(`Cita Tatuaje: ${b.clientName} (@${b.instagram})`);
         const details = encodeURIComponent(`Idea: ${b.notes || 'Sin detalles'}\nPresupuesto: ${b.budget}\nOrigen: ${b.origin}`);
         const location = encodeURIComponent("Concepción, Chile");
 
