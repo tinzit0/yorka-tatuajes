@@ -220,9 +220,6 @@
             <a href="#portafolio" onclick="showPublicLanding()" class="nav-link hover:text-yorkaText transition-colors">Portafolio</a>
             <a href="#info" onclick="showPublicLanding()" class="nav-link hover:text-yorkaText transition-colors">Información</a>
             <a href="#agendar" onclick="showPublicLanding()" class="nav-link hover:text-yorkaText transition-colors">Reserva</a>
-            <button onclick="openClientManageModal()" class="nav-link text-yorkaDarkAccent hover:text-yorkaText transition-colors flex items-center gap-1.5">
-                <i class="fa-solid fa-calendar-check text-xs"></i> Mis Citas
-            </button>
             <a href="https://www.instagram.com/yorka_tatuajes/" target="_blank" rel="noopener noreferrer" class="nav-link text-yorkaDarkAccent hover:text-yorkaText transition-colors flex items-center gap-1">
                 <i class="fa-brands fa-instagram text-xs"></i> @yorka_tatuajes
             </a>
@@ -252,10 +249,6 @@
     <a href="#portafolio" onclick="showPublicLanding()" class="hover:text-yorkaDarkAccent mobile-link transition-colors">Portafolio</a>
     <a href="#info" onclick="showPublicLanding()" class="hover:text-yorkaDarkAccent mobile-link transition-colors">Información</a>
     <a href="#agendar" onclick="showPublicLanding()" class="hover:text-yorkaDarkAccent mobile-link transition-colors">Reserva</a>
-    <button onclick="openClientManageModal(); toggleMobileMenu();" class="hover:text-yorkaDarkAccent text-yorkaDarkAccent transition-colors flex items-center gap-2 text-lg font-serif">
-        <i class="fa-solid fa-calendar-check"></i>
-        <span>Mis Citas</span>
-    </button>
     <a href="https://www.instagram.com/yorka_tatuajes/" target="_blank" rel="noopener noreferrer" class="hover:text-yorkaDarkAccent mobile-link transition-colors flex items-center gap-2 text-base font-sans">
         <i class="fa-brands fa-instagram"></i> Instagram
     </a>
@@ -499,34 +492,6 @@
     </footer>
 </div>
 
-<!-- MODAL CONSULTAR / CANCELAR CITAS (CLIENTE) -->
-<div id="client-manage-modal" class="fixed inset-0 bg-black/40 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
-    <div class="action-card rounded-2xl p-6 max-w-md w-full shadow-xl border border-yorkaBorder space-y-4">
-        <div class="flex items-center justify-between border-b border-yorkaBorder pb-3">
-            <h3 class="font-serif text-lg text-yorkaText flex items-center gap-2">
-                <i class="fa-solid fa-calendar-check text-yorkaDarkAccent"></i>
-                Consultar o Cancelar mi Cita
-            </h3>
-            <button onclick="closeClientManageModal()" class="text-yorkaMuted hover:text-yorkaText text-lg cursor-pointer">×</button>
-        </div>
-        <p class="text-xs text-yorkaMuted leading-relaxed">
-            Ingresa tu usuario de Instagram o parte de tu nombre con el que agendaste para revisar tus citas activas.
-        </p>
-        <form onsubmit="searchClientBookings(event)" class="space-y-3">
-            <div>
-                <input type="text" id="client-search-input" required placeholder="Ej: @tu_instagram o nombre"
-                       class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-3 py-2 text-yorkaText text-xs focus:outline-none focus:border-yorkaDarkAccent">
-            </div>
-            <button type="submit" class="btn-primary-action w-full py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider text-yorkaText cursor-pointer">
-                Buscar Citas
-            </button>
-        </form>
-
-        <div id="client-bookings-results" class="space-y-3 max-h-60 overflow-y-auto pt-2 border-t border-yorkaBorder">
-        </div>
-    </div>
-</div>
-
 <!-- MODAL DE ÉXITO DE RESERVA -->
 <div id="success-modal" class="fixed inset-0 bg-black/40 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
     <div class="action-card rounded-2xl p-6 max-w-sm w-full text-center space-y-4">
@@ -554,7 +519,7 @@
     </div>
 </div>
 
-<!-- LOGIN ADMIN -->
+<!-- LOGIN ADMIN (CON CREDENCIALES NUEVAS Y PLACEHOLDER OCULTO) -->
 <div id="login-container" class="hidden min-h-[85vh] pt-32 pb-16 px-4 max-w-sm mx-auto flex flex-col justify-center">
     <div class="action-card rounded-2xl p-6 md:p-8 text-center">
         <div class="text-yorkaDarkAccent text-3xl mb-2"><i class="fa-solid fa-shield-halved"></i></div>
@@ -941,80 +906,6 @@
     function hideLoadingScreen() {
         const loader = document.getElementById('pantalla-carga');
         if (loader) loader.classList.add('ocultar-carga');
-    }
-
-    // GESTIÓN DEL MODAL "MIS CITAS" PARA CLIENTES
-    function openClientManageModal() {
-        const modal = document.getElementById('client-manage-modal');
-        const results = document.getElementById('client-bookings-results');
-        if (modal) {
-            if (results) results.innerHTML = "";
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        }
-    }
-
-    function closeClientManageModal() {
-        const modal = document.getElementById('client-manage-modal');
-        if (modal) {
-            modal.classList.remove('flex');
-            modal.classList.add('hidden');
-        }
-    }
-
-    function searchClientBookings(e) {
-        e.preventDefault();
-        const inputVal = document.getElementById('client-search-input').value.trim().toLowerCase();
-        const container = document.getElementById('client-bookings-results');
-        if (!container) return;
-        container.innerHTML = "";
-
-        if (!inputVal) {
-            showToast("Ingresa un dato para buscar.", "error");
-            return;
-        }
-
-        const matchInput = inputVal.replace('@', '');
-
-        const userBookings = bookings.filter(b => {
-            const nameMatch = b.clientName && b.clientName.toLowerCase().includes(matchInput);
-            const igMatch = b.instagram && b.instagram.toLowerCase().replace('@', '').includes(matchInput);
-            return nameMatch || igMatch;
-        });
-
-        if (userBookings.length === 0) {
-            container.innerHTML = `<p class="text-xs text-yorkaMuted italic text-center py-2">No se encontraron citas activas asociadas a esa búsqueda.</p>`;
-            return;
-        }
-
-        userBookings.forEach(b => {
-            const card = document.createElement('div');
-            card.className = "bg-yorkaPanel border border-yorkaBorder rounded-xl p-3 flex flex-col sm:flex-row justify-between sm:items-center gap-3";
-            card.innerHTML = `
-                <div>
-                    <div class="font-mono text-xs font-semibold text-yorkaText">${formatDateReadable(b.date)} a las ${b.time}</div>
-                    <div class="text-[10px] text-yorkaDarkAccent">${b.clientName} (@${b.instagram})</div>
-                    <div class="text-[9px] text-yorkaMuted truncate max-w-[200px]">${b.notes || 'Sin especificaciones'}</div>
-                </div>
-                <button onclick="cancelClientBooking('${b.id}')" class="bg-red-50 hover:bg-red-100 border border-red-200 text-danger text-[10px] px-3 py-1.5 rounded-lg transition font-mono self-start sm:self-auto cursor-pointer">
-                    Cancelar Cita
-                </button>
-            `;
-            container.appendChild(card);
-        });
-    }
-
-    async function cancelClientBooking(id) {
-        showConfirm("¿Estás seguro de cancelar tu reserva? Se eliminará de la agenda y el horario quedará libre.", async () => {
-            const success = await deleteBookingFromSupabase(id);
-            if (success) {
-                bookings = bookings.filter(b => b.id !== id);
-                await loadDataFromSupabase(false);
-                renderAllViews();
-                closeClientManageModal();
-                showToast("Tu cita ha sido eliminada y el horario ha quedado libre.", "success");
-            }
-        });
     }
 
     function previewSelectedImage(event) {
@@ -2193,7 +2084,7 @@
     }
 
     function getGoogleCalendarUrl(b) {
-        const title = encodeURIComponent(`Cita Tatuaje: ${b.clientName} (@${b.instagram})`);
+        const title = encodeURIComponent(`Cita Tatuaje: ${b.clientName} (${b.instagram})`);
         const details = encodeURIComponent(`Idea: ${b.notes || 'Sin detalles'}\nPresupuesto: ${b.budget}\nOrigen: ${b.origin}`);
         const location = encodeURIComponent("Concepción, Chile");
 
