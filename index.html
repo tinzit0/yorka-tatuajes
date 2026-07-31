@@ -137,7 +137,7 @@
         }
         .slot-btn:disabled { opacity: 0.3; cursor: not-allowed; text-decoration: line-through; }
 
-        /* CALENDARIO CLIENTE */
+        /* CALENDARIO Y DÍAS */
         .cal-day {
             position: relative; aspect-ratio: 1 / 1; border-radius: 10px;
             border: 1px solid #ebdcd5; background: #ffffff;
@@ -218,12 +218,12 @@
         <div id="public-nav-links" class="flex items-center gap-8">
             <a href="#estudio" onclick="showPublicLanding()" class="nav-link hover:text-yorkaText transition-colors">Estudio</a>
             <a href="#portafolio" onclick="showPublicLanding()" class="nav-link hover:text-yorkaText transition-colors">Portafolio</a>
-            <a href="#info" onclick="showPublicLanding()" class="nav-link hover:text-yorkaText transition-colors">Información</a>
+            <a href="#info" onclick="showPublicLanding()" class="nav-link hover:text-yorkaText transition-colors font-mono">Información</a>
             <a href="#agendar" onclick="showPublicLanding()" class="nav-link hover:text-yorkaText transition-colors">Reserva</a>
-            <button onclick="openClientManageModal()" class="nav-link text-yorkaDarkAccent hover:text-yorkaText transition-colors flex items-center gap-1.5">
+            <button onclick="openClientManageModal()" class="nav-link text-yorkaDarkAccent hover:text-yorkaText transition-colors flex items-center gap-1.5 font-mono">
                 <i class="fa-solid fa-calendar-check text-xs"></i> Mis Citas
             </button>
-            <a href="https://www.instagram.com/yorka_tatuajes/" target="_blank" rel="noopener noreferrer" class="nav-link text-yorkaDarkAccent hover:text-yorkaText transition-colors flex items-center gap-1">
+            <a href="https://www.instagram.com/yorka_tatuajes/" target="_blank" rel="noopener noreferrer" class="nav-link text-yorkaDarkAccent hover:text-yorkaText transition-colors flex items-center gap-1 font-mono">
                 <i class="fa-brands fa-instagram text-xs"></i> @yorka_tatuajes
             </a>
             <span class="w-px h-3 bg-yorkaBorder"></span>
@@ -250,7 +250,7 @@
 <div id="mobileMenu" class="fixed inset-0 bg-yorkaBg z-50 hidden flex-col justify-center items-center gap-6 font-serif text-xl text-yorkaText">
     <a href="#estudio" onclick="showPublicLanding()" class="hover:text-yorkaDarkAccent mobile-link transition-colors">Estudio</a>
     <a href="#portafolio" onclick="showPublicLanding()" class="hover:text-yorkaDarkAccent mobile-link transition-colors">Portafolio</a>
-    <a href="#info" onclick="showPublicLanding()" class="hover:text-yorkaDarkAccent mobile-link transition-colors">Información</a>
+    <a href="#info" onclick="showPublicLanding()" class="hover:text-yorkaDarkAccent mobile-link transition-colors font-mono">Información</a>
     <a href="#agendar" onclick="showPublicLanding()" class="hover:text-yorkaDarkAccent mobile-link transition-colors">Reserva</a>
     <button onclick="openClientManageModal(); toggleMobileMenu();" class="hover:text-yorkaDarkAccent text-yorkaDarkAccent transition-colors flex items-center gap-2 text-lg font-serif">
         <i class="fa-solid fa-calendar-check"></i>
@@ -376,7 +376,7 @@
 
                 <div class="text-left max-w-5xl mx-auto">
                     <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
-                        <!-- CALENDARIO -->
+                        <!-- CALENDARIO CLIENTE -->
                         <div class="md:col-span-7 action-card rounded-2xl p-5 md:p-8">
                             <div class="flex items-center justify-between mb-5 pb-3 border-b border-yorkaBorder">
                                 <h3 class="font-serif text-base text-yorkaText flex items-center gap-2">
@@ -438,6 +438,11 @@
                                     <div>
                                         <label class="block text-[10px] font-mono uppercase text-yorkaMuted tracking-wider mb-1">Instagram (@usuario)</label>
                                         <input type="text" id="client-instagram" required placeholder="@tu_usuario"
+                                               class="w-full bg-yorkaBg border border-yorkaBorder rounded-lg px-3 py-2 text-yorkaText text-xs focus:outline-none focus:border-yorkaDarkAccent">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[10px] font-mono uppercase text-yorkaMuted tracking-wider mb-1">Teléfono / WhatsApp</label>
+                                        <input type="tel" id="client-phone" required placeholder="+56 9 1234 5678"
                                                class="w-full bg-yorkaBg border border-yorkaBorder rounded-lg px-3 py-2 text-yorkaText text-xs focus:outline-none focus:border-yorkaDarkAccent">
                                     </div>
                                     <div class="grid grid-cols-2 gap-2">
@@ -510,11 +515,11 @@
             <button onclick="closeClientManageModal()" class="text-yorkaMuted hover:text-yorkaText text-lg cursor-pointer">×</button>
         </div>
         <p class="text-xs text-yorkaMuted leading-relaxed">
-            Ingresa tu usuario de Instagram o parte de tu nombre con el que agendaste para revisar tus citas activas.
+            Ingresa tu usuario de Instagram, número de teléfono o parte de tu nombre con el que agendaste para revisar tus citas activas.
         </p>
         <form onsubmit="searchClientBookings(event)" class="space-y-3">
             <div>
-                <input type="text" id="client-search-input" required placeholder="Ej: @tu_instagram o nombre"
+                <input type="text" id="client-search-input" required placeholder="Ej: @tu_instagram, +56912345678 o nombre"
                        class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-3 py-2 text-yorkaText text-xs focus:outline-none focus:border-yorkaDarkAccent">
             </div>
             <button type="submit" class="btn-primary-action w-full py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider text-yorkaText cursor-pointer">
@@ -601,7 +606,7 @@
 
         <div class="flex flex-wrap gap-2 w-full sm:w-auto font-mono text-xs">
             <button onclick="openResetModal()" class="text-danger hover:bg-red-50 border border-red-200 bg-white px-3 py-2 rounded-xl transition cursor-pointer flex items-center gap-1.5">
-                <i class="fa-solid fa-rotate-left text-xs"></i> Restablecer Semana
+                <i class="fa-solid fa-rotate-left text-xs"></i> Restablecer Agenda
             </button>
             <button onclick="logoutAdmin()" class="bg-white hover:bg-yorkaPanel text-yorkaText border border-yorkaBorder px-3 py-2 rounded-xl transition cursor-pointer">
                 Cerrar Sesión
@@ -618,10 +623,10 @@
             <i class="fa-solid fa-list-check"></i> Agendamientos
         </button>
         <button onclick="switchAdminTab('config')" data-tab="config" class="admin-tab-btn px-4 py-3 text-yorkaMuted hover:text-yorkaText whitespace-nowrap cursor-pointer flex items-center gap-2">
-            <i class="fa-regular fa-calendar-check"></i> Configuración de Agenda
+            <i class="fa-regular fa-calendar-days"></i> Calendario de Horarios (Por Días)
         </button>
         <button onclick="switchAdminTab('bloqueos')" data-tab="bloqueos" class="admin-tab-btn px-4 py-3 text-yorkaMuted hover:text-yorkaText whitespace-nowrap cursor-pointer flex items-center gap-2">
-            <i class="fa-solid fa-plane-departure"></i> Bloqueos y Excepciones
+            <i class="fa-solid fa-plane-departure"></i> Bloqueos y Vacaciones
         </button>
     </div>
 
@@ -647,7 +652,7 @@
                     <thead class="text-yorkaMuted border-b border-yorkaBorder uppercase tracking-wider font-semibold font-mono text-[9px]">
                         <tr>
                             <th class="pb-2 w-1/5">Fecha/Hora</th>
-                            <th class="pb-2 w-1/4">Cliente / IG / Idea / Foto</th>
+                            <th class="pb-2 w-1/4">Cliente / IG / Teléfono / Foto</th>
                             <th class="pb-2 w-1/5">Origen / Presupuesto</th>
                             <th class="pb-2 w-1/6">Estado</th>
                             <th class="pb-2 text-right">Opciones</th>
@@ -659,95 +664,75 @@
         </div>
     </div>
 
-    <!-- TAB 2: CONFIGURACIÓN DE AGENDA -->
+    <!-- TAB 2: CALENDARIO DE HORARIOS POR DÍAS (NUEVA ESTRUCTURA EXACTA A LA IMAGEN) -->
     <div id="tab-config" class="admin-tab-panel">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
-            <!-- HORARIO SEMANAL BASE -->
-            <div class="action-card rounded-2xl p-4 md:p-6 space-y-4">
-                <div class="flex items-center justify-between">
-                    <h3 class="font-serif text-base text-yorkaText flex items-center gap-2 font-medium">
-                        Horario Semanal Base
-                    </h3>
-                    <i class="fa-solid fa-layer-group text-yorkaDarkAccent text-sm"></i>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <!-- CALENDARIO LADO IZQUIERDO -->
+            <div class="lg:col-span-7 action-card rounded-2xl p-5 md:p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <button type="button" onclick="adminCalNavigate(-1)" class="w-7 h-7 flex items-center justify-center rounded-full bg-yorkaPanel border border-yorkaBorder text-yorkaMuted hover:text-yorkaText hover:border-yorkaDarkAccent transition cursor-pointer">
+                        <i class="fa-solid fa-chevron-left text-[10px]"></i>
+                    </button>
+                    <h3 id="admin-cal-month-label" class="font-serif text-lg text-yorkaText tracking-wide capitalize"></h3>
+                    <button type="button" onclick="adminCalNavigate(1)" class="w-7 h-7 flex items-center justify-center rounded-full bg-yorkaPanel border border-yorkaBorder text-yorkaMuted hover:text-yorkaText hover:border-yorkaDarkAccent transition cursor-pointer">
+                        <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </button>
                 </div>
-                <p class="text-[11px] text-yorkaMuted leading-relaxed">
-                    Define una plantilla reutilizable y aplícala a todo un mes seleccionado con un solo clic.
-                </p>
-                <div id="template-days-editor-container" class="space-y-2.5"></div>
-                <div class="bg-yorkaPanel p-3 rounded-xl border border-yorkaBorder space-y-2">
-                    <label class="block text-[9px] font-mono text-yorkaMuted uppercase font-semibold">Aplicar plantilla al mes:</label>
-                    <input type="month" id="template-target-month" class="w-full bg-white border border-yorkaBorder rounded-lg px-2.5 py-1.5 text-yorkaText text-xs font-mono focus:outline-none">
-                    <div class="flex gap-2">
-                        <button onclick="saveWeeklyTemplate()" class="flex-1 bg-white hover:bg-yorkaBg text-yorkaText border border-yorkaBorder font-mono text-[11px] font-bold py-2 rounded-xl cursor-pointer transition">
-                            Guardar Plantilla
-                        </button>
-                        <button onclick="applyTemplateToMonth()" class="flex-1 btn-primary-action font-mono text-[11px] font-bold py-2 rounded-xl cursor-pointer transition">
-                            Aplicar al Mes
-                        </button>
-                    </div>
+
+                <p class="text-[11px] text-yorkaMuted text-center mb-4">Haz clic en cualquier día actual o futuro para configurar sus horas disponibles.</p>
+
+                <div class="grid grid-cols-7 gap-1.5 mb-1.5 text-center text-[10px] text-yorkaMuted uppercase tracking-wider font-semibold font-mono">
+                    <span>Lu</span><span>Ma</span><span>Mi</span><span>Ju</span><span>Vi</span><span>Sa</span><span>Do</span>
                 </div>
+                <div id="admin-calendar-grid" class="grid grid-cols-7 gap-1.5"></div>
             </div>
 
-            <!-- HORARIOS SEMANA POR SEMANA -->
-            <div class="action-card rounded-2xl p-4 md:p-6 space-y-4">
-                <div class="flex items-center justify-between">
-                    <h3 class="font-serif text-base text-yorkaText flex items-center gap-2 font-medium">
-                        Horarios Semana por Semana
-                    </h3>
-                    <i class="fa-regular fa-calendar-check text-yorkaDarkAccent text-sm"></i>
-                </div>
-                <p class="text-[11px] text-yorkaMuted leading-relaxed">
-                    Ajusta los bloques de hora de una semana puntual, o clónala hacia el resto del mes.
-                </p>
-                <div class="bg-yorkaPanel p-3 rounded-xl border border-yorkaBorder grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-[9px] font-mono text-yorkaMuted uppercase mb-1 font-semibold">Mes:</label>
-                        <input type="month" id="admin-week-month" onchange="populateWeekSelector(); renderWeeklyScheduleEditor();"
-                               class="w-full bg-white border border-yorkaBorder rounded-lg px-2.5 py-1.5 text-yorkaText text-xs font-mono focus:outline-none">
+            <!-- PANEL DE CONFIGURACIÓN DEL DÍA SELECCIONADO (DERECHA) -->
+            <div class="lg:col-span-5 action-card rounded-2xl p-5 md:p-6 flex flex-col justify-between space-y-6">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between border-b border-yorkaBorder pb-3">
+                        <h3 id="admin-selected-day-title" class="font-serif text-base text-yorkaText font-semibold flex items-center gap-2">
+                            <i class="fa-regular fa-clock text-yorkaDarkAccent"></i>
+                            Horario para el --
+                        </h3>
                     </div>
-                    <div>
-                        <label class="block text-[9px] font-mono text-yorkaMuted uppercase mb-1 font-semibold">Semana:</label>
-                        <select id="admin-week-number" onchange="renderWeeklyScheduleEditor()"
-                                class="w-full bg-white border border-yorkaBorder rounded-lg px-2.5 py-1.5 text-yorkaText text-xs font-mono focus:outline-none cursor-pointer">
-                        </select>
+
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] font-mono uppercase text-yorkaMuted font-bold">ESTADO DEL DÍA</span>
+                        <button type="button" id="btn-admin-toggle-day" onclick="toggleAdminSelectedDayState()" class="px-3 py-1 rounded-full text-xs font-mono font-bold uppercase transition cursor-pointer bg-emerald-100 text-emerald-800 border border-emerald-300">
+                            ACTIVO
+                        </button>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="block text-[10px] font-mono uppercase text-yorkaMuted font-bold">BLOQUES DE HORA</label>
+                        <div id="admin-day-slots-list" class="flex flex-wrap gap-2 min-h-[40px] p-2 bg-yorkaBg border border-yorkaBorder rounded-xl items-center">
+                            <!-- Badges de hora -->
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap gap-2 pt-2">
+                        <button type="button" onclick="openAdminAddSingleSlotModal()" class="flex-1 bg-white border border-yorkaBorder hover:bg-yorkaPanel text-yorkaText font-mono text-xs py-2 px-3 rounded-xl transition font-semibold flex items-center justify-center gap-1.5 cursor-pointer">
+                            <i class="fa-solid fa-plus text-[10px]"></i> Agregar Hora
+                        </button>
+                        <button type="button" onclick="openAdminBulkSlotModal()" class="flex-1 bg-white border border-yorkaBorder hover:bg-yorkaPanel text-yorkaText font-mono text-xs py-2 px-3 rounded-xl transition font-semibold flex items-center justify-center gap-1.5 cursor-pointer">
+                            <i class="fa-solid fa-bolt text-[10px]"></i> Generar Masivo
+                        </button>
                     </div>
                 </div>
-                <div id="weekly-days-editor-container" class="space-y-2.5"></div>
-                <div class="flex gap-2 pt-1">
-                    <button onclick="saveCurrentWeekSchedule()" class="flex-1 btn-primary-action font-mono text-xs font-bold py-3 rounded-xl cursor-pointer transition">
-                        Guardar Semana
-                    </button>
-                    <button onclick="cloneWeekToRestOfMonth()" class="flex-1 bg-white hover:bg-yorkaPanel border border-yorkaBorder font-mono text-xs font-bold py-3 rounded-xl cursor-pointer transition">
-                        Clonar al Mes
+
+                <div class="pt-4 border-t border-yorkaBorder">
+                    <button type="button" onclick="saveAdminSelectedDaySchedule()" class="btn-primary-action w-full font-mono text-xs font-bold py-3 rounded-xl uppercase tracking-wider shadow-md cursor-pointer">
+                        GUARDAR HORARIOS DEL DÍA
                     </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- TAB 3: BLOQUEOS Y EXCEPCIONES -->
+    <!-- TAB 3: BLOQUEOS Y VACACIONES -->
     <div id="tab-bloqueos" class="admin-tab-panel">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
-            <!-- EXCEPCIÓN DE DÍA ESPECÍFICO -->
-            <div class="action-card rounded-2xl p-4 md:p-6 space-y-3">
-                <h3 class="font-serif text-base text-yorkaText flex items-center gap-2">
-                    <i class="fa-solid fa-sliders text-yorkaDarkAccent"></i>
-                    Horario de Día Específico
-                </h3>
-                <p class="text-[11px] text-yorkaMuted leading-relaxed">
-                    Modifica una fecha exacta agregando o quitando bloques sin cambiar la plantilla base.
-                </p>
-                <div class="space-y-3">
-                    <input type="date" id="admin-custom-date" onchange="renderCustomDateEditor()"
-                           class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-3 py-2 text-yorkaText text-xs font-mono focus:outline-none">
-                    <div id="custom-date-editor-container" class="hidden bg-yorkaPanel p-3 rounded-xl border border-yorkaBorder space-y-2"></div>
-                </div>
-                <div class="pt-2 border-t border-yorkaBorder mt-3">
-                    <p class="text-[9px] font-mono text-yorkaMuted uppercase mb-2 font-semibold">Excepciones Guardadas Actualmente</p>
-                    <div id="saved-exceptions-list" class="space-y-1.5 max-h-56 overflow-y-auto"></div>
-                </div>
-            </div>
-
             <!-- BLOQUEO DE VACACIONES -->
             <div class="action-card rounded-2xl p-4 md:p-6 space-y-3">
                 <h3 class="font-serif text-base text-yorkaText flex items-center justify-between">
@@ -784,6 +769,18 @@
                     <div id="blocked-ranges-list" class="space-y-1.5 max-h-56 overflow-y-auto"></div>
                 </div>
             </div>
+
+            <!-- AUDITORÍA DE EXCEPCIONES -->
+            <div class="action-card rounded-2xl p-4 md:p-6 space-y-3">
+                <h3 class="font-serif text-base text-yorkaText flex items-center justify-between">
+                    <span>Historial de Días Personalizados</span>
+                    <i class="fa-solid fa-sliders text-yorkaDarkAccent"></i>
+                </h3>
+                <p class="text-[11px] text-yorkaMuted leading-relaxed">
+                    Lista de fechas individuales con horarios específicos configurados.
+                </p>
+                <div id="saved-exceptions-list" class="space-y-1.5 max-h-64 overflow-y-auto pt-2"></div>
+            </div>
         </div>
     </div>
 </div>
@@ -791,8 +788,8 @@
 <!-- MODALES DE CONTROL -->
 <div id="reset-modal" class="fixed inset-0 bg-black/40 backdrop-blur-xs z-50 hidden flex items-center justify-center p-4">
     <div class="action-card rounded-2xl p-5 max-w-xs w-full text-center">
-        <h3 class="font-serif text-lg text-yorkaText mb-1">Restablecer Semana</h3>
-        <p class="text-[11px] text-yorkaMuted mb-4 font-mono">Se vaciarán los horarios de la semana actual.</p>
+        <h3 class="font-serif text-lg text-yorkaText mb-1">Restablecer Agenda</h3>
+        <p class="text-[11px] text-yorkaMuted mb-4 font-mono">Se borrarán todas las configuraciones de horarios personalizados guardadas.</p>
         <div class="flex gap-2 font-mono text-xs">
             <button onclick="closeResetModal()" class="flex-1 bg-yorkaPanel text-yorkaText py-2 rounded-xl border border-yorkaBorder">Cancelar</button>
             <button onclick="confirmResetSystem()" class="flex-1 btn-primary-action py-2 rounded-xl font-semibold">Restablecer</button>
@@ -811,6 +808,7 @@
     </div>
 </div>
 
+<!-- MODAL GENERADOR MASIVO ADMIN -->
 <div id="bulk-slot-modal" class="fixed inset-0 bg-black/40 backdrop-blur-xs z-[60] hidden flex items-center justify-center p-4">
     <div class="action-card rounded-2xl p-5 max-w-sm w-full">
         <h3 class="font-serif text-lg text-yorkaText mb-1">Generador Masivo de Horarios</h3>
@@ -819,7 +817,7 @@
             <div class="grid grid-cols-2 gap-2">
                 <div>
                     <label class="block text-[9px] text-yorkaMuted uppercase mb-1">Inicio</label>
-                    <input type="time" id="bulk-slot-start" value="11:00" class="w-full bg-yorkaBg border border-yorkaBorder rounded-lg px-2.5 py-1.5 text-yorkaText text-xs">
+                    <input type="time" id="bulk-slot-start" value="10:00" class="w-full bg-yorkaBg border border-yorkaBorder rounded-lg px-2.5 py-1.5 text-yorkaText text-xs">
                 </div>
                 <div>
                     <label class="block text-[9px] text-yorkaMuted uppercase mb-1">Fin</label>
@@ -835,12 +833,6 @@
                     <option value="120">Cada 2 horas</option>
                 </select>
             </div>
-            <div id="bulk-slot-scope-wrap" class="hidden">
-                <label class="flex items-center gap-2 text-[11px] text-yorkaMuted cursor-pointer">
-                    <input type="checkbox" id="bulk-slot-apply-week" class="accent-yorkaDarkAccent">
-                    Aplicar a todos los días activos de esta semana
-                </label>
-            </div>
         </div>
         <div class="flex gap-2 font-mono text-xs mt-4">
             <button onclick="closeBulkSlotModal()" class="flex-1 bg-yorkaPanel text-yorkaText py-2 rounded-xl border border-yorkaBorder">Cancelar</button>
@@ -849,12 +841,13 @@
     </div>
 </div>
 
+<!-- MODAL AGREGAR HORA MANUAL ADMIN -->
 <div id="single-slot-modal" class="fixed inset-0 bg-black/40 backdrop-blur-xs z-[60] hidden flex items-center justify-center p-4">
     <div class="action-card rounded-2xl p-5 max-w-xs w-full">
         <h3 class="font-serif text-lg text-yorkaText mb-1">Agregar Hora Manual</h3>
         <p id="single-slot-target-label" class="text-[11px] text-yorkaMuted mb-3 font-mono"></p>
         <div class="font-mono text-xs">
-            <input type="time" id="single-slot-input" value="15:00" class="w-full bg-yorkaBg border border-yorkaBorder rounded-lg px-3 py-2 text-yorkaText text-xs">
+            <input type="time" id="single-slot-input" value="12:00" class="w-full bg-yorkaBg border border-yorkaBorder rounded-lg px-3 py-2 text-yorkaText text-xs">
         </div>
         <div class="flex gap-2 font-mono text-xs mt-4">
             <button onclick="closeSingleSlotModal()" class="flex-1 bg-yorkaPanel text-yorkaText py-2 rounded-xl border border-yorkaBorder">Cancelar</button>
@@ -872,20 +865,20 @@
     const ADMIN_PASS = "yorka2026";
 
     let config = {
-        weekCustomSchedules: {},
         dateExceptions: {},
         blockedDates: [],
         blockedReasons: {},
-        weeklyBaseTemplate: {},
     };
     let bookings = [];
     let currentUser = JSON.parse(localStorage.getItem('yorka_user_session')) || null;
 
     let selectedClientDate = "";
     let selectedClientSlot = "";
-    let currentEditingWeekState = {};
-    let currentEditingTemplateState = {};
     let clientCalendarViewDate = new Date();
+    let adminCalendarViewDate = new Date();
+    let selectedAdminDate = getLocalDateString(new Date());
+    let selectedAdminDayState = { active: true, slots: [] };
+
     let isLoadingData = false;
     let currentSelectedImageFile = null;
 
@@ -947,7 +940,7 @@
         if (loader) loader.classList.add('ocultar-carga');
     }
 
-    // GESTIÓN DEL MODAL "MIS CITAS" PARA CLIENTES
+    // MODAL MIS CITAS
     function openClientManageModal() {
         const modal = document.getElementById('client-manage-modal');
         const results = document.getElementById('client-bookings-results');
@@ -983,7 +976,8 @@
         const userBookings = bookings.filter(b => {
             const nameMatch = b.clientName && b.clientName.toLowerCase().includes(matchInput);
             const igMatch = b.instagram && b.instagram.toLowerCase().replace('@', '').includes(matchInput);
-            return nameMatch || igMatch;
+            const phoneMatch = b.clientPhone && b.clientPhone.toLowerCase().includes(matchInput);
+            return nameMatch || igMatch || phoneMatch;
         });
 
         if (userBookings.length === 0) {
@@ -994,10 +988,16 @@
         userBookings.forEach(b => {
             const card = document.createElement('div');
             card.className = "bg-yorkaPanel border border-yorkaBorder rounded-xl p-3 flex flex-col sm:flex-row justify-between sm:items-center gap-3";
+            const igRaw = (b.instagram || '').trim().replace(/^@/, '');
+            const igDisplay = igRaw 
+                ? `<a href="https://instagram.com/${igRaw}" target="_blank" rel="noopener noreferrer" class="hover:underline text-yorkaDarkAccent font-semibold">@${igRaw} <i class="fa-brands fa-instagram text-[9px]"></i></a>`
+                : 'Sin Instagram';
+
             card.innerHTML = `
                 <div>
                     <div class="font-mono text-xs font-semibold text-yorkaText">${formatDateReadable(b.date)} a las ${b.time}</div>
-                    <div class="text-[10px] text-yorkaDarkAccent">${b.clientName} (@${b.instagram})</div>
+                    <div class="text-[10px] text-yorkaDarkAccent">${b.clientName} (${igDisplay})</div>
+                    <div class="text-[10px] font-mono text-yorkaMuted"><i class="fa-solid fa-phone text-[9px] text-emerald-600"></i> ${b.clientPhone || 'Sin teléfono'}</div>
                     <div class="text-[9px] text-yorkaMuted truncate max-w-[200px]">${b.notes || 'Sin especificaciones'}</div>
                 </div>
                 <button onclick="cancelClientBooking('${b.id}')" class="bg-red-50 hover:bg-red-100 border border-red-200 text-danger text-[10px] px-3 py-1.5 rounded-lg transition font-mono self-start sm:self-auto cursor-pointer">
@@ -1085,11 +1085,9 @@
             if (settingsRows && settingsRows.length > 0) {
                 const loadedConfig = settingsRows[0].value || {};
                 config = {
-                    weekCustomSchedules: loadedConfig.weekCustomSchedules || {},
                     dateExceptions: loadedConfig.dateExceptions || {},
                     blockedDates: loadedConfig.blockedDates || [],
                     blockedReasons: loadedConfig.blockedReasons || {},
-                    weeklyBaseTemplate: loadedConfig.weeklyBaseTemplate || {},
                 };
             } else {
                 await supabaseClient.from('yorka_settings').upsert({ key: 'main_config', value: config }, { onConflict: 'key' });
@@ -1103,6 +1101,7 @@
                     time: b.time,
                     clientName: b.client_name,
                     instagram: b.client_email ? b.client_email.replace('@ig.com','') : '',
+                    clientPhone: b.client_phone || '',
                     origin: b.origin || 'Chile',
                     budget: b.budget || '$0',
                     notes: b.notes,
@@ -1158,7 +1157,7 @@
                 time: b.time,
                 client_name: b.clientName,
                 client_email: (b.instagram || 'cliente') + '@ig.com',
-                client_phone: '+56900000000',
+                client_phone: b.clientPhone || '+56900000000',
                 origin: b.origin,
                 budget: b.budget,
                 notes: b.notes,
@@ -1281,31 +1280,34 @@
         if (config.dateExceptions && config.dateExceptions[dateStr]) {
             return config.dateExceptions[dateStr];
         }
-        if (config.weekCustomSchedules) {
-            for (let weekKey in config.weekCustomSchedules) {
-                if (config.weekCustomSchedules[weekKey] && config.weekCustomSchedules[weekKey][dateStr]) {
-                    return config.weekCustomSchedules[weekKey][dateStr];
-                }
-            }
-        }
         return { active: false, slots: [] };
     }
 
-    function getWeeklyScheduleForDate(dateStr) {
-        if (config.weekCustomSchedules) {
-            for (let weekKey in config.weekCustomSchedules) {
-                if (config.weekCustomSchedules[weekKey] && config.weekCustomSchedules[weekKey][dateStr]) {
-                    return config.weekCustomSchedules[weekKey][dateStr];
-                }
-            }
-        }
-        return null;
-    }
-
+    // PROBLEMA 1 RESUELTO: Filtrar horas pasadas para el día de hoy
     function getRemainingSlotsForDate(dateStr) {
         const sched = getEffectiveScheduleForDate(dateStr);
         if (sched.blocked || !sched.active || !sched.slots) return [];
-        return [...sched.slots];
+
+        let slots = [...sched.slots];
+        const todayStr = getLocalDateString(new Date());
+
+        if (dateStr === todayStr) {
+            const now = new Date();
+            const currentHour = now.getHours();
+            const currentMin = now.getMinutes();
+
+            slots = slots.filter(slot => {
+                const parts = slot.split(':');
+                if (parts.length !== 2) return true;
+                const slotH = parseInt(parts[0], 10);
+                const slotM = parseInt(parts[1], 10);
+
+                if (slotH > currentHour) return true;
+                if (slotH === currentHour && slotM >= currentMin) return true;
+                return false;
+            });
+        }
+        return slots;
     }
 
     function isDayFullyBookedOrClosed(dateStr) {
@@ -1447,18 +1449,19 @@
     function validateBookingForm() {
         const name = document.getElementById('client-name').value;
         const ig = document.getElementById('client-instagram').value;
+        const phone = document.getElementById('client-phone').value;
         const origin = document.getElementById('client-origin').value;
         const budget = document.getElementById('client-budget').value;
         const submitBtn = document.getElementById('btn-submit-booking');
 
-        if (selectedClientDate && selectedClientSlot && name && ig && origin && budget && !isDayFullyBookedOrClosed(selectedClientDate)) {
+        if (selectedClientDate && selectedClientSlot && name && ig && phone && origin && budget && !isDayFullyBookedOrClosed(selectedClientDate)) {
             submitBtn.disabled = false;
         } else {
             submitBtn.disabled = true;
         }
     }
 
-    ['client-name', 'client-instagram', 'client-origin', 'client-budget'].forEach(id => {
+    ['client-name', 'client-instagram', 'client-phone', 'client-origin', 'client-budget'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.addEventListener('input', validateBookingForm);
     });
@@ -1486,6 +1489,7 @@
             time: selectedClientSlot,
             clientName: document.getElementById('client-name').value,
             instagram: document.getElementById('client-instagram').value,
+            clientPhone: document.getElementById('client-phone').value,
             origin: document.getElementById('client-origin').value,
             budget: document.getElementById('client-budget').value,
             notes: document.getElementById('client-notes').value,
@@ -1545,66 +1549,161 @@
         }
     }
 
+    // =====================================================================
+    // LÓGICA DEL CALENDARIO ADMIN POR DÍAS (MASTER/DETAIL)
+    // =====================================================================
+    function adminCalNavigate(delta) {
+        const next = new Date(adminCalendarViewDate.getFullYear(), adminCalendarViewDate.getMonth() + delta, 1);
+        adminCalendarViewDate = next;
+        renderAdminCalendarGrid();
+    }
+
+    function renderAdminCalendarGrid() {
+        const grid = document.getElementById('admin-calendar-grid');
+        const label = document.getElementById('admin-cal-month-label');
+        if (!grid || !label) return;
+
+        const year = adminCalendarViewDate.getFullYear();
+        const month = adminCalendarViewDate.getMonth();
+        label.innerText = `${MONTH_NAMES_ES[month]} ${year}`;
+
+        const todayStr = getLocalDateString(new Date());
+        const firstOfMonth = new Date(year, month, 1);
+        let leadingBlank = firstOfMonth.getDay() - 1;
+        if (leadingBlank < 0) leadingBlank = 6;
+        const lastDay = new Date(year, month + 1, 0).getDate();
+
+        grid.innerHTML = "";
+
+        for (let i = 0; i < leadingBlank; i++) {
+            const empty = document.createElement('div');
+            empty.className = 'cal-day cal-empty';
+            grid.appendChild(empty);
+        }
+
+        for (let day = 1; day <= lastDay; day++) {
+            const cellDate = new Date(year, month, day);
+            const dateStr = getLocalDateString(cellDate);
+            const isPast = dateStr < todayStr;
+            const info = getDayAvailabilityStatus(dateStr, isPast);
+
+            const cell = document.createElement('div');
+            cell.className = 'cal-day';
+            if (dateStr === todayStr) cell.classList.add('cal-today');
+            if (dateStr === selectedAdminDate) cell.classList.add('cal-selected');
+            if (isPast) cell.classList.add('cal-disabled');
+
+            cell.innerHTML = `<span>${day}</span><span class="cal-dot cal-dot-${info.status}"></span>`;
+            if (!isPast) {
+                cell.onclick = () => selectAdminDate(dateStr);
+            }
+            grid.appendChild(cell);
+        }
+    }
+
+    function selectAdminDate(dateStr) {
+        const todayStr = getLocalDateString(new Date());
+        if (dateStr < todayStr) {
+            showToast("No se pueden configurar horarios para días pasados.", "error");
+            return;
+        }
+        selectedAdminDate = dateStr;
+        const saved = config.dateExceptions[dateStr];
+        selectedAdminDayState = saved ? JSON.parse(JSON.stringify(saved)) : { active: true, slots: [] };
+        renderAdminCalendarGrid();
+        renderAdminSelectedDayPanel();
+    }
+
+    function renderAdminSelectedDayPanel() {
+        const titleEl = document.getElementById('admin-selected-day-title');
+        const btnToggle = document.getElementById('btn-admin-toggle-day');
+        const slotsContainer = document.getElementById('admin-day-slots-list');
+
+        if (!titleEl || !btnToggle || !slotsContainer) return;
+
+        titleEl.innerText = `Horario para el ${formatDateReadable(selectedAdminDate)}`;
+
+        if (selectedAdminDayState.active) {
+            btnToggle.innerText = 'ACTIVO';
+            btnToggle.className = 'px-3 py-1 rounded-full text-xs font-mono font-bold uppercase transition cursor-pointer bg-emerald-100 text-emerald-800 border border-emerald-300';
+        } else {
+            btnToggle.innerText = 'INACTIVO';
+            btnToggle.className = 'px-3 py-1 rounded-full text-xs font-mono font-bold uppercase transition cursor-pointer bg-red-100 text-red-800 border border-red-300';
+        }
+
+        slotsContainer.innerHTML = "";
+        if (!selectedAdminDayState.active) {
+            slotsContainer.innerHTML = `<span class="text-xs text-danger italic">El día está inactivo. No se permitirán reservas.</span>`;
+            return;
+        }
+
+        if (!selectedAdminDayState.slots || selectedAdminDayState.slots.length === 0) {
+            slotsContainer.innerHTML = `<span class="text-xs text-yorkaMuted italic">No hay horas agregadas</span>`;
+            return;
+        }
+
+        selectedAdminDayState.slots.forEach((s, slotIdx) => {
+            const badge = document.createElement('span');
+            badge.className = "inline-flex items-center gap-1.5 bg-white border border-yorkaBorder text-yorkaText text-xs font-mono px-2.5 py-1 rounded-lg shadow-xs";
+            badge.innerHTML = `
+                ${s}
+                <button type="button" onclick="removeAdminSelectedDaySlot(${slotIdx})" class="text-danger hover:text-red-700 ml-1 font-bold cursor-pointer">×</button>
+            `;
+            slotsContainer.appendChild(badge);
+        });
+    }
+
+    function toggleAdminSelectedDayState() {
+        selectedAdminDayState.active = !selectedAdminDayState.active;
+        renderAdminSelectedDayPanel();
+    }
+
+    function removeAdminSelectedDaySlot(idx) {
+        selectedAdminDayState.slots.splice(idx, 1);
+        renderAdminSelectedDayPanel();
+    }
+
+    function openAdminAddSingleSlotModal() {
+        openSingleSlotModal({ type: 'adminDay' }, `Fecha: ${formatDateReadable(selectedAdminDate)}`);
+    }
+
+    function openAdminBulkSlotModal() {
+        openBulkSlotModal({ type: 'adminDay' }, `Fecha: ${formatDateReadable(selectedAdminDate)}`, false);
+    }
+
+    async function saveAdminSelectedDaySchedule() {
+        const todayStr = getLocalDateString(new Date());
+        if (selectedAdminDate < todayStr) {
+            showToast("No se puede guardar un día pasado.", "error");
+            return;
+        }
+
+        if (!config.dateExceptions) config.dateExceptions = {};
+        config.dateExceptions[selectedAdminDate] = JSON.parse(JSON.stringify(selectedAdminDayState));
+
+        const saved = await saveState();
+        if (saved) {
+            renderAdminCalendarGrid();
+            renderSavedExceptionsList();
+            showToast(`Horarios del ${formatDateReadable(selectedAdminDate)} guardados con éxito.`, "success");
+        }
+    }
+
     function renderAdminDashboard() {
-        populateWeekSelector();
-        renderWeeklyScheduleEditor();
-        renderTemplateEditor();
-        renderCustomDateEditor();
+        adminCalendarViewDate = new Date();
+        adminCalendarViewDate.setDate(1);
+        const todayStr = getLocalDateString(new Date());
+        if (!selectedAdminDate || selectedAdminDate < todayStr) {
+            selectedAdminDate = todayStr;
+        }
+        const saved = config.dateExceptions[selectedAdminDate];
+        selectedAdminDayState = saved ? JSON.parse(JSON.stringify(saved)) : { active: true, slots: [] };
+
+        renderAdminCalendarGrid();
+        renderAdminSelectedDayPanel();
         renderBlockedRangesList();
         renderSavedExceptionsList();
         renderAdminBookingsTable();
-    }
-
-    function getDatesForWeek(yearMonth, weekNum) {
-        if (!yearMonth) return [];
-        const [year, month] = yearMonth.split('-').map(Number);
-        let firstDay = new Date(year, month - 1, 1);
-        let firstMonday = new Date(firstDay);
-        let dayOfWeek = firstMonday.getDay();
-        let diffToMonday = (dayOfWeek === 0 ? -6 : 1 - dayOfWeek);
-        firstMonday.setDate(firstMonday.getDate() + diffToMonday);
-
-        let weekStart = new Date(firstMonday);
-        weekStart.setDate(weekStart.getDate() + (weekNum - 1) * 7);
-
-        let weekDates = [];
-        for (let i = 0; i < 7; i++) {
-            let d = new Date(weekStart);
-            d.setDate(d.getDate() + i);
-            let yyyy = d.getFullYear();
-            let mm = String(d.getMonth() + 1).padStart(2, '0');
-            let dd = String(d.getDate()).padStart(2, '0');
-            weekDates.push({ dateStr: `${yyyy}-${mm}-${dd}`, dayNumber: d.getDate(), dayOfWeek: d.getDay() });
-        }
-        return weekDates;
-    }
-
-    function populateWeekSelector() {
-        const monthInput = document.getElementById('admin-week-month');
-        const weekSelect = document.getElementById('admin-week-number');
-        if (!monthInput || !weekSelect) return;
-        const monthVal = monthInput.value;
-        if (!monthVal) return;
-
-        const previousVal = weekSelect.value || "1";
-        weekSelect.innerHTML = "";
-        const MONTH_SHORT = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
-
-        for (let w = 1; w <= 5; w++) {
-            const weekDates = getDatesForWeek(monthVal, w);
-            if (weekDates.length === 7) {
-                const startDate = new Date(weekDates[0].dateStr + 'T00:00:00');
-                const endDate = new Date(weekDates[6].dateStr + 'T00:00:00');
-                const startFormatted = `${startDate.getDate()} ${MONTH_SHORT[startDate.getMonth()]}`;
-                const endFormatted = `${endDate.getDate()} ${MONTH_SHORT[endDate.getMonth()]}`;
-
-                const opt = document.createElement('option');
-                opt.value = w;
-                opt.innerText = `Del ${startFormatted} al ${endFormatted}`;
-                if (String(w) === previousVal) opt.selected = true;
-                weekSelect.appendChild(opt);
-            }
-        }
     }
 
     function generateTimeSlots(start, end, intervalMinutes) {
@@ -1629,7 +1728,6 @@
         bulkSlotTarget = target;
         document.getElementById('bulk-slot-target-label').innerText = label;
         document.getElementById('bulk-slot-scope-wrap').classList.toggle('hidden', !showWeekScope);
-        document.getElementById('bulk-slot-apply-week').checked = false;
         document.getElementById('bulk-slot-modal').classList.remove('hidden');
         document.getElementById('bulk-slot-modal').classList.add('flex');
     }
@@ -1638,6 +1736,22 @@
         document.getElementById('bulk-slot-modal').classList.remove('flex');
         document.getElementById('bulk-slot-modal').classList.add('hidden');
         bulkSlotTarget = null;
+    }
+
+    // PROBLEMA 1 RESUELTO: Validación de tiempo real al agregar o generar masivo para HOY
+    function isValidSlotForTargetDate(dateStr, slotTime) {
+        const todayStr = getLocalDateString(new Date());
+        if (dateStr === todayStr) {
+            const now = new Date();
+            const parts = slotTime.split(':');
+            if (parts.length !== 2) return true;
+            const h = parseInt(parts[0], 10);
+            const m = parseInt(parts[1], 10);
+            if (h < now.getHours() || (h === now.getHours() && m < now.getMinutes())) {
+                return false;
+            }
+        }
+        return true;
     }
 
     async function confirmBulkSlotGeneration() {
@@ -1649,47 +1763,26 @@
             return;
         }
 
-        const generated = generateTimeSlots(start, end, interval);
+        let generated = generateTimeSlots(start, end, interval);
         if (!bulkSlotTarget) { closeBulkSlotModal(); return; }
 
-        const applyToWholeWeek = !document.getElementById('bulk-slot-scope-wrap').classList.contains('hidden')
-            && document.getElementById('bulk-slot-apply-week').checked;
-
-        if (bulkSlotTarget.type === 'week') {
-            if (applyToWholeWeek) {
-                Object.keys(currentEditingWeekState).forEach(dateStr => {
-                    if (currentEditingWeekState[dateStr].active) mergeSlotsInto(currentEditingWeekState[dateStr], generated);
-                });
-            } else {
-                const day = currentEditingWeekState[bulkSlotTarget.dateStr];
-                day.active = true;
-                mergeSlotsInto(day, generated);
+        if (bulkSlotTarget.type === 'adminDay') {
+            const validGenerated = generated.filter(slot => isValidSlotForTargetDate(selectedAdminDate, slot));
+            if (validGenerated.length < generated.length) {
+                showToast("Se descartaron horas que ya transcurrieron hoy.", "info");
             }
-            renderWeeklyScheduleEditorFromMemory();
-        } else if (bulkSlotTarget.type === 'template') {
-            if (applyToWholeWeek) {
-                Object.keys(currentEditingTemplateState).forEach(dow => {
-                    if (currentEditingTemplateState[dow].active) mergeSlotsInto(currentEditingTemplateState[dow], generated);
-                });
-            } else {
-                const dayTpl = currentEditingTemplateState[bulkSlotTarget.dow];
-                dayTpl.active = true;
-                mergeSlotsInto(dayTpl, generated);
+            if (validGenerated.length === 0) {
+                showToast("No se agregaron horas porque todas ya transcurrieron.", "error");
+                closeBulkSlotModal();
+                return;
             }
-            renderTemplateEditorFromMemory();
-        } else if (bulkSlotTarget.type === 'exception') {
-            const dateStr = bulkSlotTarget.dateStr;
-            if (!config.dateExceptions[dateStr]) config.dateExceptions[dateStr] = { active: true, slots: [], note: "", noteVisible: false };
-            config.dateExceptions[dateStr].active = true;
-            mergeSlotsInto(config.dateExceptions[dateStr], generated);
-            await saveState();
-            renderCustomDateEditor();
-            renderSavedExceptionsList();
-            renderAllViews();
+            selectedAdminDayState.active = true;
+            mergeSlotsInto(selectedAdminDayState, validGenerated);
+            renderAdminSelectedDayPanel();
         }
 
         closeBulkSlotModal();
-        showToast(`${generated.length} horarios generados.`, "success");
+        showToast("Bloques de hora generados correctamente.", "success");
     }
 
     function openSingleSlotModal(target, label) {
@@ -1710,26 +1803,14 @@
         if (!timeVal) return;
         if (!singleSlotTarget) { closeSingleSlotModal(); return; }
 
-        const generated = [timeVal];
-        if (singleSlotTarget.type === 'week') {
-            const day = currentEditingWeekState[singleSlotTarget.dateStr];
-            day.active = true;
-            mergeSlotsInto(day, generated);
-            renderWeeklyScheduleEditorFromMemory();
-        } else if (singleSlotTarget.type === 'template') {
-            const dayTpl = currentEditingTemplateState[singleSlotTarget.dow];
-            dayTpl.active = true;
-            mergeSlotsInto(dayTpl, generated);
-            renderTemplateEditorFromMemory();
-        } else if (singleSlotTarget.type === 'exception') {
-            const dateStr = singleSlotTarget.dateStr;
-            if (!config.dateExceptions[dateStr]) config.dateExceptions[dateStr] = { active: true, slots: [], note: "", noteVisible: false };
-            config.dateExceptions[dateStr].active = true;
-            mergeSlotsInto(config.dateExceptions[dateStr], generated);
-            await saveState();
-            renderCustomDateEditor();
-            renderSavedExceptionsList();
-            renderAllViews();
+        if (singleSlotTarget.type === 'adminDay') {
+            if (!isValidSlotForTargetDate(selectedAdminDate, timeVal)) {
+                showToast("No puedes agregar una hora que ya transcurrió hoy.", "error");
+                return;
+            }
+            selectedAdminDayState.active = true;
+            mergeSlotsInto(selectedAdminDayState, [timeVal]);
+            renderAdminSelectedDayPanel();
         }
 
         closeSingleSlotModal();
@@ -1742,367 +1823,7 @@
         dayObj.slots.sort();
     }
 
-    function renderWeeklyScheduleEditor() {
-        const container = document.getElementById('weekly-days-editor-container');
-        const monthVal = document.getElementById('admin-week-month').value;
-        const weekSelect = document.getElementById('admin-week-number');
-        const weekVal = (weekSelect && weekSelect.value) ? parseInt(weekSelect.value) : 1;
-
-        if (!container || !monthVal) return;
-        const weekKey = `${monthVal}-W${weekVal}`;
-        if (!config.weekCustomSchedules) config.weekCustomSchedules = {};
-
-        let savedWeekData = config.weekCustomSchedules[weekKey] || {};
-        currentEditingWeekState = JSON.parse(JSON.stringify(savedWeekData));
-
-        const weekDates = getDatesForWeek(monthVal, weekVal);
-        weekDates.forEach((dayInfo) => {
-            if (!currentEditingWeekState[dayInfo.dateStr]) {
-                currentEditingWeekState[dayInfo.dateStr] = { active: false, slots: [] };
-            }
-        });
-        renderWeeklyScheduleEditorFromMemory();
-    }
-
-    function renderWeeklyScheduleEditorFromMemory() {
-        const container = document.getElementById('weekly-days-editor-container');
-        const monthVal = document.getElementById('admin-week-month').value;
-        const weekSelect = document.getElementById('admin-week-number');
-        const weekVal = (weekSelect && weekSelect.value) ? parseInt(weekSelect.value) : 1;
-
-        if (!container) return;
-        container.innerHTML = "";
-        const weekDates = getDatesForWeek(monthVal, weekVal);
-
-        weekDates.forEach((dayInfo) => {
-            const { dateStr, dayNumber, dayOfWeek } = dayInfo;
-            const dayState = currentEditingWeekState[dateStr] || { active: false, slots: [] };
-            const dayName = getDayName(dayOfWeek);
-
-            const isBlockedDate = config.blockedDates && config.blockedDates.includes(dateStr);
-            const hasException = config.dateExceptions && !!config.dateExceptions[dateStr];
-            const hasOverride = isBlockedDate || hasException;
-            const overrideTitle = isBlockedDate
-                ? 'Esta fecha está bloqueada (vacaciones/viaje) y anulará este horario.'
-                : 'Esta fecha tiene una excepción guardada que anulará este horario.';
-
-            const card = document.createElement('div');
-            card.className = "bg-yorkaBg border border-yorkaBorder rounded-xl p-3 space-y-2";
-
-            let slotsBadges = (dayState.slots || []).map((s, slotIdx) => `
-                <span class="inline-flex items-center gap-1 bg-white border border-yorkaBorder text-yorkaText text-[10px] font-mono px-2 py-0.5 rounded">
-                    ${s}
-                    <button onclick="removeSlotFromEditingWeek('${dateStr}', ${slotIdx})" class="text-danger ml-1 cursor-pointer font-bold">×</button>
-                </span>
-            `).join('');
-
-            card.innerHTML = `
-                <div class="flex items-center justify-between flex-wrap gap-2">
-                    <span class="font-medium text-xs text-yorkaText flex items-center gap-1.5">
-                        ${dayName} ${dayNumber}
-                        ${hasOverride ? `<span class="text-danger text-[11px]" title="${overrideTitle}">⚠️</span>` : ''}
-                    </span>
-                    <div class="flex items-center gap-1 font-mono">
-                        <button onclick="openSingleSlotModal({type:'week', dateStr:'${dateStr}'}, '${dayName} ${dayNumber}')" ${!dayState.active ? 'disabled' : ''} class="text-[10px] bg-white border border-yorkaBorder text-yorkaText px-2 py-1 rounded hover:bg-yorkaPanel disabled:opacity-30 cursor-pointer">
-                            + Hora
-                        </button>
-                        <button onclick="openBulkSlotModal({type:'week', dateStr:'${dateStr}'}, '${dayName} ${dayNumber}', true)" ${!dayState.active ? 'disabled' : ''} class="text-[10px] bg-white border border-yorkaBorder text-yorkaText px-2 py-1 rounded hover:bg-yorkaPanel disabled:opacity-30 cursor-pointer">
-                            Masivo
-                        </button>
-                        <button onclick="toggleActiveEditingWeek('${dateStr}')" class="px-2.5 py-1 rounded text-[10px] font-bold uppercase cursor-pointer ${dayState.active ? 'bg-yorkaDarkAccent text-white' : 'bg-yorkaPanel text-yorkaMuted'}">
-                            ${dayState.active ? 'ACTIVO' : 'INACTIVO'}
-                        </button>
-                    </div>
-                </div>
-                ${hasOverride ? `<div class="text-[9px] text-danger italic">⚠️ ${overrideTitle}</div>` : ''}
-                ${dayState.active ? `<div class="flex flex-wrap gap-1.5 pt-0.5">${slotsBadges || '<span class="text-[9px] text-yorkaMuted italic">Sin horarios</span>'}</div>` : ''}
-            `;
-            container.appendChild(card);
-        });
-    }
-
-    function toggleActiveEditingWeek(dateStr) {
-        if (currentEditingWeekState[dateStr]) {
-            currentEditingWeekState[dateStr].active = !currentEditingWeekState[dateStr].active;
-            renderWeeklyScheduleEditorFromMemory();
-        }
-    }
-
-    function removeSlotFromEditingWeek(dateStr, slotIdx) {
-        if (currentEditingWeekState[dateStr]) {
-            currentEditingWeekState[dateStr].slots.splice(slotIdx, 1);
-            renderWeeklyScheduleEditorFromMemory();
-        }
-    }
-
-    async function saveCurrentWeekSchedule() {
-        const monthVal = document.getElementById('admin-week-month').value;
-        const weekSelect = document.getElementById('admin-week-number');
-        const weekVal = (weekSelect && weekSelect.value) ? parseInt(weekSelect.value) : 1;
-        if (!monthVal) return;
-
-        const weekKey = `${monthVal}-W${weekVal}`;
-        if (!config.weekCustomSchedules) config.weekCustomSchedules = {};
-        config.weekCustomSchedules[weekKey] = JSON.parse(JSON.stringify(currentEditingWeekState));
-        const saved = await saveState();
-        if (saved) renderAllViews();
-    }
-
-    function buildDayOfWeekMapFromWeek(weekDates, weekState) {
-        const map = {};
-        weekDates.forEach(d => {
-            const dayData = weekState[d.dateStr] || { active: false, slots: [] };
-            map[d.dayOfWeek] = { active: dayData.active, slots: [...(dayData.slots || [])] };
-        });
-        return map;
-    }
-
-    function applyDayOfWeekMapToMonth(monthVal, dowMap, skipWeek = null) {
-        if (!config.weekCustomSchedules) config.weekCustomSchedules = {};
-        for (let weekNum = 1; weekNum <= 5; weekNum++) {
-            if (skipWeek !== null && weekNum === skipWeek) continue;
-            const weekKey = `${monthVal}-W${weekNum}`;
-            const weekDates = getDatesForWeek(monthVal, weekNum);
-            const relevantDates = weekDates.filter(d => d.dateStr.startsWith(monthVal));
-            if (relevantDates.length === 0) continue;
-
-            if (!config.weekCustomSchedules[weekKey]) config.weekCustomSchedules[weekKey] = {};
-            relevantDates.forEach(d => {
-                const tpl = dowMap[d.dayOfWeek] || { active: false, slots: [] };
-                config.weekCustomSchedules[weekKey][d.dateStr] = { active: tpl.active, slots: [...(tpl.slots || [])] };
-            });
-        }
-    }
-
-    function cloneWeekToRestOfMonth() {
-        const monthVal = document.getElementById('admin-week-month').value;
-        const weekSelect = document.getElementById('admin-week-number');
-        const weekVal = (weekSelect && weekSelect.value) ? parseInt(weekSelect.value) : 1;
-        if (!monthVal) return;
-
-        showConfirm(`Se copiará el patrón de la semana ${weekVal} hacia el resto del mes ${monthVal}. ¿Continuar?`, async () => {
-            const weekDates = getDatesForWeek(monthVal, weekVal);
-            const dowMap = buildDayOfWeekMapFromWeek(weekDates, currentEditingWeekState);
-            applyDayOfWeekMapToMonth(monthVal, dowMap, weekVal);
-            await saveState();
-            renderWeeklyScheduleEditor();
-            renderAllViews();
-            showToast("Semana clonada hacia el resto del mes.", "success");
-        });
-    }
-
-    const TEMPLATE_DOW_ORDER = [1, 2, 3, 4, 5, 6, 0];
-
-    function renderTemplateEditor() {
-        if (!config.weeklyBaseTemplate) config.weeklyBaseTemplate = {};
-        currentEditingTemplateState = JSON.parse(JSON.stringify(config.weeklyBaseTemplate));
-        TEMPLATE_DOW_ORDER.forEach(dow => {
-            if (!currentEditingTemplateState[dow]) currentEditingTemplateState[dow] = { active: false, slots: [] };
-        });
-        renderTemplateEditorFromMemory();
-    }
-
-    function renderTemplateEditorFromMemory() {
-        const container = document.getElementById('template-days-editor-container');
-        if (!container) return;
-        container.innerHTML = "";
-
-        TEMPLATE_DOW_ORDER.forEach(dow => {
-            const dayState = currentEditingTemplateState[dow] || { active: false, slots: [] };
-            const dayName = getDayName(dow);
-
-            const card = document.createElement('div');
-            card.className = "bg-yorkaBg border border-yorkaBorder rounded-xl p-3 space-y-2";
-
-            let slotsBadges = (dayState.slots || []).map((s, slotIdx) => `
-                <span class="inline-flex items-center gap-1 bg-white border border-yorkaBorder text-yorkaText text-[10px] font-mono px-2 py-0.5 rounded">
-                    ${s}
-                    <button onclick="removeSlotFromTemplateDay(${dow}, ${slotIdx})" class="text-danger ml-1 font-bold">×</button>
-                </span>
-            `).join('');
-
-            card.innerHTML = `
-                <div class="flex items-center justify-between flex-wrap gap-2">
-                    <span class="font-medium text-xs text-yorkaText">${dayName}</span>
-                    <div class="flex items-center gap-1 font-mono">
-                        <button onclick="openSingleSlotModal({type:'template', dow:${dow}}, 'Plantilla: ${dayName}')" ${!dayState.active ? 'disabled' : ''} class="text-[10px] bg-white border border-yorkaBorder text-yorkaText px-2 py-1 rounded hover:bg-yorkaPanel disabled:opacity-30 cursor-pointer">
-                            + Hora
-                        </button>
-                        <button onclick="openBulkSlotModal({type:'template', dow:${dow}}, 'Plantilla: ${dayName}', true)" ${!dayState.active ? 'disabled' : ''} class="text-[10px] bg-white border border-yorkaBorder text-yorkaText px-2 py-1 rounded hover:bg-yorkaPanel disabled:opacity-30 cursor-pointer">
-                            Masivo
-                        </button>
-                        <button onclick="toggleTemplateDayActive(${dow})" class="px-2.5 py-1 rounded text-[10px] font-bold uppercase cursor-pointer ${dayState.active ? 'bg-yorkaDarkAccent text-white' : 'bg-yorkaPanel text-yorkaMuted'}">
-                            ${dayState.active ? 'ACTIVO' : 'INACTIVO'}
-                        </button>
-                    </div>
-                </div>
-                ${dayState.active ? `<div class="flex flex-wrap gap-1.5 pt-0.5">${slotsBadges || '<span class="text-[9px] text-yorkaMuted italic">Sin horarios</span>'}</div>` : ''}
-            `;
-            container.appendChild(card);
-        });
-    }
-
-    function toggleTemplateDayActive(dow) {
-        if (currentEditingTemplateState[dow]) {
-            currentEditingTemplateState[dow].active = !currentEditingTemplateState[dow].active;
-            renderTemplateEditorFromMemory();
-        }
-    }
-
-    function removeSlotFromTemplateDay(dow, slotIdx) {
-        if (currentEditingTemplateState[dow]) {
-            currentEditingTemplateState[dow].slots.splice(slotIdx, 1);
-            renderTemplateEditorFromMemory();
-        }
-    }
-
-    async function saveWeeklyTemplate() {
-        config.weeklyBaseTemplate = JSON.parse(JSON.stringify(currentEditingTemplateState));
-        await saveState();
-    }
-
-    function applyTemplateToMonth() {
-        const monthVal = document.getElementById('template-target-month').value;
-        if (!monthVal) {
-            showToast("Selecciona un mes.", "error");
-            return;
-        }
-        showConfirm(`Se aplicará la plantilla base a todo el mes ${monthVal}. ¿Continuar?`, async () => {
-            config.weeklyBaseTemplate = JSON.parse(JSON.stringify(currentEditingTemplateState));
-            applyDayOfWeekMapToMonth(monthVal, config.weeklyBaseTemplate);
-            await saveState();
-            renderWeeklyScheduleEditor();
-            renderAllViews();
-        });
-    }
-
-    function renderCustomDateEditor() {
-        const dateInput = document.getElementById('admin-custom-date');
-        const container = document.getElementById('custom-date-editor-container');
-        if (!dateInput || !container) return;
-
-        const dateStr = dateInput.value;
-        if (!dateStr) {
-            container.classList.add('hidden');
-            return;
-        }
-
-        container.classList.remove('hidden');
-
-        const isBlocked = config.blockedDates && config.blockedDates.includes(dateStr);
-        const savedException = (config.dateExceptions && config.dateExceptions[dateStr]) || null;
-        const weeklySchedule = getWeeklyScheduleForDate(dateStr);
-
-        // OJO: esto es solo una vista previa en memoria. NO se escribe en `config`
-        // hasta que el usuario ejecute una acción explícita (agregar hora, activar/
-        // desactivar, o escribir una nota) — cada una de esas funciones crea la
-        // excepción en `config.dateExceptions` por sí misma si aún no existe.
-        const dateData = savedException || { active: true, slots: [], note: "", noteVisible: false };
-
-        let warningHtml = "";
-        if (isBlocked) {
-            const reason = config.blockedReasons ? config.blockedReasons[dateStr] : "";
-            warningHtml = `
-                <div class="bg-red-50 border border-red-200 text-danger text-[10px] rounded-lg px-3 py-2 leading-relaxed">
-                    <strong>⚠️ Este día está bloqueado</strong> (vacaciones/viaje)${reason ? `: ${reason}` : ''}.
-                    El bloqueo manda por sobre cualquier excepción u horario semanal configurado — el día se mostrará como cerrado a los clientes.
-                </div>
-            `;
-        } else if (savedException) {
-            const weeklyNote = (weeklySchedule && weeklySchedule.active)
-                ? `El horario semanal de este día (${(weeklySchedule.slots || []).length} horario(s) configurados) está siendo ignorado mientras esta excepción exista.`
-                : `De todas formas, este día no tenía horario semanal configurado.`;
-            warningHtml = `
-                <div class="bg-yorkaPanel border border-yorkaBorder text-yorkaDarkAccent text-[10px] rounded-lg px-3 py-2 leading-relaxed">
-                    <strong>⚠️ Esta fecha tiene una excepción guardada.</strong> La excepción manda por sobre el horario semanal. ${weeklyNote}
-                </div>
-            `;
-        }
-
-        let slotsBadges = (dateData.slots || []).map((s, idx) => `
-            <span class="inline-flex items-center gap-1 bg-white border border-yorkaBorder text-yorkaText text-[10px] font-mono px-2 py-0.5 rounded">
-                ${s}
-                <button onclick="removeSlotFromCustomDate('${dateStr}', ${idx})" class="text-danger ml-1 font-bold">×</button>
-            </span>
-        `).join('');
-
-        container.innerHTML = `
-            ${warningHtml}
-            <div class="flex items-center justify-between pb-1 border-b border-yorkaBorder flex-wrap gap-2">
-                <span class="font-semibold text-xs text-yorkaText font-mono">${formatDateReadable(dateStr)}</span>
-                <div class="flex gap-1 font-mono">
-                    <button onclick="openSingleSlotModal({type:'exception', dateStr:'${dateStr}'}, '${formatDateReadable(dateStr)}')" ${!dateData.active ? 'disabled' : ''} class="text-[10px] bg-white border border-yorkaBorder text-yorkaText px-2 py-0.5 rounded">
-                        + Hora
-                    </button>
-                    <button onclick="openBulkSlotModal({type:'exception', dateStr:'${dateStr}'}, '${formatDateReadable(dateStr)}', false)" ${!dateData.active ? 'disabled' : ''} class="text-[10px] bg-white border border-yorkaBorder text-yorkaText px-2 py-0.5 rounded">
-                        Masivo
-                    </button>
-                    <button onclick="toggleCustomDateActive('${dateStr}')" class="px-2 py-0.5 rounded text-[10px] font-bold uppercase ${dateData.active ? 'bg-yorkaDarkAccent text-white' : 'bg-yorkaPanel text-yorkaMuted'}">
-                        ${dateData.active ? 'Activo' : 'Inactivo'}
-                    </button>
-                </div>
-            </div>
-            <div class="flex flex-wrap gap-1 py-1">
-                ${dateData.active ? (slotsBadges || '<span class="text-[10px] text-yorkaMuted italic">Sin horas</span>') : '<span class="text-[10px] text-danger italic">Día inactivo</span>'}
-            </div>
-            <div class="pt-1 space-y-1.5 border-t border-yorkaBorder">
-                <label class="block text-[9px] text-yorkaMuted uppercase font-semibold">Nota opcional</label>
-                <textarea rows="2" placeholder="Ej: Horario especial por feriado" onchange="updateCustomDateNote('${dateStr}', this.value)"
-                          class="w-full bg-white border border-yorkaBorder rounded-lg px-2.5 py-1 text-yorkaText text-[11px] focus:outline-none">${dateData.note || ''}</textarea>
-                <label class="flex items-center gap-2 text-[10px] text-yorkaMuted cursor-pointer">
-                    <input type="checkbox" ${dateData.noteVisible ? 'checked' : ''} onchange="toggleCustomDateNoteVisible('${dateStr}', this.checked)" class="accent-yorkaDarkAccent">
-                    Mostrar nota a clientes
-                </label>
-            </div>
-            ${savedException ? `
-            <button onclick="removeCustomDateException('${dateStr}')" class="text-[10px] text-yorkaMuted hover:text-danger underline pt-1 font-mono cursor-pointer">
-                Limpiar este día
-            </button>` : `<p class="text-[9px] text-yorkaMuted italic pt-1">Aún no se ha guardado ninguna excepción para este día. Se creará automáticamente al agregar una hora, activar/desactivar el día, o escribir una nota.</p>`}
-        `;
-    }
-
-    async function toggleCustomDateActive(dateStr) {
-        if (!config.dateExceptions[dateStr]) config.dateExceptions[dateStr] = { active: true, slots: [], note: "", noteVisible: false };
-        config.dateExceptions[dateStr].active = !config.dateExceptions[dateStr].active;
-        await saveState();
-        renderCustomDateEditor();
-        renderSavedExceptionsList();
-        renderAllViews();
-    }
-
-    async function removeSlotFromCustomDate(dateStr, slotIdx) {
-        if (config.dateExceptions[dateStr]) {
-            config.dateExceptions[dateStr].slots.splice(slotIdx, 1);
-            await saveState();
-            renderCustomDateEditor();
-            renderSavedExceptionsList();
-            renderAllViews();
-        }
-    }
-
-    async function updateCustomDateNote(dateStr, value) {
-        if (!config.dateExceptions[dateStr]) config.dateExceptions[dateStr] = { active: true, slots: [], note: "", noteVisible: false };
-        config.dateExceptions[dateStr].note = value;
-        await saveState();
-        renderSavedExceptionsList();
-    }
-
-    async function toggleCustomDateNoteVisible(dateStr, checked) {
-        if (!config.dateExceptions[dateStr]) config.dateExceptions[dateStr] = { active: true, slots: [], note: "", noteVisible: false };
-        config.dateExceptions[dateStr].noteVisible = checked;
-        await saveState();
-        renderClientSlots();
-    }
-
-    async function removeCustomDateException(dateStr) {
-        if (config.dateExceptions && config.dateExceptions[dateStr]) {
-            delete config.dateExceptions[dateStr];
-            await saveState();
-            renderCustomDateEditor();
-            renderSavedExceptionsList();
-            renderAllViews();
-        }
-    }
+    function renderCustomDateEditor() {}
 
     function renderSavedExceptionsList() {
         const container = document.getElementById('saved-exceptions-list');
@@ -2111,7 +1832,7 @@
         const dates = Object.keys(exceptions).sort();
 
         if (dates.length === 0) {
-            container.innerHTML = `<p class="text-[10px] text-yorkaMuted italic py-1">No hay excepciones guardadas.</p>`;
+            container.innerHTML = `<p class="text-[10px] text-yorkaMuted italic py-1">No hay fechas personalizadas guardadas.</p>`;
             return;
         }
 
@@ -2125,12 +1846,12 @@
                     <div class="min-w-0">
                         <div class="text-[11px] text-yorkaText font-mono flex items-center gap-1.5">
                             ${formatDateReadable(dateStr)}
-                            ${isBlocked ? '<span class="text-danger" title="También está bloqueada por vacaciones">⚠️</span>' : ''}
+                            ${isBlocked ? '<span class="text-danger" title="Bloqueada por vacaciones">⚠️</span>' : ''}
                         </div>
-                        <div class="text-[9px] text-yorkaMuted truncate max-w-[220px]">${statusLabel}${exc.note ? ' · ' + exc.note : ''}</div>
+                        <div class="text-[9px] text-yorkaMuted truncate max-w-[220px]">${statusLabel}</div>
                     </div>
                     <div class="flex items-center gap-1 shrink-0">
-                        <button onclick="editSavedException('${dateStr}')" title="Editar" class="bg-white hover:bg-yorkaPanel text-yorkaText border border-yorkaBorder w-5 h-5 rounded flex items-center justify-center cursor-pointer">
+                        <button onclick="selectAdminDate('${dateStr}')" title="Editar" class="bg-white hover:bg-yorkaPanel text-yorkaText border border-yorkaBorder w-5 h-5 rounded flex items-center justify-center cursor-pointer">
                             <i class="fa-solid fa-pen text-[9px]"></i>
                         </button>
                         <button onclick="deleteSavedException('${dateStr}')" title="Eliminar" class="text-danger border border-red-200 bg-red-50 w-5 h-5 rounded flex items-center justify-center cursor-pointer">
@@ -2142,21 +1863,11 @@
         }).join('');
     }
 
-    function editSavedException(dateStr) {
-        const dateInput = document.getElementById('admin-custom-date');
-        if (dateInput) {
-            dateInput.value = dateStr;
-            renderCustomDateEditor();
-            dateInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-    }
-
     function deleteSavedException(dateStr) {
-        showConfirm(`¿Eliminar la excepción guardada del ${formatDateReadable(dateStr)}?`, async () => {
+        showConfirm(`¿Eliminar los horarios personalizados del ${formatDateReadable(dateStr)}?`, async () => {
             if (config.dateExceptions && config.dateExceptions[dateStr]) {
                 delete config.dateExceptions[dateStr];
                 await saveState();
-                renderCustomDateEditor();
                 renderSavedExceptionsList();
                 renderAllViews();
             }
@@ -2287,18 +1998,10 @@
     }
 
     async function confirmResetSystem() {
-        const monthVal = document.getElementById('admin-week-month').value;
-        const weekSelect = document.getElementById('admin-week-number');
-        const weekVal = (weekSelect && weekSelect.value) ? parseInt(weekSelect.value) : 1;
-        if (monthVal && config.weekCustomSchedules) {
-            const weekKey = `${monthVal}-W${weekVal}`;
-            delete config.weekCustomSchedules[weekKey];
-            await saveState();
-            renderWeeklyScheduleEditor();
-            renderAllViews();
-        }
+        config.dateExceptions = {};
+        await saveState();
         closeResetModal();
-        showToast("Semana restablecida.", "success");
+        showToast("Agenda restablecida.", "success");
     }
 
     function deleteBooking(id) {
@@ -2313,7 +2016,7 @@
 
     function getGoogleCalendarUrl(b) {
         const title = encodeURIComponent(`Cita Tatuaje: ${b.clientName} (@${b.instagram})`);
-        const details = encodeURIComponent(`Idea: ${b.notes || 'Sin detalles'}\nPresupuesto: ${b.budget}\nOrigen: ${b.origin}`);
+        const details = encodeURIComponent(`Idea: ${b.notes || 'Sin detalles'}\nTeléfono: ${b.clientPhone || 'Sin teléfono'}\nPresupuesto: ${b.budget}\nOrigen: ${b.origin}`);
         const location = encodeURIComponent("Concepción, Chile");
 
         const fechaLimpia = b.date.replace(/-/g, '');
@@ -2328,6 +2031,7 @@
         renderAdminBookingsTable();
     }
 
+    // PROBLEMA 2 RESUELTO: Instagram clicable + teléfono de WhatsApp directo
     function renderAdminBookingsTable() {
         const tbody = document.getElementById('admin-bookings-table');
         const counter = document.getElementById('booking-counter');
@@ -2365,6 +2069,20 @@
                 </button>
             ` : '';
 
+            const igRaw = (b.instagram || '').trim().replace(/^@/, '');
+            const igLink = igRaw
+                ? `<a href="https://instagram.com/${igRaw}" target="_blank" rel="noopener noreferrer" class="text-yorkaDarkAccent font-mono text-[10px] hover:underline inline-flex items-center gap-1 font-semibold">
+                    <i class="fa-brands fa-instagram text-[9px]"></i> @${igRaw}
+                   </a>`
+                : `<span class="text-yorkaMuted font-mono text-[10px]">Sin Instagram</span>`;
+
+            const phoneRaw = (b.clientPhone || '').replace(/\D/g, '');
+            const phoneLink = phoneRaw
+                ? `<a href="https://wa.me/${phoneRaw}" target="_blank" rel="noopener noreferrer" class="text-emerald-700 font-mono text-[10px] hover:underline inline-flex items-center gap-1 font-semibold">
+                    <i class="fa-brands fa-whatsapp text-[10px]"></i> ${b.clientPhone}
+                   </a>`
+                : `<span class="text-yorkaMuted font-mono text-[10px]">Sin teléfono</span>`;
+
             tr.innerHTML = `
                 <td class="py-3 font-mono align-top">
                     <div class="text-yorkaText font-semibold text-[10px] md:text-[11px]">${b.date}</div>
@@ -2372,8 +2090,11 @@
                 </td>
                 <td class="py-3 align-top">
                     <div class="text-yorkaText font-medium text-[10px] md:text-[11px] break-words">${b.clientName}</div>
-                    <div class="text-yorkaDarkAccent font-mono text-[10px]">${b.instagram || '@sining'}</div>
-                    <div class="text-yorkaMuted text-[10px] leading-relaxed break-words whitespace-pre-wrap mt-0.5">${b.notes || 'Sin idea especificada'}</div>
+                    <div class="flex flex-col gap-0.5 mt-0.5">
+                        <div>${igLink}</div>
+                        <div>${phoneLink}</div>
+                    </div>
+                    <div class="text-yorkaMuted text-[10px] leading-relaxed break-words whitespace-pre-wrap mt-1">${b.notes || 'Sin idea especificada'}</div>
                     ${imageButton}
                 </td>
                 <td class="py-3 text-[10px] align-top">
@@ -2480,13 +2201,6 @@
         const monthFilter = document.getElementById('admin-month-filter');
         if (monthFilter) monthFilter.value = currentMonth;
 
-        const weekMonth = document.getElementById('admin-week-month');
-        if (weekMonth) weekMonth.value = currentMonth;
-
-        const templateMonth = document.getElementById('template-target-month');
-        if (templateMonth) templateMonth.value = currentMonth;
-
-        populateWeekSelector();
         updateAuthUI();
         renderAllViews();
 
