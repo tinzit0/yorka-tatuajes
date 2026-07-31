@@ -519,7 +519,7 @@
     </div>
 </div>
 
-<!-- LOGIN ADMIN -->
+<!-- LOGIN ADMIN (CON PLACEHOLDER GENÉRICO) -->
 <div id="login-container" class="hidden min-h-[85vh] pt-32 pb-16 px-4 max-w-sm mx-auto flex flex-col justify-center">
     <div class="action-card rounded-2xl p-6 md:p-8 text-center">
         <div class="text-yorkaDarkAccent text-3xl mb-2"><i class="fa-solid fa-shield-halved"></i></div>
@@ -530,7 +530,7 @@
         <form id="login-form" onsubmit="processDirectLogin(event)" class="space-y-3.5 text-left mb-5" autocomplete="off">
             <div>
                 <label class="block text-[10px] font-mono uppercase text-yorkaMuted tracking-wider mb-1 font-semibold">Correo de Usuario</label>
-                <input type="email" id="login-email" required placeholder="yorka.tatuajes@gmail.com" autocomplete="off"
+                <input type="email" id="login-email" required placeholder="ejemplo@gmail.com" autocomplete="off"
                        class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-3 py-2 text-yorkaText text-xs focus:outline-none focus:border-yorkaDarkAccent">
             </div>
             <div>
@@ -908,7 +908,6 @@
         if (loader) loader.classList.add('ocultar-carga');
     }
 
-    // Funciones para previsualización de imágenes locales
     function previewSelectedImage(event) {
         const file = event.target.files[0];
         const previewContainer = document.getElementById('image-preview-container');
@@ -935,7 +934,6 @@
         if (previewContainer) previewContainer.classList.add('hidden');
     }
 
-    // Subir imagen a Supabase Storage (Bucket: tattoo-ideas)
     async function uploadClientImageToStorage(file) {
         try {
             const fileExt = file.name.split('.').pop();
