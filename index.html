@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Yorka Tatuajes | Estudio Privado & Agendamiento</title>
+    <title>Yorka Tatuajes | Estudio Privado & Agendamiento de Autor</title>
     <meta name="description" content="Estudio privado de tatuajes y arte corporal de autor por Yorka. Concepción, Chile.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <!-- Tipografías de Alta Gama -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <!-- Tailwind CSS -->
@@ -23,17 +23,18 @@
             theme: {
                 extend: {
                     colors: {
-                        yorkaBg: '#fcf9f6',       /* Blanco hueso editorial suave */
-                        yorkaPanel: '#f3e8df',    /* Beige cálido arena suave */
+                        yorkaBg: '#ffffff',       /* Blanco puro - fondo principal */
+                        yorkaPanel: '#f7f4f1',    /* Panel gris cálido muy claro */
                         yorkaCard: '#ffffff',     /* Blanco puro para tarjetas */
-                        yorkaBorder: '#e6d8ce',   /* Borde fino color avellana suave */
-                        yorkaText: '#221311',     /* Espresso profundo, alta legibilidad */
-                        yorkaMuted: '#8a7267',    /* Marrón ceniza refinado */
-                        yorkaAccent: '#7c1420',   /* Borgoña profundo imperial */
-                        yorkaAccentHover: '#580c16', /* Borgoña oscuro intenso */
-                        yorkaDarkAccent: '#7c1420',  /* Acento para badges y botones */
-                        yorkaGold: '#c29b62',     /* Dorado sutil para detalles de autor */
-                        danger: '#d9383a',
+                        yorkaBorder: '#e7e1da',   /* Borde fino gris cálido */
+                        yorkaBorderGold: '#c9a24d',/* Dorado editorial */
+                        yorkaText: '#181310',     /* Negro cálido para texto */
+                        yorkaMuted: '#766c64',    /* Gris cálido para texto secundario */
+                        yorkaAccent: '#e8342d',   /* Rojo vibrante protagonista */
+                        yorkaAccentHover: '#ff453d',
+                        yorkaDarkAccent: '#a8241d',/* Rojo oscuro para enlaces/labels */
+                        yorkaGold: '#c9a24d',     /* Dorado champagne editorial */
+                        danger: '#dc2626',
                     },
                     fontFamily: {
                         sans: ['"Plus Jakarta Sans"', 'sans-serif'],
@@ -41,9 +42,9 @@
                         mono: ['"Space Mono"', 'monospace'],
                     },
                     boxShadow: {
-                        'glass': '0 20px 40px -15px rgba(34, 19, 17, 0.05)',
-                        'card-hover': '0 25px 50px -12px rgba(124, 20, 32, 0.12)',
-                        'accent-glow': '0 8px 25px -5px rgba(124, 20, 32, 0.3)',
+                        'glass': '0 20px 40px -15px rgba(31, 22, 21, 0.05)',
+                        'card-hover': '0 20px 40px -10px rgba(214, 40, 34, 0.12)',
+                        'gold-glow': '0 0 25px rgba(201, 162, 77, 0.2)',
                     }
                 }
             }
@@ -52,138 +53,125 @@
 
     <style>
         body {
-            background-color: #fcf9f6;
-            color: #221311;
+            background-color: #ffffff;
+            color: #181310;
             font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
             scroll-behavior: smooth;
             -webkit-font-smoothing: antialiased;
         }
 
-        ::selection { background: #7c1420; color: #ffffff; }
+        ::selection { background: #e8342d; color: #ffffff; }
         ::-webkit-scrollbar { width: 5px; height: 5px; }
-        ::-webkit-scrollbar-track { background: #fcf9f6; }
-        ::-webkit-scrollbar-thumb { background: #e6d8ce; border-radius: 99px; }
-        ::-webkit-scrollbar-thumb:hover { background: #7c1420; }
+        ::-webkit-scrollbar-track { background: #ffffff; }
+        ::-webkit-scrollbar-thumb { background: #e7e1da; border-radius: 99px; }
+        ::-webkit-scrollbar-thumb:hover { background: #e8342d; }
 
-        /* PANTALLA DE CARGA */
-        #pantalla-carga {
-            position: fixed; inset: 0; width: 100vw; height: 100vh;
-            background: radial-gradient(circle at center, #fcf9f6 0%, #f3e8df 100%);
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center; z-index: 999999;
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.8s;
-        }
-        .ocultar-carga { opacity: 0; visibility: hidden; pointer-events: none; }
-        .spinner {
-            width: 44px; height: 44px;
-            border: 2px solid #e6d8ce;
-            border-top: 2px solid #7c1420;
-            border-radius: 50%;
-            animation: spin 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
-            margin-bottom: 20px;
-        }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-
-        /* NAVBAR HIGH-END */
+        /* NAVBAR HIGH-END MINIMALIST - blanca, coherente con el resto de la página */
         .navbar { 
             transition: all 0.4s ease; 
-            background-color: rgba(252, 249, 246, 0.85); 
-            backdrop-filter: blur(16px); 
-            -webkit-backdrop-filter: blur(16px);
-            padding: 14px 0; 
-            border-bottom: 1px solid rgba(230, 216, 206, 0.6); 
+            background-color: rgba(255, 255, 255, 0.92); 
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px);
+            padding: 16px 0; 
+            border-bottom: 1px solid rgba(231, 225, 218, 0.8); 
         }
         .nav-link { position: relative; padding-bottom: 4px; cursor: pointer; transition: color 0.3s ease; }
         .nav-link::after {
-            content: ''; position: absolute; width: 0; height: 2px; bottom: 0; left: 50%;
-            background-color: #7c1420; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); transform: translateX(-50%);
+            content: ''; position: absolute; width: 0; height: 1.5px; bottom: 0; left: 50%;
+            background: linear-gradient(90deg, #e8342d, #c9a24d); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); transform: translateX(-50%);
         }
         .nav-link:hover::after, .nav-link.active::after { width: 100%; }
 
-        /* LOGO CON SHADOW EDITORIAL */
+        /* LOGO MINIMAL */
         .yorka-logo-img {
-            width: 40px; height: 40px; border-radius: 50%; object-fit: cover;
-            border: 1.5px solid #e6d8ce; box-shadow: 0 4px 12px rgba(124, 20, 32, 0.12);
-            transition: transform 0.3s ease, border-color 0.3s ease;
+            width: 38px; height: 38px; border-radius: 50%; object-fit: cover;
+            border: 1px solid #c9a24d; box-shadow: 0 4px 14px rgba(232, 52, 45, 0.25);
+            transition: transform 0.3s ease;
         }
-        .yorka-logo-img:hover { transform: scale(1.05); border-color: #7c1420; }
+        .yorka-logo-img:hover { transform: scale(1.05); }
 
         /* ACORDEÓN */
-        .faq-item { border-bottom: 1px solid #e6d8ce; transition: background-color 0.3s ease; }
+        .faq-item { border-bottom: 1px solid #e7e1da; transition: all 0.3s ease; }
         .faq-content { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
 
         /* CARRUSEL PORTAFOLIO EDITORIAL */
         .carousel-slide { display: none; animation: fadeIn 0.5s ease-in-out; }
         .carousel-slide.active { display: grid; }
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.99); } to { opacity: 1; transform: scale(1); } }
         .carousel-dot {
-            width: 8px; height: 8px; border-radius: 50%; border: 1px solid #e6d8ce; background-color: transparent; cursor: pointer; transition: all 0.3s;
+            width: 7px; height: 7px; border-radius: 50%; border: 1px solid #e7e1da; background-color: transparent; cursor: pointer; transition: all 0.3s;
         }
-        .carousel-dot.active { background-color: #7c1420; border-color: #7c1420; transform: scale(1.3); }
+        .carousel-dot.active { background-color: #e8342d; border-color: #c9a24d; transform: scale(1.3); }
 
-        /* TARJETAS Y BOTONES DE ALTA GAMA */
+        /* TARJETAS CON ACABADO GLASS MINIMALIST */
         .action-card {
-            background: #ffffff;
-            border: 1px solid #e6d8ce;
-            box-shadow: 0 15px 35px -10px rgba(34, 19, 17, 0.05);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(16px);
+            border: 1px solid #e7e1da;
+            box-shadow: 0 20px 45px -20px rgba(24, 19, 16, 0.15);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
         }
         .action-card:hover {
-            box-shadow: 0 20px 40px -10px rgba(124, 20, 32, 0.08);
+            box-shadow: 0 25px 55px -18px rgba(232, 52, 45, 0.16);
+            border-color: #c9a24d;
         }
+
         .btn-primary-action {
-            background: linear-gradient(135deg, #7c1420 0%, #580c16 100%);
+            background: linear-gradient(135deg, #e8342d 0%, #a8241d 100%);
             color: #ffffff;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 4px 14px rgba(124, 20, 32, 0.25);
+            box-shadow: 0 4px 20px rgba(232, 52, 45, 0.3);
+            border: 1px solid rgba(201, 162, 77, 0.35);
         }
         .btn-primary-action:hover:not(:disabled) {
             transform: translateY(-2px);
-            box-shadow: 0 8px 22px rgba(124, 20, 32, 0.4);
-            background: linear-gradient(135deg, #8c1926 0%, #680d19 100%);
+            box-shadow: 0 10px 28px rgba(232, 52, 45, 0.42);
+            background: linear-gradient(135deg, #ff453d 0%, #c22a22 100%);
+            border-color: #c9a24d;
         }
 
         .slot-btn {
-            border: 1px solid #e6d8ce;
-            background: #fcf9f6;
-            color: #221311;
+            border: 1px solid #e7e1da;
+            background: #ffffff;
+            color: #181310;
             transition: all 0.25s ease;
             font-weight: 500;
         }
         .slot-btn.selected {
-            background: #7c1420;
+            background: #e8342d;
             color: #ffffff;
-            border-color: #580c16;
+            border-color: #c9a24d;
             font-weight: 700;
-            transform: scale(1.03);
-            box-shadow: 0 6px 16px rgba(124, 20, 32, 0.35);
+            transform: scale(1.02);
+            box-shadow: 0 6px 18px rgba(232, 52, 45, 0.3);
         }
         .slot-btn:not(:disabled):hover {
-            border-color: #7c1420;
-            background: #f3e8df;
+            border-color: #e8342d;
+            background: #f7f4f1;
             transform: translateY(-1px);
         }
-        .slot-btn:disabled { opacity: 0.35; cursor: not-allowed; text-decoration: line-through; background: #f3e8df; }
+        .slot-btn:disabled { opacity: 0.4; cursor: not-allowed; text-decoration: line-through; background: #f7f4f1; }
 
-        /* CALENDARIO PREMIUM */
+        /* CALENDARIO PREMIUM MINIMAL */
         .cal-day {
             position: relative; aspect-ratio: 1 / 1; border-radius: 12px;
-            border: 1px solid #e6d8ce; background: #ffffff;
+            border: 1px solid #e7e1da; background: #ffffff;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             gap: 2px; cursor: pointer; transition: all 0.25s ease; font-size: 12px;
-            font-weight: 500;
+            font-weight: 500; color: #181310;
         }
         .cal-day:not(.cal-disabled):hover {
-            border-color: #7c1420; background: #f3e8df; transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(124, 20, 32, 0.1);
+            border-color: #e8342d; background: #f7f4f1; transform: translateY(-2px);
+            box-shadow: 0 4px 14px rgba(232, 52, 45, 0.15);
         }
         .cal-day.cal-selected {
-            background: #7c1420; border-color: #580c16; color: #ffffff; font-weight: 700;
-            transform: scale(1.06); box-shadow: 0 6px 18px rgba(124, 20, 32, 0.4);
+            background: #e8342d; border-color: #c9a24d; color: #ffffff; font-weight: 700;
+            transform: scale(1.05); box-shadow: 0 6px 20px rgba(232, 52, 45, 0.35);
         }
-        .cal-day.cal-today:not(.cal-selected) { border: 2px solid #7c1420; font-weight: 700; color: #7c1420; }
-        .cal-day.cal-disabled { opacity: 0.35; cursor: not-allowed; background: #f3e8df; border-color: transparent; }
+        .cal-day.cal-today:not(.cal-selected) { border: 2px solid #e8342d; font-weight: 700; color: #a8241d; }
+        .cal-day.cal-disabled { opacity: 0.4; cursor: not-allowed; background: #f7f4f1; border-color: transparent; }
         .cal-day.cal-empty { visibility: hidden; cursor: default; }
         .cal-dot { width: 5px; height: 5px; border-radius: 50%; position: absolute; bottom: 5px; }
         .cal-dot-green { background: #10b981; }
@@ -198,64 +186,60 @@
             display: flex; flex-direction: column; gap: 12px; max-width: calc(100vw - 48px);
         }
         .toast {
-            background: #ffffff; border: 1px solid #e6d8ce; color: #221311;
+            background: #ffffff; border: 1px solid #e7e1da; color: #181310;
             padding: 14px 18px; border-radius: 16px; font-size: 13px; font-weight: 500;
             display: flex; align-items: center; gap: 12px;
-            box-shadow: 0 15px 35px rgba(34, 19, 17, 0.12); min-width: 260px; max-width: 380px;
+            box-shadow: 0 15px 40px rgba(24, 19, 16, 0.18); min-width: 260px; max-width: 380px;
             transform: translateX(120%); opacity: 0; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .toast.toast-show { transform: translateX(0); opacity: 1; }
-        .toast.toast-success { border-left: 5px solid #10b981; }
-        .toast.toast-error { border-left: 5px solid #ef4444; }
-        .toast.toast-info { border-left: 5px solid #7c1420; }
+        .toast.toast-success { border-left: 4px solid #10b981; }
+        .toast.toast-error { border-left: 4px solid #ef4444; }
+        .toast.toast-info { border-left: 4px solid #e8342d; }
 
         /* TABS ADMIN */
-        .admin-tab-btn { transition: all 0.25s ease; border-bottom: 2px solid transparent; }
-        .admin-tab-btn.active { color: #221311; font-weight: 700; border-bottom-color: #7c1420; }
+        .admin-tab-btn { transition: all 0.25s ease; border-bottom: 2px solid transparent; color: #766c64; }
+        .admin-tab-btn.active { color: #181310; font-weight: 700; border-bottom-color: #e8342d; }
         .admin-tab-panel { display: none; }
         .admin-tab-panel.active { display: block; }
 
         .sync-indicator {
             display: inline-flex; align-items: center; gap: 6px; font-size: 10px;
-            color: #15803d; background: rgba(34, 197, 94, 0.12);
+            color: #15803d; background: rgba(34, 197, 94, 0.1);
             border: 1px solid rgba(34, 197, 94, 0.25); padding: 3px 10px; border-radius: 20px;
             font-weight: 600;
         }
         .sync-indicator.syncing {
-            color: #b45309; border-color: rgba(245, 158, 11, 0.3); background: rgba(245, 158, 11, 0.12);
+            color: #b45309; border-color: rgba(245, 158, 11, 0.28); background: rgba(245, 158, 11, 0.1);
         }
 
-        /* TEXTURE OVERLAY */
-        .editorial-grain {
-            background-image: radial-gradient(rgba(124, 20, 32, 0.03) 1px, transparent 0);
-            background-size: 24px 24px;
+        /* CARRUSEL DE FONDO HERO (ROTACIÓN DE IMÁGENES) */
+        .hero-bg-slide {
+            position: absolute; inset: 0;
+            background-size: cover; background-position: center center;
+            opacity: 0;
+            transition: opacity 1.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
+        .hero-bg-slide.active { opacity: 1; }
     </style>
 </head>
 
-<body class="editorial-grain">
 
-<div class="fixed top-0 left-0 w-full h-[3px] bg-gradient-to-r from-yorkaAccent via-yorkaGold to-yorkaAccent z-50"></div>
+<body class="relative min-h-screen">
 
-<!-- PANTALLA DE CARGA -->
-<div id="pantalla-carga">
-    <div class="relative mb-4">
-        <img src="assets/logo.jpg" alt="Yorka Tatuajes" class="w-16 h-16 rounded-full object-cover border-2 border-yorkaBorder shadow-xl">
-        <span class="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 border-2 border-white rounded-full"></span>
-    </div>
-    <div class="spinner"></div>
-    <h2 class="font-serif text-xl tracking-[0.25em] text-yorkaText uppercase font-semibold">Yorka Tatuajes</h2>
-    <p id="loading-status" class="text-yorkaMuted text-xs mt-2 font-mono tracking-wider">Conectando con el estudio...</p>
-</div>
+<!-- LÍNEA SUPERIOR DECORATIVA MINIMAL -->
+<div class="fixed top-0 left-0 w-full h-[3px] bg-gradient-to-r from-yorkaAccent via-yorkaGold via-50% to-yorkaAccent z-50"></div>
 
-<!-- TOASTS -->
+<!-- TOASTS DE NOTIFICACIÓN -->
 <div id="toast-container"></div>
 
-<!-- NAVBAR HIGH-END -->
+<!-- NAVBAR HIGH-END MINIMAL -->
 <nav id="navbar" class="navbar fixed top-0 w-full z-40 flex flex-col items-center px-6">
-    <div class="max-w-7xl w-full flex flex-col items-center">
-        <div class="flex items-center gap-3 mb-1.5 cursor-pointer group" onclick="showPublicLanding()">
-            <img src="assets/logo.jpg" alt="Yorka Tatuajes" class="yorka-logo-img">
+    <div class="max-w-7xl w-full flex flex-col items-center relative">
+        <div class="flex items-center gap-3 mb-1 cursor-pointer group" onclick="showPublicLanding()">
+            <div class="relative">
+                <img src="assets/logo.jpg" alt="Yorka Tatuajes" class="yorka-logo-img" onerror="this.src='logo.jpg'">
+            </div>
             <span class="font-serif text-2xl md:text-3xl text-yorkaText tracking-tight font-semibold group-hover:text-yorkaAccent transition-colors">
                 Yorka Tatuajes
             </span>
@@ -268,7 +252,7 @@
                 <a href="#info" onclick="showPublicLanding()" class="nav-link hover:text-yorkaText transition-colors font-mono">Información</a>
                 <a href="#agendar" onclick="showPublicLanding()" class="nav-link hover:text-yorkaText transition-colors font-mono">Reserva</a>
                 
-                <button onclick="openClientManageModal()" class="nav-link text-yorkaDarkAccent hover:text-yorkaText transition-colors flex items-center gap-1.5 font-mono bg-yorkaPanel/50 px-3 py-1 rounded-full border border-yorkaBorder/60">
+                <button onclick="openClientManageModal()" class="nav-link text-yorkaDarkAccent hover:text-yorkaText transition-colors flex items-center gap-1.5 font-mono bg-yorkaPanel/70 px-3.5 py-1 rounded-full border border-yorkaGold/40 shadow-xs">
                     <i class="fa-solid fa-calendar-check text-xs text-yorkaAccent"></i> Mis Citas
                 </button>
                 
@@ -292,19 +276,20 @@
         </div>
     </div>
 
-    <button id="mobileBtn" class="md:hidden absolute right-6 top-5 text-yorkaText hover:text-yorkaAccent focus:outline-none transition-colors p-2">
+    <button id="mobileBtn" class="md:hidden absolute right-6 top-4 text-yorkaText hover:text-yorkaAccent focus:outline-none transition-colors p-2">
         <i class="fa-solid fa-bars-staggered text-2xl"></i>
     </button>
 </nav>
 
-<!-- MOBILE MENU EDITORIAL -->
+<!-- MENÚ MÓVIL EDITORIAL -->
 <div id="mobileMenu" class="fixed inset-0 bg-yorkaBg/98 backdrop-blur-xl z-50 hidden flex-col justify-center items-center gap-7 font-serif text-2xl text-yorkaText">
     <button onclick="toggleMobileMenu()" class="absolute top-6 right-6 text-2xl text-yorkaMuted hover:text-yorkaText p-2">
         <i class="fa-solid fa-xmark"></i>
     </button>
-    <div class="mb-2 text-center">
-        <img src="assets/logo.jpg" alt="Yorka Tatuajes" class="w-16 h-16 rounded-full mx-auto mb-2 border-2 border-yorkaBorder">
+    <div class="mb-2 text-center relative">
+        <img src="assets/logo.jpg" alt="Yorka Tatuajes" class="w-16 h-16 rounded-full mx-auto mb-2 border border-yorkaGold shadow-md" onerror="this.src='logo.jpg'">
         <span class="font-serif text-lg text-yorkaMuted tracking-widest uppercase block">Yorka Tatuajes</span>
+        <span class="text-yorkaGold text-xs font-serif block mt-1">✦ Estudio Privado ✦</span>
     </div>
     <a href="#estudio" onclick="showPublicLanding(); toggleMobileMenu();" class="hover:text-yorkaAccent mobile-link transition-colors">Estudio</a>
     <a href="#portafolio" onclick="showPublicLanding(); toggleMobileMenu();" class="hover:text-yorkaAccent mobile-link transition-colors">Portafolio</a>
@@ -323,117 +308,189 @@
     </button>
 </div>
 
-<!-- VISTA PÚBLICA HIGH-END -->
-<div id="landing-container">
-    <!-- HERO SECTION -->
-    <header id="estudio" class="relative pt-40 pb-20 md:pt-48 md:pb-28 px-6 max-w-5xl mx-auto text-center">
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-yorkaPanel/80 border border-yorkaBorder text-yorkaDarkAccent text-[11px] font-mono uppercase tracking-widest mb-6 shadow-xs">
-            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span>Estudio Privado • Concepción, Chile</span>
+<!-- VISTA PÚBLICA -->
+<div id="landing-container" class="relative z-10">
+    <!-- HERO SECTION CON IMAGEN1, IMAGEN3 E IMAGEN4 ROTATIVAS DE FONDO - FULL BLEED SIN BORDES NI MARGEN -->
+    <header id="estudio" class="relative w-full pt-40 pb-24 md:pt-48 md:pb-32 px-6 text-center overflow-hidden">
+
+        <!-- ROTACIÓN DE IMÁGENES DE FONDO -->
+        <div id="hero-bg-carousel" class="absolute inset-0 z-0">
+            <div class="hero-bg-slide active" style="background-image: url('assets/imagen1.png');"></div>
+            <div class="hero-bg-slide" style="background-image: url('assets/imagen3.png');"></div>
+            <div class="hero-bg-slide" style="background-image: url('assets/imagen4.png');"></div>
         </div>
 
-        <h1 class="font-serif text-4xl sm:text-5xl md:text-6xl text-yorkaAccent font-normal tracking-tight leading-tight mb-6">
-            Arte Corporal & <br class="hidden sm:block"/><span class="italic font-serif text-yorkaText">Diseños de Autor</span>
-        </h1>
-        
-        <div class="flex items-center justify-center gap-3 mb-8">
-            <span class="w-12 h-px bg-gradient-to-r from-transparent via-yorkaAccent to-transparent"></span>
-            <i class="fa-solid fa-gem text-yorkaGold text-xs"></i>
-            <span class="w-12 h-px bg-gradient-to-r from-transparent via-yorkaAccent to-transparent"></span>
-        </div>
+        <!-- VELO TRANSLÚCIDO LIGERO: deja ver las fotos reales, solo oscurece lo justo para legibilidad -->
+        <div class="absolute inset-0 z-0 pointer-events-none bg-yorkaBg/15"></div>
+        <div class="absolute inset-0 z-0 pointer-events-none" style="background: linear-gradient(180deg, rgba(20,16,14,0.55) 0%, rgba(20,16,14,0.25) 35%, rgba(20,16,14,0.7) 80%, rgba(20,16,14,0.88) 100%);"></div>
 
-        <p class="font-sans text-sm md:text-base text-yorkaMuted leading-relaxed max-w-2xl mx-auto font-light mb-10">
-            Especializado en proyectos personalizados e ilustración fina en piel. Selecciona tu fecha en la agenda interactiva a continuación para reservar tu bloque de sesión privada.
-        </p>
+        <div class="relative z-10 max-w-4xl mx-auto">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/30 backdrop-blur-md border border-yorkaGold/50 text-white text-[10px] font-mono uppercase tracking-widest mb-7 shadow-xs">
+                <span class="w-2 h-2 rounded-full bg-yorkaAccent animate-pulse"></span>
+                <span>Estudio Privado • Concepción, Chile</span>
+            </div>
 
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a href="#agendar" class="btn-primary-action inline-flex items-center gap-3 font-mono text-xs font-bold px-8 py-4 rounded-2xl uppercase tracking-widest text-white">
-                <i class="fa-solid fa-calendar-check text-sm"></i> Solicitar Cita
-            </a>
-            <a href="#portafolio" class="inline-flex items-center gap-2 font-mono text-xs font-semibold px-6 py-4 rounded-2xl uppercase tracking-wider text-yorkaText bg-yorkaCard border border-yorkaBorder hover:bg-yorkaPanel transition shadow-xs">
-                Ver Portafolio <i class="fa-solid fa-arrow-down text-[10px]"></i>
-            </a>
+            <span class="block font-sans text-xs md:text-sm italic text-white/70 tracking-[0.2em] uppercase mb-3">Arte Corporal & Diseños de Autor</span>
+
+            <h1 class="font-serif text-5xl sm:text-6xl md:text-8xl text-yorkaAccent font-normal tracking-tight leading-[1.05] mb-6 drop-shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
+                Yorka Tatuajes
+            </h1>
+
+            <div class="flex items-center justify-center gap-4 mb-8">
+                <span class="w-12 h-px bg-gradient-to-r from-transparent via-yorkaGold to-yorkaAccent"></span>
+                <span class="text-yorkaAccent text-xs">✦</span>
+                <span class="w-12 h-px bg-gradient-to-l from-transparent via-yorkaGold to-yorkaAccent"></span>
+            </div>
+
+            <p class="font-sans text-sm md:text-base text-white/90 leading-relaxed max-w-xl mx-auto font-medium mb-10 drop-shadow-sm">
+                Especializada en proyectos personalizados e ilustración fina en piel. Reserva tu sesión privada en la agenda interactiva a continuación.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#agendar" class="btn-primary-action inline-flex items-center gap-3 font-mono text-xs font-bold px-8 py-4 rounded-2xl uppercase tracking-widest text-white">
+                    <i class="fa-solid fa-calendar-check text-sm text-yorkaGold"></i> Solicitar Cita
+                </a>
+                <a href="#portafolio" class="inline-flex items-center gap-2 font-mono text-xs font-semibold px-7 py-4 rounded-2xl uppercase tracking-wider text-white bg-white/10 backdrop-blur-md border border-white/40 hover:border-yorkaGold hover:bg-white/20 transition shadow-xs">
+                    Ver Portafolio <i class="fa-solid fa-arrow-down text-[10px] text-yorkaGold"></i>
+                </a>
+            </div>
+
+            <div class="mt-14 flex items-center justify-center gap-8 md:gap-12 flex-wrap text-white/70">
+                <div class="text-center">
+                    <span class="block font-serif text-2xl md:text-3xl text-white">+8</span>
+                    <span class="block text-[10px] font-mono uppercase tracking-widest mt-1">Años de Oficio</span>
+                </div>
+                <span class="w-px h-7 bg-white/25 hidden sm:block"></span>
+                <div class="text-center">
+                    <span class="block font-serif text-2xl md:text-3xl text-white">100%</span>
+                    <span class="block text-[10px] font-mono uppercase tracking-widest mt-1">Diseño Original</span>
+                </div>
+                <span class="w-px h-7 bg-white/25 hidden sm:block"></span>
+                <div class="text-center">
+                    <span class="block font-serif text-2xl md:text-3xl text-white">Autor</span>
+                    <span class="block text-[10px] font-mono uppercase tracking-widest mt-1">Cupos Privados</span>
+                </div>
+            </div>
         </div>
     </header>
 
     <main>
-        <!-- PORTAFOLIO SHOWCASE -->
-        <section id="portafolio" class="py-20 md:py-28 bg-yorkaPanel/50 border-y border-yorkaBorder">
+        <!-- PORTAFOLIO SHOWCASE CON IMÁGENES REALES -->
+        <section id="portafolio" class="py-20 md:py-28 bg-yorkaPanel/40 border-y border-yorkaBorder relative">
             <div class="max-w-6xl mx-auto px-6">
-                <div class="mb-12 text-center">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.25em] text-yorkaDarkAccent font-bold">Galería & Trabajos</span>
-                    <h2 class="font-serif text-3xl md:text-4xl text-yorkaAccent mt-2 font-normal">Muestra de Diseños</h2>
+                <div class="mb-12 text-center relative">
+                    <span class="font-mono text-[10px] uppercase tracking-[0.25em] text-yorkaDarkAccent font-bold block mb-2">
+                        ✦ Galería & Trabajos ✦
+                    </span>
+                    <h2 class="font-serif text-3xl md:text-5xl text-yorkaText font-normal">Muestra de <span class="italic text-yorkaAccent">Diseños</span></h2>
+                    <div class="w-20 h-0.5 bg-gradient-to-r from-transparent via-yorkaGold to-transparent mx-auto mt-3"></div>
+                    <p class="font-sans text-yorkaMuted text-xs md:text-sm mx-auto max-w-lg leading-relaxed mt-3 font-light">
+                        Una selección de piezas de línea fina, botánica y proyectos de autor realizados en estudio privado.
+                    </p>
                 </div>
 
-                <div class="action-card rounded-3xl p-6 md:p-10 shadow-glass">
+                <div class="action-card rounded-3xl p-6 md:p-8 shadow-glass">
                     <div class="min-h-[340px] relative w-full overflow-hidden">
                         <!-- SLIDE 1 -->
                         <div class="carousel-slide active grid-cols-1 md:grid-cols-3 gap-6 h-full items-center">
-                            <div class="group relative h-[280px] bg-gradient-to-b from-yorkaPanel to-yorkaBg rounded-2xl border border-yorkaBorder flex flex-col items-center justify-center text-yorkaMuted transition-all duration-300 hover:border-yorkaAccent hover:shadow-lg overflow-hidden">
-                                <i class="fa-regular fa-image text-3xl mb-2 text-yorkaAccent/60 group-hover:scale-110 transition-transform"></i>
-                                <span class="text-xs font-mono tracking-wider">Ilustración Fina</span>
-                                <span class="text-[10px] text-yorkaMuted/70 font-sans mt-1">Concepción</span>
+                            <div class="group relative h-[280px] rounded-2xl border border-yorkaBorder overflow-hidden shadow-xs hover:border-yorkaGold hover:shadow-card-hover transition-all duration-300">
+                                <img src="assets/imagen2.png" alt="Piezas Botánicas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='assets/imagen2.jpg'; this.onerror=function(){this.onerror=null; this.src='assets/imagen2.jpeg';};">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-5">
+                                    <span class="text-sm font-serif font-medium text-white">Piezas Botánicas</span>
+                                    <span class="text-[10px] text-yorkaGold font-mono uppercase tracking-[0.15em] mt-1">Arte Orgánico</span>
+                                </div>
                             </div>
-                            <div class="group relative h-[280px] bg-gradient-to-b from-yorkaPanel to-yorkaBg rounded-2xl border border-yorkaBorder flex flex-col items-center justify-center text-yorkaMuted transition-all duration-300 hover:border-yorkaAccent hover:shadow-lg overflow-hidden">
-                                <i class="fa-regular fa-image text-3xl mb-2 text-yorkaAccent/60 group-hover:scale-110 transition-transform"></i>
-                                <span class="text-xs font-mono tracking-wider">Proyectos de Autor</span>
-                                <span class="text-[10px] text-yorkaMuted/70 font-sans mt-1">Línea Negra</span>
+                            <div class="group relative h-[280px] rounded-2xl border border-yorkaBorder overflow-hidden shadow-xs hover:border-yorkaGold hover:shadow-card-hover transition-all duration-300">
+                                <img src="assets/imagen5.png" alt="Detalles Micro" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='assets/imagen5.jpg'; this.onerror=function(){this.onerror=null; this.src='assets/imagen5.jpeg';};">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-5">
+                                    <span class="text-sm font-serif font-medium text-white">Detalles Micro</span>
+                                    <span class="text-[10px] text-yorkaGold font-mono uppercase tracking-[0.15em] mt-1">Alta Precisión</span>
+                                </div>
                             </div>
-                            <div class="group relative h-[280px] bg-gradient-to-b from-yorkaPanel to-yorkaBg rounded-2xl border border-yorkaBorder flex flex-col items-center justify-center text-yorkaMuted transition-all duration-300 hover:border-yorkaAccent hover:shadow-lg overflow-hidden">
-                                <i class="fa-regular fa-image text-3xl mb-2 text-yorkaAccent/60 group-hover:scale-110 transition-transform"></i>
-                                <span class="text-xs font-mono tracking-wider">Flash Disponibles</span>
-                                <span class="text-[10px] text-yorkaMuted/70 font-sans mt-1">Tatuajes Exclusivos</span>
+                            <div class="group relative h-[280px] rounded-2xl border border-yorkaBorder overflow-hidden shadow-xs hover:border-yorkaGold hover:shadow-card-hover transition-all duration-300">
+                                <img src="assets/imagen6.png" alt="Diseño Personalizado" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='assets/imagen6.jpg'; this.onerror=function(){this.onerror=null; this.src='assets/imagen6.jpeg';};">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-5">
+                                    <span class="text-sm font-serif font-medium text-white">Diseño Personalizado</span>
+                                    <span class="text-[10px] text-yorkaGold font-mono uppercase tracking-[0.15em] mt-1">Asesoría Directa</span>
+                                </div>
                             </div>
                         </div>
                         <!-- SLIDE 2 -->
                         <div class="carousel-slide grid-cols-1 md:grid-cols-3 gap-6 h-full items-center">
-                            <div class="group relative h-[280px] bg-gradient-to-b from-yorkaPanel to-yorkaBg rounded-2xl border border-yorkaBorder flex flex-col items-center justify-center text-yorkaMuted transition-all duration-300 hover:border-yorkaAccent hover:shadow-lg overflow-hidden">
-                                <i class="fa-regular fa-image text-3xl mb-2 text-yorkaAccent/60 group-hover:scale-110 transition-transform"></i>
-                                <span class="text-xs font-mono tracking-wider">Piezas Botánicas</span>
-                                <span class="text-[10px] text-yorkaMuted/70 font-sans mt-1">Arte Orgánico</span>
+                            <div class="group relative h-[280px] rounded-2xl border border-yorkaBorder overflow-hidden shadow-xs hover:border-yorkaGold hover:shadow-card-hover transition-all duration-300">
+                                <img src="assets/imagen7.png" alt="Blackwork" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='assets/imagen7.jpg'; this.onerror=function(){this.onerror=null; this.src='assets/imagen7.jpeg';};">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-5">
+                                    <span class="text-sm font-serif font-medium text-white">Blackwork</span>
+                                    <span class="text-[10px] text-yorkaGold font-mono uppercase tracking-[0.15em] mt-1">Trazo Sólido</span>
+                                </div>
                             </div>
-                            <div class="group relative h-[280px] bg-gradient-to-b from-yorkaPanel to-yorkaBg rounded-2xl border border-yorkaBorder flex flex-col items-center justify-center text-yorkaMuted transition-all duration-300 hover:border-yorkaAccent hover:shadow-lg overflow-hidden">
-                                <i class="fa-regular fa-image text-3xl mb-2 text-yorkaAccent/60 group-hover:scale-110 transition-transform"></i>
-                                <span class="text-xs font-mono tracking-wider">Detalles Micro</span>
-                                <span class="text-[10px] text-yorkaMuted/70 font-sans mt-1">Alta Precision</span>
+                            <div class="group relative h-[280px] rounded-2xl border border-yorkaBorder overflow-hidden shadow-xs hover:border-yorkaGold hover:shadow-card-hover transition-all duration-300">
+                                <img src="assets/imagen8.png" alt="Ornamental" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='assets/imagen8.jpg'; this.onerror=function(){this.onerror=null; this.src='assets/imagen8.jpeg';};">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-5">
+                                    <span class="text-sm font-serif font-medium text-white">Ornamental</span>
+                                    <span class="text-[10px] text-yorkaGold font-mono uppercase tracking-[0.15em] mt-1">Simetría</span>
+                                </div>
                             </div>
-                            <div class="group relative h-[280px] bg-gradient-to-b from-yorkaPanel to-yorkaBg rounded-2xl border border-yorkaBorder flex flex-col items-center justify-center text-yorkaMuted transition-all duration-300 hover:border-yorkaAccent hover:shadow-lg overflow-hidden">
-                                <i class="fa-regular fa-image text-3xl mb-2 text-yorkaAccent/60 group-hover:scale-110 transition-transform"></i>
-                                <span class="text-xs font-mono tracking-wider">Diseño Personalizado</span>
-                                <span class="text-[10px] text-yorkaMuted/70 font-sans mt-1">Asesoría Directa</span>
+                            <div class="group relative h-[280px] rounded-2xl border border-yorkaBorder overflow-hidden shadow-xs hover:border-yorkaGold hover:shadow-card-hover transition-all duration-300">
+                                <img src="assets/imagen9.png" alt="Minimalista" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='assets/imagen9.jpg'; this.onerror=function(){this.onerror=null; this.src='assets/imagen9.jpeg';};">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-5">
+                                    <span class="text-sm font-serif font-medium text-white">Minimalista</span>
+                                    <span class="text-[10px] text-yorkaGold font-mono uppercase tracking-[0.15em] mt-1">Línea Fina</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- SLIDE 3 -->
+                        <div class="carousel-slide grid-cols-1 md:grid-cols-2 max-w-3xl mx-auto gap-6 h-full items-center">
+                            <div class="group relative h-[280px] rounded-2xl border border-yorkaBorder overflow-hidden shadow-xs hover:border-yorkaGold hover:shadow-card-hover transition-all duration-300">
+                                <img src="assets/imagen10.png" alt="Color Vibrante" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='assets/imagen10.jpg'; this.onerror=function(){this.onerror=null; this.src='assets/imagen10.jpeg';};">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-5">
+                                    <span class="text-sm font-serif font-medium text-white">Color Vibrante</span>
+                                    <span class="text-[10px] text-yorkaGold font-mono uppercase tracking-[0.15em] mt-1">Técnica Mixta</span>
+                                </div>
+                            </div>
+                            <div class="group relative h-[280px] rounded-2xl border border-yorkaBorder overflow-hidden shadow-xs hover:border-yorkaGold hover:shadow-card-hover transition-all duration-300">
+                                <img src="assets/imagen11.png" alt="Realismo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='assets/imagen11.jpg'; this.onerror=function(){this.onerror=null; this.src='assets/imagen11.jpeg';};">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-5">
+                                    <span class="text-sm font-serif font-medium text-white">Realismo</span>
+                                    <span class="text-[10px] text-yorkaGold font-mono uppercase tracking-[0.15em] mt-1">Alto Detalle</span>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="border-t border-yorkaBorder pt-6 mt-6 flex justify-between items-center text-yorkaMuted text-xs font-mono">
+                    <div class="border-t border-yorkaBorder pt-5 mt-6 flex justify-between items-center text-yorkaMuted text-xs font-mono">
                         <button onclick="prevSlide()" class="hover:text-yorkaAccent transition-colors cursor-pointer flex items-center gap-2 font-bold px-3 py-1">
-                            <i class="fa-solid fa-arrow-left text-[10px]"></i> Anterior
+                            <i class="fa-solid fa-arrow-left text-[10px] text-yorkaGold"></i> Anterior
                         </button>
                         <div class="flex gap-3 items-center">
                             <button onclick="goToSlide(0)" class="carousel-dot active"></button>
                             <button onclick="goToSlide(1)" class="carousel-dot"></button>
+                            <button onclick="goToSlide(2)" class="carousel-dot"></button>
                         </div>
                         <button onclick="nextSlide()" class="hover:text-yorkaAccent transition-colors cursor-pointer flex items-center gap-2 font-bold px-3 py-1">
-                            Siguiente <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            Siguiente <i class="fa-solid fa-arrow-right text-[10px] text-yorkaGold"></i>
                         </button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- INFO FAQS EDITORIAL -->
-        <section id="info" class="py-20 md:py-28 bg-yorkaBg">
+        <!-- INFO EDITORIAL FAQS -->
+        <section id="info" class="py-20 md:py-28 bg-yorkaBg relative">
             <div class="max-w-4xl mx-auto px-6">
                 <div class="mb-12 text-center">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.25em] text-yorkaDarkAccent font-bold">Protocolos & Recomendaciones</span>
-                    <h2 class="font-serif text-3xl md:text-4xl text-yorkaAccent font-normal mt-2">Información de la Sesión</h2>
+                    <span class="font-mono text-[10px] uppercase tracking-[0.25em] text-yorkaDarkAccent font-bold block mb-2">
+                        ✦ Recomendaciones ✦
+                    </span>
+                    <h2 class="font-serif text-3xl md:text-5xl text-yorkaText font-normal">Información de la <span class="italic text-yorkaAccent">Sesión</span></h2>
+                    <div class="w-20 h-0.5 bg-gradient-to-r from-transparent via-yorkaGold to-transparent mx-auto mt-3"></div>
                 </div>
 
                 <div class="space-y-4">
-                    <div class="faq-item bg-yorkaCard rounded-2xl border border-yorkaBorder p-2 px-5">
+                    <div class="faq-item bg-yorkaCard rounded-2xl border border-yorkaBorder p-2 px-5 relative overflow-hidden shadow-xs">
                         <button class="w-full text-left py-4 flex justify-between items-center focus:outline-none group cursor-pointer" onclick="toggleFaq(this)">
-                            <span class="font-serif text-lg text-yorkaText group-hover:text-yorkaAccent transition-colors">Diseños Personalizados y Flashes</span>
-                            <div class="w-8 h-8 rounded-full bg-yorkaPanel flex items-center justify-center group-hover:bg-yorkaAccent group-hover:text-white transition-all">
+                            <span class="font-serif text-lg text-yorkaText group-hover:text-yorkaAccent transition-colors font-medium">Diseños Personalizados y Flashes</span>
+                            <div class="w-7 h-7 rounded-full bg-yorkaPanel flex items-center justify-center group-hover:bg-yorkaAccent group-hover:text-white transition-all border border-yorkaGold/30">
                                 <i class="fa-solid fa-angle-down text-xs transition-transform duration-300"></i>
                             </div>
                         </button>
@@ -444,10 +501,10 @@
                         </div>
                     </div>
 
-                    <div class="faq-item bg-yorkaCard rounded-2xl border border-yorkaBorder p-2 px-5">
+                    <div class="faq-item bg-yorkaCard rounded-2xl border border-yorkaBorder p-2 px-5 relative overflow-hidden shadow-xs">
                         <button class="w-full text-left py-4 flex justify-between items-center focus:outline-none group cursor-pointer" onclick="toggleFaq(this)">
-                            <span class="font-serif text-lg text-yorkaText group-hover:text-yorkaAccent transition-colors">Preparación previa para la sesión</span>
-                            <div class="w-8 h-8 rounded-full bg-yorkaPanel flex items-center justify-center group-hover:bg-yorkaAccent group-hover:text-white transition-all">
+                            <span class="font-serif text-lg text-yorkaText group-hover:text-yorkaAccent transition-colors font-medium">Preparación previa para la sesión</span>
+                            <div class="w-7 h-7 rounded-full bg-yorkaPanel flex items-center justify-center group-hover:bg-yorkaAccent group-hover:text-white transition-all border border-yorkaGold/30">
                                 <i class="fa-solid fa-angle-down text-xs transition-transform duration-300"></i>
                             </div>
                         </button>
@@ -461,23 +518,26 @@
             </div>
         </section>
 
-        <!-- BOOKING / AGENDAR SECTION -->
-        <section id="agendar" class="py-20 md:py-32 bg-yorkaBg border-t border-yorkaBorder relative">
+        <!-- SECCIÓN DE AGENDAMIENTO -->
+        <section id="agendar" class="py-20 md:py-28 bg-yorkaBg border-t border-yorkaBorder relative">
             <div class="max-w-6xl mx-auto px-6">
-                <div class="text-center mb-14">
-                    <span class="font-mono text-[11px] uppercase tracking-[0.25em] text-yorkaDarkAccent font-bold">Reserva Tu Sesión</span>
-                    <h2 class="font-serif text-3xl md:text-5xl text-yorkaAccent font-normal mt-2">Agenda de Disponibilidad</h2>
+                <div class="text-center mb-12">
+                    <span class="font-mono text-[10px] uppercase tracking-[0.25em] text-yorkaDarkAccent font-bold block mb-1">
+                        ✦ Reserva Tu Sesión ✦
+                    </span>
+                    <h2 class="font-serif text-3xl md:text-5xl text-yorkaText font-normal">Agenda de <span class="italic text-yorkaAccent">Disponibilidad</span></h2>
+                    <div class="w-24 h-0.5 bg-gradient-to-r from-transparent via-yorkaGold to-transparent mx-auto mt-3"></div>
                     <p class="font-sans text-yorkaMuted text-xs md:text-sm mx-auto max-w-lg leading-relaxed mt-3 font-light">
-                        Selecciona un día en el calendario y escoge el bloque de hora disponible. Tu solicitud quedará inmediatamente registrada en el sistema del estudio.
+                        Selecciona un día en el calendario y escoge el bloque disponible. Tu solicitud quedará inmediatamente registrada en el sistema del estudio.
                     </p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-                    <!-- CALENDARIO CLIENTE -->
+                    <!-- CALENDARIO -->
                     <div class="md:col-span-7 action-card rounded-3xl p-6 md:p-8">
                         <div class="flex items-center justify-between mb-6 pb-4 border-b border-yorkaBorder">
                             <h3 class="font-serif text-lg text-yorkaText flex items-center gap-3 font-medium">
-                                <span class="text-xs font-mono bg-yorkaAccent text-white px-2.5 py-1 rounded-lg">01</span>
+                                <span class="text-xs font-mono bg-yorkaAccent text-white px-2.5 py-1 rounded-lg border border-yorkaGold/30">01</span>
                                 Selecciona Fecha y Hora
                             </h3>
                             <span id="client-sync-status" class="sync-indicator">
@@ -488,11 +548,11 @@
 
                         <div class="mb-6">
                             <div class="flex items-center justify-between mb-4">
-                                <button type="button" onclick="calNavigate(-1)" class="w-9 h-9 flex items-center justify-center rounded-xl bg-yorkaPanel border border-yorkaBorder text-yorkaDarkAccent hover:bg-yorkaAccent hover:text-white hover:border-yorkaAccent transition cursor-pointer">
+                                <button type="button" onclick="calNavigate(-1)" class="w-8 h-8 flex items-center justify-center rounded-xl bg-yorkaPanel border border-yorkaBorder text-yorkaDarkAccent hover:bg-yorkaAccent hover:text-white transition cursor-pointer">
                                     <i class="fa-solid fa-chevron-left text-xs"></i>
                                 </button>
                                 <span id="cal-month-label" class="font-serif text-base md:text-lg text-yorkaText tracking-wide font-semibold capitalize"></span>
-                                <button type="button" onclick="calNavigate(1)" class="w-9 h-9 flex items-center justify-center rounded-xl bg-yorkaPanel border border-yorkaBorder text-yorkaDarkAccent hover:bg-yorkaAccent hover:text-white hover:border-yorkaAccent transition cursor-pointer">
+                                <button type="button" onclick="calNavigate(1)" class="w-8 h-8 flex items-center justify-center rounded-xl bg-yorkaPanel border border-yorkaBorder text-yorkaDarkAccent hover:bg-yorkaAccent hover:text-white transition cursor-pointer">
                                     <i class="fa-solid fa-chevron-right text-xs"></i>
                                 </button>
                             </div>
@@ -514,7 +574,7 @@
                         </div>
 
                         <div>
-                            <label class="block text-[11px] font-mono uppercase text-yorkaMuted tracking-wider mb-3 font-bold">Bloques Horarios Disponibles</label>
+                            <label class="block text-[10px] font-mono uppercase text-yorkaMuted tracking-wider mb-3 font-bold">Bloques Horarios Disponibles</label>
                             <div id="client-slots-container" class="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
                                 <div class="col-span-full text-center text-yorkaMuted text-xs py-6 font-mono border border-dashed border-yorkaBorder rounded-2xl">
                                     Selecciona una fecha activa en el calendario arriba
@@ -523,12 +583,12 @@
                         </div>
                     </div>
 
-                    <!-- FORMULARIO YORKA -->
+                    <!-- FORMULARIO DE RESERVA -->
                     <div class="md:col-span-5 action-card rounded-3xl p-6 md:p-8 flex flex-col justify-between">
                         <div>
                             <div class="flex items-center justify-between mb-6 pb-4 border-b border-yorkaBorder">
                                 <h3 class="font-serif text-lg text-yorkaText flex items-center gap-3 font-medium">
-                                    <span class="text-xs font-mono bg-yorkaAccent text-white px-2.5 py-1 rounded-lg">02</span>
+                                    <span class="text-xs font-mono bg-yorkaAccent text-white px-2.5 py-1 rounded-lg border border-yorkaGold/30">02</span>
                                     Tus Datos de Cita
                                 </h3>
                             </div>
@@ -537,19 +597,19 @@
                                 <div>
                                     <label class="block text-[10px] font-mono uppercase text-yorkaMuted tracking-wider mb-1.5 font-bold">Nombre Completo *</label>
                                     <input type="text" id="client-name" required placeholder="Ej: Valentina Silva"
-                                           class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-3.5 py-2.5 text-yorkaText text-xs focus:outline-none focus:border-yorkaAccent focus:ring-1 focus:ring-yorkaAccent transition">
+                                           class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-3.5 py-2.5 text-yorkaText text-xs focus:outline-none focus:border-yorkaGold transition">
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                     <div>
                                         <label class="block text-[10px] font-mono uppercase text-yorkaMuted tracking-wider mb-1.5 font-bold">Instagram (@usuario) *</label>
                                         <input type="text" id="client-instagram" required placeholder="@tu_usuario"
-                                               class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-3.5 py-2.5 text-yorkaText text-xs focus:outline-none focus:border-yorkaAccent focus:ring-1 focus:ring-yorkaAccent transition">
+                                               class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-3.5 py-2.5 text-yorkaText text-xs focus:outline-none focus:border-yorkaGold transition">
                                     </div>
                                     <div>
                                         <label class="block text-[10px] font-mono uppercase text-yorkaMuted tracking-wider mb-1.5 font-bold">WhatsApp / Teléfono *</label>
                                         <input type="tel" id="client-phone" required placeholder="+56 9 1234 5678"
-                                               class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-3.5 py-2.5 text-yorkaText text-xs focus:outline-none focus:border-yorkaAccent focus:ring-1 focus:ring-yorkaAccent transition">
+                                               class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-3.5 py-2.5 text-yorkaText text-xs focus:outline-none focus:border-yorkaGold transition">
                                     </div>
                                 </div>
 
@@ -557,42 +617,41 @@
                                     <div>
                                         <label class="block text-[10px] font-mono uppercase text-yorkaMuted tracking-wider mb-1.5 font-bold">¿De dónde eres? *</label>
                                         <input type="text" id="client-origin" required placeholder="Ej: Concepción"
-                                               class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-3.5 py-2.5 text-yorkaText text-xs focus:outline-none focus:border-yorkaAccent focus:ring-1 focus:ring-yorkaAccent transition">
+                                               class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-3.5 py-2.5 text-yorkaText text-xs focus:outline-none focus:border-yorkaGold transition">
                                     </div>
                                     <div>
                                         <label class="block text-[10px] font-mono uppercase text-yorkaMuted tracking-wider mb-1.5 font-bold">Presupuesto ($) *</label>
                                         <input type="text" id="client-budget" required placeholder="Ej: $60.000"
-                                               class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-3.5 py-2.5 text-yorkaText text-xs focus:outline-none focus:border-yorkaAccent focus:ring-1 focus:ring-yorkaAccent transition">
+                                               class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-3.5 py-2.5 text-yorkaText text-xs focus:outline-none focus:border-yorkaGold transition">
                                     </div>
                                 </div>
 
                                 <div>
                                     <label class="block text-[10px] font-mono uppercase text-yorkaMuted tracking-wider mb-1.5 font-bold">Idea o Flash Deseado</label>
                                     <textarea id="client-notes" rows="2" placeholder="Describe tu idea, zona a tatuar, tamaño estimado..."
-                                              class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-3.5 py-2.5 text-yorkaText text-xs leading-relaxed focus:outline-none focus:border-yorkaAccent focus:ring-1 focus:ring-yorkaAccent transition resize-y min-h-[60px]"></textarea>
+                                              class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-3.5 py-2.5 text-yorkaText text-xs leading-relaxed focus:outline-none focus:border-yorkaGold transition resize-y min-h-[60px]"></textarea>
                                 </div>
 
-                                <!-- SELECTOR DE IMAGEN DE REFERENCIA -->
                                 <div>
                                     <label class="block text-[10px] font-mono uppercase text-yorkaMuted tracking-wider mb-1.5 font-bold">Imagen Referencial (Opcional)</label>
                                     <div class="relative flex items-center">
                                         <input type="file" id="client-image" accept="image/*" onchange="previewSelectedImage(event)"
-                                               class="w-full text-xs text-yorkaMuted bg-yorkaBg border border-yorkaBorder rounded-xl p-2 focus:outline-none focus:border-yorkaAccent file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-[10px] file:font-bold file:bg-yorkaPanel file:text-yorkaDarkAccent hover:file:bg-yorkaBorder cursor-pointer transition">
+                                               class="w-full text-xs text-yorkaMuted bg-yorkaBg border border-yorkaBorder rounded-xl p-2 focus:outline-none focus:border-yorkaGold file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-[10px] file:font-bold file:bg-yorkaPanel file:text-yorkaDarkAccent hover:file:bg-yorkaBorder cursor-pointer transition">
                                     </div>
-                                    <div id="image-preview-container" class="hidden mt-3 relative w-20 h-20 rounded-xl overflow-hidden border-2 border-yorkaAccent shadow-md">
+                                    <div id="image-preview-container" class="hidden mt-3 relative w-20 h-20 rounded-xl overflow-hidden border border-yorkaGold shadow-md">
                                         <img id="image-preview" src="" class="w-full h-full object-cover">
                                         <button type="button" onclick="removeSelectedImage()" class="absolute top-0 right-0 bg-black/80 text-white w-5 h-5 text-xs flex items-center justify-center rounded-bl cursor-pointer hover:bg-red-600 transition">×</button>
                                     </div>
                                 </div>
 
-                                <div class="bg-yorkaPanel/80 p-4 rounded-2xl border border-yorkaBorder text-xs text-yorkaMuted space-y-1.5 font-mono">
+                                <div class="bg-yorkaPanel/70 p-3.5 rounded-2xl border border-yorkaGold/30 text-xs text-yorkaMuted space-y-1 font-mono">
                                     <div class="flex justify-between"><span>Fecha seleccionada:</span> <strong id="summary-date" class="text-yorkaText">--</strong></div>
                                     <div class="flex justify-between"><span>Hora seleccionada:</span> <strong id="summary-time" class="text-yorkaAccent font-bold">--</strong></div>
                                 </div>
 
                                 <button type="submit" id="btn-submit-booking" disabled
-                                        class="btn-primary-action mt-3 w-full flex items-center justify-center gap-2 text-white font-mono text-xs font-bold tracking-widest py-4 rounded-2xl uppercase cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed">
-                                    <i class="fa-regular fa-paper-plane text-xs"></i>
+                                        class="btn-primary-action mt-3 w-full flex items-center justify-center gap-2 text-white font-mono text-xs font-bold tracking-widest py-3.5 rounded-2xl uppercase cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed">
+                                    <i class="fa-regular fa-paper-plane text-xs text-yorkaGold"></i>
                                     <span id="btn-submit-booking-label">Enviar Solicitud de Reserva</span>
                                 </button>
                             </form>
@@ -603,20 +662,21 @@
         </section>
     </main>
 
-    <footer class="bg-yorkaPanel py-14 border-t border-yorkaBorder text-center relative z-10">
+    <!-- FOOTER EDITORIAL -->
+    <footer class="bg-yorkaPanel py-14 border-t border-yorkaBorder text-center relative z-10 overflow-hidden">
         <div class="max-w-7xl mx-auto px-6 space-y-3">
-            <div class="flex justify-center mb-2">
-                <img src="assets/logo.jpg" alt="Yorka Tatuajes" class="yorka-logo-img">
+            <div class="flex justify-center mb-1">
+                <img src="assets/logo.jpg" alt="Yorka Tatuajes" class="yorka-logo-img" onerror="this.src='logo.jpg'">
             </div>
-            <p class="font-serif text-xl text-yorkaText tracking-wide font-medium">Yorka Tatuajes</p>
-            <p class="font-mono text-xs text-yorkaDarkAccent font-semibold">Estudio Privado • Concepción, Chile</p>
+            <p class="font-serif text-2xl text-yorkaText tracking-wide font-medium">Yorka Tatuajes</p>
+            <p class="font-mono text-xs text-yorkaDarkAccent font-semibold tracking-wider">Estudio Privado • Concepción, Chile</p>
             <p class="font-sans text-[10px] text-yorkaMuted uppercase tracking-widest pt-2">© 2026. Todos los derechos reservados.</p>
         </div>
     </footer>
 </div>
 
 <!-- MODAL CONSULTAR / CANCELAR CITAS (CLIENTE) -->
-<div id="client-manage-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+<div id="client-manage-modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="action-card rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl border border-yorkaBorder space-y-5">
         <div class="flex items-center justify-between border-b border-yorkaBorder pb-4">
             <h3 class="font-serif text-xl text-yorkaText flex items-center gap-2 font-medium">
@@ -631,7 +691,7 @@
         <form onsubmit="searchClientBookings(event)" class="space-y-4">
             <div>
                 <input type="text" id="client-search-input" required placeholder="Ej: @tu_instagram, +56912345678 o nombre"
-                       class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-4 py-3 text-yorkaText text-xs focus:outline-none focus:border-yorkaAccent">
+                       class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-4 py-3 text-yorkaText text-xs focus:outline-none focus:border-yorkaGold">
             </div>
             <button type="submit" class="btn-primary-action w-full py-3 rounded-xl text-xs font-bold uppercase tracking-wider text-white cursor-pointer">
                 Buscar Mis Citas
@@ -644,9 +704,9 @@
 </div>
 
 <!-- MODAL DE ÉXITO DE RESERVA -->
-<div id="success-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+<div id="success-modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="action-card rounded-3xl p-8 max-w-sm w-full text-center space-y-5">
-        <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-3xl mx-auto border border-emerald-200">
+        <div class="w-14 h-14 rounded-full bg-emerald-50 text-emerald-700 flex items-center justify-center text-2xl mx-auto border border-emerald-200">
             <i class="fa-solid fa-circle-check"></i>
         </div>
         <h3 class="font-serif text-2xl text-yorkaText font-medium">¡Solicitud Registrada!</h3>
@@ -663,7 +723,7 @@
 <!-- VISOR DE IMAGEN (LIGHTBOX) PARA EL ADMIN -->
 <div id="lightbox-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex flex-col items-center justify-center p-4" onclick="closeImageLightbox()">
     <div class="absolute top-6 right-6 z-10">
-        <button onclick="closeImageLightbox()" class="w-10 h-10 rounded-full bg-white border border-yorkaBorder text-yorkaText flex items-center justify-center text-lg shadow-lg cursor-pointer hover:bg-yorkaPanel transition" title="Cerrar">
+        <button onclick="closeImageLightbox()" class="w-10 h-10 rounded-full bg-yorkaCard border border-yorkaBorder text-yorkaText flex items-center justify-center text-lg shadow-lg cursor-pointer hover:bg-yorkaPanel transition" title="Cerrar">
             <i class="fa-solid fa-xmark"></i>
         </button>
     </div>
@@ -673,9 +733,9 @@
 </div>
 
 <!-- LOGIN ADMIN -->
-<div id="login-container" class="hidden min-h-[85vh] pt-32 pb-16 px-4 max-w-md mx-auto flex flex-col justify-center">
+<div id="login-container" class="hidden min-h-[85vh] pt-32 pb-16 px-4 max-w-md mx-auto flex flex-col justify-center relative z-20">
     <div class="action-card rounded-3xl p-8 md:p-10 text-center shadow-glass">
-        <div class="w-14 h-14 rounded-full bg-yorkaPanel text-yorkaAccent flex items-center justify-center text-2xl mx-auto mb-4 border border-yorkaBorder">
+        <div class="w-12 h-12 rounded-full bg-yorkaPanel text-yorkaAccent flex items-center justify-center text-xl mx-auto mb-4 border border-yorkaGold/40 shadow-xs">
             <i class="fa-solid fa-shield-halved"></i>
         </div>
         <h2 class="font-serif text-2xl text-yorkaAccent mb-2 font-medium">Acceso Administrativo</h2>
@@ -686,15 +746,15 @@
             <div>
                 <label class="block text-[10px] font-mono uppercase text-yorkaMuted tracking-wider mb-1.5 font-bold">Correo Administrativo</label>
                 <input type="email" id="login-email" required placeholder="yorka_tatuajes@gmail.com" autocomplete="off"
-                       class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-4 py-3 text-yorkaText text-xs focus:outline-none focus:border-yorkaAccent">
+                       class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-4 py-3 text-yorkaText text-xs focus:outline-none focus:border-yorkaGold">
             </div>
             <div>
                 <label class="block text-[10px] font-mono uppercase text-yorkaMuted tracking-wider mb-1.5 font-bold">Contraseña</label>
                 <input type="password" id="login-password" required placeholder="••••••••" autocomplete="off"
-                       class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-4 py-3 text-yorkaText text-xs focus:outline-none focus:border-yorkaAccent">
+                       class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-4 py-3 text-yorkaText text-xs focus:outline-none focus:border-yorkaGold">
             </div>
             <button type="submit" class="btn-primary-action w-full flex items-center justify-center gap-2 text-white font-mono text-xs font-bold tracking-widest py-3.5 rounded-2xl uppercase cursor-pointer">
-                <i class="fa-solid fa-right-to-bracket text-xs"></i>
+                <i class="fa-solid fa-right-to-bracket text-xs text-yorkaGold"></i>
                 <span>Ingresar al Panel</span>
             </button>
         </form>
@@ -704,13 +764,13 @@
     </div>
 </div>
 
-<!-- PANEL ADMIN COMPLETO -->
+<!-- PANEL ADMIN -->
 <div id="admin-container" class="hidden relative z-30 min-h-screen pt-32 md:pt-36 pb-20 px-4 md:px-10 max-w-7xl mx-auto">
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 pb-5 border-b border-yorkaBorder gap-4">
         <div>
             <div class="flex items-center gap-2 mb-2 flex-wrap">
                 <span class="text-yorkaDarkAccent text-xs tracking-[0.2em] uppercase font-bold font-mono">Control Administrativo</span>
-                <span class="bg-emerald-100 text-emerald-800 border border-emerald-200 text-[10px] px-2.5 py-0.5 rounded-full font-mono font-semibold">Supabase Cloud</span>
+                <span class="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] px-2.5 py-0.5 rounded-full font-mono font-semibold">Supabase Cloud</span>
                 <span id="admin-sync-status" class="sync-indicator">
                     <i class="fa-solid fa-cloud"></i>
                     <span>Sincronizado</span>
@@ -720,10 +780,10 @@
         </div>
 
         <div class="flex flex-wrap gap-2.5 w-full sm:w-auto font-mono text-xs">
-            <button onclick="openResetModal()" class="text-danger hover:bg-red-50 border border-red-200 bg-white px-4 py-2.5 rounded-xl transition cursor-pointer flex items-center gap-2 font-semibold">
+            <button onclick="openResetModal()" class="text-danger hover:bg-red-50 border border-red-200 bg-yorkaCard px-4 py-2.5 rounded-xl transition cursor-pointer flex items-center gap-2 font-semibold">
                 <i class="fa-solid fa-rotate-left text-xs"></i> Restablecer Agenda
             </button>
-            <button onclick="logoutAdmin()" class="bg-white hover:bg-yorkaPanel text-yorkaText border border-yorkaBorder px-4 py-2.5 rounded-xl transition cursor-pointer font-semibold">
+            <button onclick="logoutAdmin()" class="bg-yorkaCard hover:bg-yorkaPanel text-yorkaText border border-yorkaBorder px-4 py-2.5 rounded-xl transition cursor-pointer font-semibold">
                 Cerrar Sesión
             </button>
             <button onclick="showPublicLanding()" class="btn-primary-action px-5 py-2.5 rounded-xl transition cursor-pointer font-bold">
@@ -732,7 +792,7 @@
         </div>
     </div>
 
-    <!-- TABS ADMIN EDITORIAL -->
+    <!-- TABS ADMIN -->
     <div class="flex items-center gap-2 mb-8 border-b border-yorkaBorder overflow-x-auto font-mono text-xs">
         <button onclick="switchAdminTab('citas')" data-tab="citas" class="admin-tab-btn active px-5 py-3.5 text-yorkaMuted hover:text-yorkaText whitespace-nowrap cursor-pointer flex items-center gap-2 font-bold">
             <i class="fa-solid fa-list-check"></i> Registro de Citas
@@ -782,14 +842,13 @@
     <!-- TAB 2: CALENDARIO DE HORARIOS POR DÍAS -->
     <div id="tab-config" class="admin-tab-panel">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            <!-- CALENDARIO LADO IZQUIERDO -->
             <div class="lg:col-span-7 action-card rounded-3xl p-6 md:p-8">
                 <div class="flex items-center justify-between mb-6">
-                    <button type="button" onclick="adminCalNavigate(-1)" class="w-9 h-9 flex items-center justify-center rounded-xl bg-yorkaPanel border border-yorkaBorder text-yorkaDarkAccent hover:bg-yorkaAccent hover:text-white transition cursor-pointer">
+                    <button type="button" onclick="adminCalNavigate(-1)" class="w-8 h-8 flex items-center justify-center rounded-xl bg-yorkaPanel border border-yorkaBorder text-yorkaDarkAccent hover:bg-yorkaAccent hover:text-white transition cursor-pointer">
                         <i class="fa-solid fa-chevron-left text-xs"></i>
                     </button>
                     <h3 id="admin-cal-month-label" class="font-serif text-xl text-yorkaText tracking-wide font-semibold capitalize"></h3>
-                    <button type="button" onclick="adminCalNavigate(1)" class="w-9 h-9 flex items-center justify-center rounded-xl bg-yorkaPanel border border-yorkaBorder text-yorkaDarkAccent hover:bg-yorkaAccent hover:text-white transition cursor-pointer">
+                    <button type="button" onclick="adminCalNavigate(1)" class="w-8 h-8 flex items-center justify-center rounded-xl bg-yorkaPanel border border-yorkaBorder text-yorkaDarkAccent hover:bg-yorkaAccent hover:text-white transition cursor-pointer">
                         <i class="fa-solid fa-chevron-right text-xs"></i>
                     </button>
                 </div>
@@ -802,7 +861,6 @@
                 <div id="admin-calendar-grid" class="grid grid-cols-7 gap-2"></div>
             </div>
 
-            <!-- PANEL DE CONFIGURACIÓN DEL DÍA SELECCIONADO (DERECHA) -->
             <div class="lg:col-span-5 action-card rounded-3xl p-6 md:p-8 flex flex-col justify-between space-y-6">
                 <div class="space-y-5">
                     <div class="flex items-center justify-between border-b border-yorkaBorder pb-4">
@@ -814,7 +872,7 @@
 
                     <div class="flex items-center justify-between">
                         <span class="text-xs font-mono uppercase text-yorkaMuted font-bold">ESTADO DEL DÍA</span>
-                        <button type="button" id="btn-admin-toggle-day" onclick="toggleAdminSelectedDayState()" class="px-4 py-1.5 rounded-full text-xs font-mono font-bold uppercase transition cursor-pointer bg-emerald-100 text-emerald-800 border border-emerald-300">
+                        <button type="button" id="btn-admin-toggle-day" onclick="toggleAdminSelectedDayState()" class="px-4 py-1.5 rounded-full text-xs font-mono font-bold uppercase transition cursor-pointer bg-emerald-50 text-emerald-700 border border-emerald-200">
                             ACTIVO
                         </button>
                     </div>
@@ -822,15 +880,14 @@
                     <div class="space-y-2.5">
                         <label class="block text-xs font-mono uppercase text-yorkaMuted font-bold">BLOQUES CONFIGURADOS</label>
                         <div id="admin-day-slots-list" class="flex flex-wrap gap-2.5 min-h-[50px] p-3 bg-yorkaBg border border-yorkaBorder rounded-2xl items-center">
-                            <!-- Badges de hora -->
                         </div>
                     </div>
 
                     <div class="flex flex-wrap gap-3 pt-2">
-                        <button type="button" onclick="openAdminAddSingleSlotModal()" class="flex-1 bg-white border border-yorkaBorder hover:bg-yorkaPanel text-yorkaText font-mono text-xs py-3 px-3 rounded-xl transition font-bold flex items-center justify-center gap-2 cursor-pointer shadow-xs">
+                        <button type="button" onclick="openAdminAddSingleSlotModal()" class="flex-1 bg-yorkaCard border border-yorkaBorder hover:bg-yorkaPanel text-yorkaText font-mono text-xs py-3 px-3 rounded-xl transition font-bold flex items-center justify-center gap-2 cursor-pointer shadow-xs">
                             <i class="fa-solid fa-plus text-xs"></i> Agregar Hora
                         </button>
-                        <button type="button" onclick="openAdminBulkSlotModal()" class="flex-1 bg-white border border-yorkaBorder hover:bg-yorkaPanel text-yorkaText font-mono text-xs py-3 px-3 rounded-xl transition font-bold flex items-center justify-center gap-2 cursor-pointer shadow-xs">
+                        <button type="button" onclick="openAdminBulkSlotModal()" class="flex-1 bg-yorkaCard border border-yorkaBorder hover:bg-yorkaPanel text-yorkaText font-mono text-xs py-3 px-3 rounded-xl transition font-bold flex items-center justify-center gap-2 cursor-pointer shadow-xs">
                             <i class="fa-solid fa-bolt text-xs"></i> Generar Masivo
                         </button>
                     </div>
@@ -848,7 +905,6 @@
     <!-- TAB 3: BLOQUEOS Y VACACIONES -->
     <div id="tab-bloqueos" class="admin-tab-panel">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <!-- BLOQUEO DE VACACIONES -->
             <div class="action-card rounded-3xl p-6 md:p-8 space-y-4">
                 <h3 class="font-serif text-lg text-yorkaText flex items-center justify-between font-medium">
                     <span>Bloqueo de Fechas / Vacaciones</span>
@@ -874,7 +930,7 @@
                         <button onclick="toggleBlockDateRange(true)" class="flex-1 border border-red-200 bg-red-50 text-red-600 text-xs py-3 rounded-xl font-bold cursor-pointer hover:bg-red-100 transition">
                             Bloquear
                         </button>
-                        <button onclick="toggleBlockDateRange(false)" class="flex-1 border border-yorkaBorder bg-white text-yorkaText text-xs py-3 rounded-xl font-bold cursor-pointer hover:bg-yorkaPanel transition">
+                        <button onclick="toggleBlockDateRange(false)" class="flex-1 border border-yorkaBorder bg-yorkaCard text-yorkaText text-xs py-3 rounded-xl font-bold cursor-pointer hover:bg-yorkaPanel transition">
                             Liberar
                         </button>
                     </div>
@@ -885,7 +941,6 @@
                 </div>
             </div>
 
-            <!-- AUDITORÍA DE EXCEPCIONES -->
             <div class="action-card rounded-3xl p-6 md:p-8 space-y-4">
                 <h3 class="font-serif text-lg text-yorkaText flex items-center justify-between font-medium">
                     <span>Historial de Días Personalizados</span>
@@ -900,8 +955,8 @@
     </div>
 </div>
 
-<!-- MODALES DE CONTROL CON BACKDROP BLUR -->
-<div id="reset-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+<!-- MODALES DE CONTROL -->
+<div id="reset-modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="action-card rounded-3xl p-6 max-w-xs w-full text-center space-y-4">
         <h3 class="font-serif text-xl text-yorkaText">Restablecer Agenda</h3>
         <p class="text-xs text-yorkaMuted font-mono leading-relaxed">Se eliminarán los horarios personalizados configurados.</p>
@@ -912,7 +967,7 @@
     </div>
 </div>
 
-<div id="confirm-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] hidden flex items-center justify-center p-4">
+<div id="confirm-modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-[60] hidden flex items-center justify-center p-4">
     <div class="action-card rounded-3xl p-6 max-w-xs w-full text-center space-y-4">
         <h3 class="font-serif text-xl text-yorkaText">Confirmar Acción</h3>
         <p id="confirm-modal-message" class="text-xs text-yorkaMuted font-mono leading-relaxed">¿Deseas continuar?</p>
@@ -923,8 +978,7 @@
     </div>
 </div>
 
-<!-- MODAL GENERADOR MASIVO ADMIN -->
-<div id="bulk-slot-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] hidden flex items-center justify-center p-4">
+<div id="bulk-slot-modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-[60] hidden flex items-center justify-center p-4">
     <div class="action-card rounded-3xl p-6 max-w-sm w-full space-y-4">
         <h3 class="font-serif text-xl text-yorkaText">Generador Masivo de Horarios</h3>
         <p id="bulk-slot-target-label" class="text-xs text-yorkaMuted font-mono"></p>
@@ -957,8 +1011,7 @@
     </div>
 </div>
 
-<!-- MODAL AGREGAR HORA MANUAL ADMIN -->
-<div id="single-slot-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[60] hidden flex items-center justify-center p-4">
+<div id="single-slot-modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-[60] hidden flex items-center justify-center p-4">
     <div class="action-card rounded-3xl p-6 max-w-xs w-full space-y-4">
         <h3 class="font-serif text-xl text-yorkaText">Agregar Hora Manual</h3>
         <p id="single-slot-target-label" class="text-xs text-yorkaMuted font-mono"></p>
@@ -1050,11 +1103,6 @@
         [headerEl, adminEl, clientEl].forEach(el => {
             if (el) el.className = `sync-indicator ${status === 'syncing' ? 'syncing' : ''}`;
         });
-    }
-
-    function hideLoadingScreen() {
-        const loader = document.getElementById('pantalla-carga');
-        if (loader) loader.classList.add('ocultar-carga');
     }
 
     function openClientManageModal() {
@@ -1227,11 +1275,9 @@
                 }));
             }
             setSyncStatus('synced');
-            hideLoadingScreen();
         } catch (err) {
             console.error("Error cargando Supabase:", err);
             setSyncStatus('error');
-            hideLoadingScreen();
         } finally {
             isLoadingData = false;
         }
@@ -1349,14 +1395,14 @@
         if (currentUser && currentUser.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
             navSlot.innerHTML = `
                 <button onclick="showAdminPanel()" class="nav-link text-yorkaDarkAccent font-mono flex items-center gap-1.5 font-bold">
-                    <i class="fa-solid fa-user-gear text-xs"></i>
+                    <i class="fa-solid fa-user-gear text-xs text-yorkaGold"></i>
                     <span>Panel Admin</span>
                 </button>
             `;
         } else {
             navSlot.innerHTML = `
                 <button onclick="handleAdminNavClick()" id="nav-admin-toggle" class="nav-link text-yorkaDarkAccent font-mono flex items-center gap-1.5 font-bold">
-                    <i class="fa-solid fa-user-gear text-xs"></i>
+                    <i class="fa-solid fa-user-gear text-xs text-yorkaGold"></i>
                     <span>Panel Admin</span>
                 </button>
             `;
@@ -1642,7 +1688,7 @@
         const gcalUrl = getGoogleCalendarUrl(pendingBookingData);
         document.getElementById('success-modal-gcal-wrap').innerHTML = `
             <a href="${gcalUrl}" target="_blank" class="w-full bg-yorkaPanel border border-yorkaBorder hover:bg-yorkaBg text-yorkaText font-mono text-xs py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition font-bold mb-2 shadow-xs">
-                <i class="fa-brands fa-google text-xs"></i> Agregar a Google Calendar
+                <i class="fa-brands fa-google text-xs text-yorkaGold"></i> Agregar a Google Calendar
             </a>
         `;
 
@@ -1751,10 +1797,10 @@
 
         if (selectedAdminDayState.active) {
             btnToggle.innerText = 'ACTIVO';
-            btnToggle.className = 'px-3.5 py-1.5 rounded-full text-xs font-mono font-bold uppercase transition cursor-pointer bg-emerald-100 text-emerald-800 border border-emerald-300';
+            btnToggle.className = 'px-3.5 py-1.5 rounded-full text-xs font-mono font-bold uppercase transition cursor-pointer bg-emerald-50 text-emerald-700 border border-emerald-200';
         } else {
             btnToggle.innerText = 'INACTIVO';
-            btnToggle.className = 'px-3.5 py-1.5 rounded-full text-xs font-mono font-bold uppercase transition cursor-pointer bg-red-100 text-red-800 border border-red-300';
+            btnToggle.className = 'px-3.5 py-1.5 rounded-full text-xs font-mono font-bold uppercase transition cursor-pointer bg-red-50 text-red-600 border border-red-200';
         }
 
         slotsContainer.innerHTML = "";
@@ -1770,7 +1816,7 @@
 
         selectedAdminDayState.slots.forEach((s, slotIdx) => {
             const badge = document.createElement('span');
-            badge.className = "inline-flex items-center gap-2 bg-white border border-yorkaBorder text-yorkaText text-xs font-mono px-3 py-1.5 rounded-xl shadow-xs font-semibold";
+            badge.className = "inline-flex items-center gap-2 bg-yorkaCard border border-yorkaBorder text-yorkaText text-xs font-mono px-3 py-1.5 rounded-xl shadow-xs font-semibold";
             badge.innerHTML = `
                 ${s}
                 <button type="button" onclick="removeAdminSelectedDaySlot(${slotIdx})" class="text-danger hover:text-red-700 ml-1 font-bold cursor-pointer">×</button>
@@ -1981,7 +2027,7 @@
                         <div class="text-[10px] text-yorkaMuted truncate font-mono">${statusLabel}</div>
                     </div>
                     <div class="flex items-center gap-1.5 shrink-0">
-                        <button onclick="selectAdminDate('${dateStr}')" title="Editar" class="bg-white hover:bg-yorkaPanel text-yorkaText border border-yorkaBorder w-7 h-7 rounded-xl flex items-center justify-center cursor-pointer shadow-xs transition">
+                        <button onclick="selectAdminDate('${dateStr}')" title="Editar" class="bg-yorkaCard hover:bg-yorkaPanel text-yorkaText border border-yorkaBorder w-7 h-7 rounded-xl flex items-center justify-center cursor-pointer shadow-xs transition">
                             <i class="fa-solid fa-pen text-[10px]"></i>
                         </button>
                         <button onclick="deleteSavedException('${dateStr}')" title="Eliminar" class="text-danger border border-red-200 bg-red-50 hover:bg-red-100 w-7 h-7 rounded-xl flex items-center justify-center cursor-pointer transition">
@@ -2187,9 +2233,9 @@
             tr.className = "hover:bg-yorkaPanel/50 border-b border-yorkaBorder/60 transition-colors";
 
             let statusBadge = "";
-            if (b.status === 'Confirmada') statusBadge = '<span class="bg-emerald-100 text-emerald-800 border border-emerald-300 px-2.5 py-1 rounded-full text-[10px] font-mono font-bold">Confirmada</span>';
-            else if (b.status === 'Pendiente') statusBadge = '<span class="bg-amber-100 text-amber-800 border border-amber-300 px-2.5 py-1 rounded-full text-[10px] font-mono font-bold">Pendiente</span>';
-            else statusBadge = '<span class="bg-red-100 text-red-800 border border-red-300 px-2.5 py-1 rounded-full text-[10px] font-mono font-bold">Cancelada</span>';
+            if (b.status === 'Confirmada') statusBadge = '<span class="bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-1 rounded-full text-[10px] font-mono font-bold">Confirmada</span>';
+            else if (b.status === 'Pendiente') statusBadge = '<span class="bg-amber-50 text-amber-700 border border-amber-200 px-2.5 py-1 rounded-full text-[10px] font-mono font-bold">Pendiente</span>';
+            else statusBadge = '<span class="bg-red-50 text-red-600 border border-red-200 px-2.5 py-1 rounded-full text-[10px] font-mono font-bold">Cancelada</span>';
 
             const gcalLink = getGoogleCalendarUrl(b);
             const imageButton = b.imageUrl ? `
@@ -2207,7 +2253,7 @@
 
             const phoneRaw = (b.clientPhone || '').replace(/\D/g, '');
             const phoneLink = phoneRaw
-                ? `<a href="https://wa.me/${phoneRaw}" target="_blank" rel="noopener noreferrer" class="text-emerald-700 font-mono text-[11px] hover:underline inline-flex items-center gap-1 font-bold">
+                ? `<a href="https://wa.me/${phoneRaw}" target="_blank" rel="noopener noreferrer" class="text-emerald-600 font-mono text-[11px] hover:underline inline-flex items-center gap-1 font-bold">
                     <i class="fa-brands fa-whatsapp text-[11px]"></i> ${b.clientPhone}
                    </a>`
                 : `<span class="text-yorkaMuted font-mono text-[11px]">Sin teléfono</span>`;
@@ -2233,10 +2279,10 @@
                 <td class="py-4 align-top">${statusBadge}</td>
                 <td class="py-4 text-right align-top">
                     <div class="flex items-center justify-end gap-1.5 flex-wrap">
-                        <a href="${gcalLink}" target="_blank" class="bg-white hover:bg-yorkaBg text-yorkaText border border-yorkaBorder px-2.5 py-1 rounded-xl text-[10px] font-mono transition flex items-center gap-1 font-bold shadow-xs">
-                            <i class="fa-brands fa-google text-[10px]"></i> Calendar
+                        <a href="${gcalLink}" target="_blank" class="bg-yorkaCard hover:bg-yorkaBg text-yorkaText border border-yorkaBorder px-2.5 py-1 rounded-xl text-[10px] font-mono transition flex items-center gap-1 font-bold shadow-xs">
+                            <i class="fa-brands fa-google text-[10px] text-yorkaGold"></i> Calendar
                         </a>
-                        <select onchange="updateBookingStatus('${b.id}', this.value)" class="bg-white border border-yorkaBorder rounded-xl px-2 py-1 text-[11px] text-yorkaText focus:outline-none cursor-pointer font-mono shadow-xs">
+                        <select onchange="updateBookingStatus('${b.id}', this.value)" class="bg-yorkaCard border border-yorkaBorder rounded-xl px-2 py-1 text-[11px] text-yorkaText focus:outline-none cursor-pointer font-mono shadow-xs">
                             <option value="Pendiente" ${b.status === 'Pendiente' ? 'selected' : ''}>Pendiente</option>
                             <option value="Confirmada" ${b.status === 'Confirmada' ? 'selected' : ''}>Confirmar</option>
                             <option value="Cancelada" ${b.status === 'Cancelada' ? 'selected' : ''}>Cancelar</option>
@@ -2283,6 +2329,40 @@
     function prevSlide() { showSlide((currentSlide - 1 + slides.length) % slides.length); }
     function goToSlide(index) { showSlide(index); }
 
+    /* ROTACIÓN DE IMÁGENES DE FONDO EN EL HERO */
+    (function initHeroBackgroundCarousel() {
+        const heroSlides = document.querySelectorAll('#hero-bg-carousel .hero-bg-slide');
+        if (!heroSlides.length) return;
+
+        // Fallback: si el .png no carga, probar .jpg y luego .jpeg (mismo criterio que el portafolio)
+        heroSlides.forEach(slide => {
+            const bg = slide.style.backgroundImage;
+            const match = bg.match(/url\(['"]?(.*?)['"]?\)/);
+            if (!match) return;
+            const originalPath = match[1];
+            const dotIndex = originalPath.lastIndexOf('.');
+            const base = dotIndex !== -1 ? originalPath.slice(0, dotIndex) : originalPath;
+            const candidates = [`${base}.jpg`, `${base}.jpeg`];
+            const tester = new Image();
+            tester.onerror = function tryNext() {
+                const next = candidates.shift();
+                if (!next) return;
+                const img = new Image();
+                img.onload = () => { slide.style.backgroundImage = `url('${next}')`; };
+                img.onerror = tryNext;
+                img.src = next;
+            };
+            tester.onload = () => {}; // png cargó bien, no hacer nada
+            tester.src = originalPath;
+        });
+        let heroIndex = 0;
+        setInterval(() => {
+            heroSlides[heroIndex].classList.remove('active');
+            heroIndex = (heroIndex + 1) % heroSlides.length;
+            heroSlides[heroIndex].classList.add('active');
+        }, 3500);
+    })();
+
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
         if (window.scrollY > 40) navbar.classList.add('shadow-glass');
@@ -2312,7 +2392,6 @@
     }
 
     window.addEventListener('DOMContentLoaded', async () => {
-        setTimeout(hideLoadingScreen, 1200);
         await loadDataFromSupabase(true);
 
         const today = getLocalDateString(new Date());
