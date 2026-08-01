@@ -79,11 +79,11 @@
 
         /* EFECTO DE LIGERA SOMBRA SOLO AL HACER SCROLL HACIA ABAJO */
         .navbar.scrolled {
-            background-color: rgba(15, 12, 10, 0.85) !important;
-            backdrop-filter: blur(12px) !important;
-            -webkit-backdrop-filter: blur(12px) !important;
-            border-bottom: 1px solid rgba(201, 162, 77, 0.2) !important;
-            padding: 14px 0;
+            background-color: rgba(15, 12, 10, 0.88) !important;
+            backdrop-filter: blur(14px) !important;
+            -webkit-backdrop-filter: blur(14px) !important;
+            border-bottom: 1px solid rgba(201, 162, 77, 0.25) !important;
+            padding: 12px 0;
         }
 
         .nav-link { position: relative; padding-bottom: 4px; cursor: pointer; transition: color 0.3s ease; }
@@ -93,13 +93,13 @@
         }
         .nav-link:hover::after, .nav-link.active::after { width: 100%; }
 
-        /* LOGO MINIMAL */
+        /* LOGO GEOMÉTRICO SIMÉTRICO */
         .yorka-logo-img {
-            width: 38px; height: 38px; border-radius: 50%; object-fit: cover;
-            border: 1px solid #c9a24d; box-shadow: 0 4px 14px rgba(232, 52, 45, 0.25);
-            transition: transform 0.3s ease;
+            width: 36px; height: 36px; border-radius: 50%; object-fit: cover;
+            border: 1px solid #c9a24d; box-shadow: 0 4px 14px rgba(201, 162, 77, 0.3);
+            transition: transform 0.3s ease, border-color 0.3s ease;
         }
-        .yorka-logo-img:hover { transform: scale(1.05); }
+        .yorka-logo-img:hover { transform: scale(1.08) rotate(5deg); border-color: #e8342d; }
 
         /* ACORDEÓN */
         .faq-item { border-bottom: 1px solid #e7e1da; transition: all 0.3s ease; }
@@ -114,7 +114,7 @@
         }
         .carousel-dot.active { background-color: #e8342d; border-color: #c9a24d; transform: scale(1.3); }
 
-        /* TARJETAS CON ACABADO GLASS MINIMALIST */
+        /* TARJETAS CON ACABADO GLASS MINIMALIST Y MARCO DE ESQUINAS */
         .action-card {
             background: rgba(255, 255, 255, 0.96);
             backdrop-filter: blur(16px);
@@ -235,7 +235,7 @@
 </head>
 
 
-<body class="relative min-h-screen">
+<body class="relative min-h-screen bg-[#0f0c0a]">
 
 <!-- LÍNEA SUPERIOR DECORATIVA MINIMAL -->
 <div class="fixed top-0 left-0 w-full h-[3px] bg-gradient-to-r from-yorkaAccent via-yorkaGold via-50% to-yorkaAccent z-50"></div>
@@ -243,20 +243,23 @@
 <!-- TOASTS DE NOTIFICACIÓN -->
 <div id="toast-container"></div>
 
-<!-- NAVBAR HIGH-END TOTALMENTE TRANSPARENTE -->
-<nav id="navbar" class="navbar fixed top-0 w-full z-40 flex flex-col items-center px-6">
+<!-- NAVBAR HIGH-END TOTALMENTE TRANSPARENTE CON LOGOS GEOMÉTRICOS SIMÉTRICOS -->
+<nav id="navbar" class="navbar fixed top-0 w-full z-40 flex flex-col items-center px-4 md:px-6">
     <div class="max-w-7xl w-full flex flex-col items-center relative">
-        <div class="flex items-center gap-3 mb-1 cursor-pointer group" onclick="showPublicLanding()">
-            <div class="relative">
-                <img src="assets/logo.jpg" alt="Yorka Tatuajes" class="yorka-logo-img" onerror="this.src='logo.jpg'">
-            </div>
-            <span class="font-serif text-2xl md:text-3xl text-white tracking-tight font-semibold group-hover:text-yorkaGold transition-colors drop-shadow-md">
+        
+        <!-- EMBLEMA SIMÉTRICO: [LOGO] YORKA TATUAJES [LOGO] -->
+        <div class="flex items-center justify-center gap-3 sm:gap-4 mb-2 cursor-pointer group" onclick="showPublicLanding()">
+            <img src="assets/logo.jpg" alt="Yorka Tatuajes Logo" class="yorka-logo-img" onerror="this.src='logo.jpg'">
+            
+            <span class="font-serif text-2xl sm:text-3xl md:text-4xl text-white tracking-tight font-semibold group-hover:text-yorkaGold transition-colors drop-shadow-md px-1">
                 Yorka Tatuajes
             </span>
+            
+            <img src="assets/logo.jpg" alt="Yorka Tatuajes Logo" class="yorka-logo-img" onerror="this.src='logo.jpg'">
         </div>
 
-        <div class="hidden md:flex items-center gap-8 font-sans text-[11px] font-bold tracking-[0.18em] uppercase text-white/90 mt-1">
-            <div id="public-nav-links" class="flex items-center gap-7">
+        <div class="hidden md:flex items-center gap-7 lg:gap-8 font-sans text-[11px] font-bold tracking-[0.18em] uppercase text-white/90 mt-1">
+            <div id="public-nav-links" class="flex items-center gap-6 lg:gap-7">
                 <a href="#estudio" onclick="showPublicLanding()" class="nav-link hover:text-yorkaGold transition-colors font-mono drop-shadow-sm">Estudio</a>
                 <a href="#artista" onclick="showPublicLanding()" class="nav-link hover:text-yorkaGold transition-colors font-mono drop-shadow-sm">Artista</a>
                 <a href="#portafolio" onclick="showPublicLanding()" class="nav-link hover:text-yorkaGold transition-colors font-mono drop-shadow-sm">Portafolio</a>
@@ -267,7 +270,7 @@
                     <i class="fa-solid fa-calendar-check text-xs text-yorkaGold"></i> Mis Citas
                 </button>
                 
-                <a href="https://www.instagram.com/yorka_tatuajes/" target="_blank" rel="noopener noreferrer" class="nav-link text-white/90 hover:text-yorkaGold transition-colors flex items-center gap-1.5 font-mono drop-shadow-sm">
+                <a href="https://www.instagram.com/yorka_tatuajes/?hl=es-la" target="_blank" rel="noopener noreferrer" class="nav-link text-white/90 hover:text-yorkaGold transition-colors flex items-center gap-1.5 font-mono drop-shadow-sm">
                     <i class="fa-brands fa-instagram text-xs"></i> @yorka_tatuajes
                 </a>
                 
@@ -287,20 +290,20 @@
         </div>
     </div>
 
-    <button id="mobileBtn" class="md:hidden absolute right-6 top-4 text-white hover:text-yorkaGold focus:outline-none transition-colors p-2">
+    <button id="mobileBtn" class="md:hidden absolute right-4 sm:right-6 top-4 text-white hover:text-yorkaGold focus:outline-none transition-colors p-2">
         <i class="fa-solid fa-bars-staggered text-2xl"></i>
     </button>
 </nav>
 
-<!-- MENÚ MÓVIL EDITORIAL -->
-<div id="mobileMenu" class="fixed inset-0 bg-black/95 backdrop-blur-xl z-50 hidden flex-col justify-center items-center gap-7 font-serif text-2xl text-white">
+<!-- MENÚ MÓVIL EDITORIAL DE ALTA GAMA -->
+<div id="mobileMenu" class="fixed inset-0 bg-black/95 backdrop-blur-2xl z-50 hidden flex-col justify-center items-center gap-6 font-serif text-2xl text-white px-6">
     <button onclick="toggleMobileMenu()" class="absolute top-6 right-6 text-2xl text-white/70 hover:text-white p-2">
         <i class="fa-solid fa-xmark"></i>
     </button>
-    <div class="mb-2 text-center relative">
-        <img src="assets/logo.jpg" alt="Yorka Tatuajes" class="w-16 h-16 rounded-full mx-auto mb-2 border border-yorkaGold shadow-md" onerror="this.src='logo.jpg'">
-        <span class="font-serif text-lg text-white/80 tracking-widest uppercase block">Yorka Tatuajes</span>
-        <span class="text-yorkaGold text-xs font-serif block mt-1">✦ Estudio Privado ✦</span>
+    <div class="mb-3 text-center relative flex flex-col items-center">
+        <img src="assets/logo.jpg" alt="Yorka Tatuajes" class="w-14 h-14 rounded-full border border-yorkaGold shadow-md mb-2" onerror="this.src='logo.jpg'">
+        <span class="font-serif text-xl text-white tracking-widest uppercase block">Yorka Tatuajes</span>
+        <span class="text-yorkaGold text-xs font-serif block mt-1 tracking-widest">✦ ESTUDIO PRIVADO ✦</span>
     </div>
     <a href="#estudio" onclick="showPublicLanding(); toggleMobileMenu();" class="hover:text-yorkaGold mobile-link transition-colors">Estudio</a>
     <a href="#artista" onclick="showPublicLanding(); toggleMobileMenu();" class="hover:text-yorkaGold mobile-link transition-colors">Artista</a>
@@ -308,22 +311,22 @@
     <a href="#info" onclick="showPublicLanding(); toggleMobileMenu();" class="hover:text-yorkaGold mobile-link transition-colors font-mono text-xl">Información</a>
     <a href="#agendar" onclick="showPublicLanding(); toggleMobileMenu();" class="hover:text-yorkaGold mobile-link transition-colors">Reserva</a>
     <button onclick="openClientManageModal(); toggleMobileMenu();" class="hover:text-yorkaGold text-yorkaGold transition-colors flex items-center gap-2 text-xl font-serif">
-        <i class="fa-solid fa-calendar-check"></i>
+        <i class="fa-solid fa-calendar-check text-base"></i>
         <span>Mis Citas</span>
     </button>
-    <a href="https://www.instagram.com/yorka_tatuajes/" target="_blank" rel="noopener noreferrer" class="hover:text-yorkaGold mobile-link transition-colors flex items-center gap-2 text-base font-sans font-semibold text-white/70">
+    <a href="https://www.instagram.com/yorka_tatuajes/?hl=es-la" target="_blank" rel="noopener noreferrer" class="hover:text-yorkaGold mobile-link transition-colors flex items-center gap-2 text-base font-sans font-semibold text-white/70">
         <i class="fa-brands fa-instagram"></i> @yorka_tatuajes
     </a>
-    <button onclick="handleAdminNavClick(); toggleMobileMenu();" class="hover:text-yorkaGold mobile-link text-yorkaGold transition-colors flex items-center gap-2 text-base font-mono mt-4 pt-4 border-t border-white/20 w-48 justify-center">
-        <i class="fa-solid fa-user-gear"></i>
+    <button onclick="handleAdminNavClick(); toggleMobileMenu();" class="hover:text-yorkaGold mobile-link text-yorkaGold transition-colors flex items-center gap-2 text-base font-mono mt-2 pt-4 border-t border-white/20 w-48 justify-center">
+        <i class="fa-solid fa-user-gear text-sm"></i>
         <span id="mobile-admin-label">Panel Admin</span>
     </button>
 </div>
 
 <!-- VISTA PÚBLICA -->
-<div id="landing-container" class="relative z-10">
-    <!-- HERO SECTION CON IMAGEN1, IMAGEN3 E IMAGEN4 ROTATIVAS DE FONDO -->
-    <header id="estudio" class="relative w-full pt-36 pb-24 md:pt-44 md:pb-32 px-6 text-center overflow-hidden">
+<div id="landing-container" class="relative z-10 bg-[#0f0c0a]">
+    <!-- HERO SECTION ADAPTADO A TELÉFONOS SIN BORDES BLANCOS -->
+    <header id="estudio" class="relative w-full pt-36 pb-20 md:pt-48 md:pb-32 px-6 text-center overflow-hidden min-h-[100dvh] flex items-center justify-center bg-[#0f0c0a]">
 
         <!-- ROTACIÓN DE IMÁGENES DE FONDO -->
         <div id="hero-bg-carousel" class="absolute inset-0 z-0">
@@ -333,7 +336,7 @@
         </div>
 
         <!-- VELO TRANSLÚCIDO SUAVE -->
-        <div class="absolute inset-0 z-0 pointer-events-none" style="background: linear-gradient(180deg, rgba(15,12,10,0.45) 0%, rgba(15,12,10,0.25) 35%, rgba(15,12,10,0.75) 80%, rgba(15,12,10,0.95) 100%);"></div>
+        <div class="absolute inset-0 z-0 pointer-events-none" style="background: linear-gradient(180deg, rgba(15,12,10,0.55) 0%, rgba(15,12,10,0.3) 35%, rgba(15,12,10,0.78) 80%, rgba(15,12,10,1) 100%);"></div>
 
         <div class="relative z-10 max-w-4xl mx-auto">
             <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-yorkaGold/50 text-white text-[10px] font-mono uppercase tracking-widest mb-7 shadow-xs">
@@ -341,9 +344,9 @@
                 <span>Estudio Privado • Concepción, Chile</span>
             </div>
 
-            <span class="block font-sans text-xs md:text-sm italic text-white/80 tracking-[0.2em] uppercase mb-3">Arte Corporal & Diseños de Autor</span>
+            <span class="block font-sans text-xs sm:text-sm italic text-white/80 tracking-[0.2em] uppercase mb-3">Arte Corporal & Diseños de Autor</span>
 
-            <h1 class="font-serif text-5xl sm:text-6xl md:text-8xl text-yorkaAccent font-normal tracking-tight leading-[1.05] mb-6 drop-shadow-[0_4px_25px_rgba(0,0,0,0.7)]">
+            <h1 class="font-serif text-4xl sm:text-6xl md:text-8xl text-yorkaAccent font-normal tracking-tight leading-[1.05] mb-6 drop-shadow-[0_4px_25px_rgba(0,0,0,0.7)]">
                 Yorka Tatuajes
             </h1>
 
@@ -353,25 +356,30 @@
                 <span class="w-12 h-px bg-gradient-to-l from-transparent via-yorkaGold to-yorkaAccent"></span>
             </div>
 
-            <p class="font-sans text-sm md:text-base text-white/90 leading-relaxed max-w-xl mx-auto font-medium mb-10 drop-shadow-sm">
+            <p class="font-sans text-xs sm:text-sm md:text-base text-white/90 leading-relaxed max-w-xl mx-auto font-medium mb-10 drop-shadow-sm px-2">
                 Especializada en proyectos personalizados e ilustración fina en piel. Reserva tu sesión privada en la agenda interactiva a continuación.
             </p>
 
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="#agendar" class="btn-primary-action inline-flex items-center gap-3 font-mono text-xs font-bold px-8 py-4 rounded-2xl uppercase tracking-widest text-white">
+                <a href="#agendar" class="btn-primary-action w-full sm:w-auto inline-flex items-center justify-center gap-3 font-mono text-xs font-bold px-8 py-4 rounded-2xl uppercase tracking-widest text-white">
                     <i class="fa-solid fa-calendar-check text-sm text-yorkaGold"></i> Solicitar Cita
                 </a>
-                <a href="#portafolio" class="inline-flex items-center gap-2 font-mono text-xs font-semibold px-7 py-4 rounded-2xl uppercase tracking-wider text-white bg-white/10 backdrop-blur-md border border-white/40 hover:border-yorkaGold hover:bg-white/20 transition shadow-xs">
+                <a href="#portafolio" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 font-mono text-xs font-semibold px-7 py-4 rounded-2xl uppercase tracking-wider text-white bg-white/10 backdrop-blur-md border border-white/40 hover:border-yorkaGold hover:bg-white/20 transition shadow-xs">
                     Ver Portafolio <i class="fa-solid fa-arrow-down text-[10px] text-yorkaGold"></i>
                 </a>
             </div>
         </div>
     </header>
 
-    <main>
-        <!-- SECCIÓN SOBRE LA ARTISTA (YORKA) -->
-        <section id="artista" class="py-20 md:py-28 bg-yorkaBg relative border-t border-yorkaBorder">
-            <div class="max-w-6xl mx-auto px-6">
+    <main class="bg-yorkaBg">
+        <!-- SECCIÓN SOBRE LA ARTISTA (YORKA) CON ESQUINAS DECORATIVAS ORNAMENTO 3 -->
+        <section id="artista" class="py-20 md:py-28 bg-yorkaBg relative border-t border-yorkaBorder overflow-hidden">
+            
+            <!-- ORNAMENTOS EN LAS ESQUINAS DEL PANEL -->
+            <img src="assets/ornamento3.png" alt="Ornamento Esquina Izquierda" class="absolute top-2 left-2 w-14 sm:w-20 md:w-28 opacity-25 pointer-events-none z-0" onerror="this.onerror=null; this.src='ornamento3.png';">
+            <img src="assets/ornamento3.png" alt="Ornamento Esquina Derecha" class="absolute top-2 right-2 w-14 sm:w-20 md:w-28 opacity-25 pointer-events-none z-0 scale-x-[-1]" onerror="this.onerror=null; this.src='ornamento3.png';">
+
+            <div class="max-w-6xl mx-auto px-6 relative z-10">
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-16 items-center">
                     
                     <!-- FOTO DE LA ARTISTA -->
@@ -387,8 +395,8 @@
                         </div>
                     </div>
 
-                    <!-- BIOGRAFÍA & VISIÓN -->
-                    <div class="md:col-span-7 space-y-6">
+                    <!-- BIOGRAFÍA & VISIÓN (ORNAMENTO 2 CENTRALIZADO) -->
+                    <div class="md:col-span-7 space-y-5 text-center md:text-left">
                         <span class="font-mono text-[10px] uppercase tracking-[0.25em] text-yorkaDarkAccent font-bold block">
                             ✦ Conoce a la Artista ✦
                         </span>
@@ -397,7 +405,10 @@
                             Detrás de la aguja: <span class="italic text-yorkaAccent">Yorka</span>
                         </h2>
                         
-                        <div class="w-20 h-0.5 bg-gradient-to-r from-yorkaGold to-transparent"></div>
+                        <!-- ORNAMENTO 2 PERFECTAMENTE CENTRALIZADO EN LA COLUMNA DE TEXTO -->
+                        <div class="py-2 flex justify-center items-center w-full">
+                            <img src="assets/ornamento2.png" alt="Ornamento" class="h-6 md:h-7 opacity-85 object-contain mx-auto" onerror="this.onerror=null; this.src='ornamento2.png';">
+                        </div>
                         
                         <p class="font-sans text-yorkaMuted text-xs md:text-sm leading-relaxed font-light">
                             Hola, soy <strong class="text-yorkaText font-semibold">Yorka</strong>. Entiendo el arte corporal no sólo como una técnica sobre la piel, sino como una extensión genuina de la identidad, estética y vivencias de cada persona.
@@ -407,7 +418,7 @@
                             Mi trabajo se enfoca en piezas de línea fina, composiciones botánicas y proyectos de autor desarrollados a medida. Cada cita en mi estudio privado en Concepción está pensada para brindarte un ambiente íntimo, seguro y acogedor donde tu idea cobra vida con la máxima precisión y dedicación.
                         </p>
 
-                        <div class="grid grid-cols-2 gap-4 pt-4 border-t border-yorkaBorder font-mono text-xs text-yorkaDarkAccent">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-yorkaBorder font-mono text-xs text-yorkaDarkAccent text-left">
                             <div class="flex items-center gap-2.5">
                                 <i class="fa-solid fa-wand-magic-sparkles text-yorkaGold"></i>
                                 <span>Diseño 100% de Autor</span>
@@ -426,19 +437,29 @@
         <!-- PORTAFOLIO SHOWCASE CON IMÁGENES REALES LIMPIAS Y ZOOM INTERACTIVO -->
         <section id="portafolio" class="py-20 md:py-28 bg-yorkaPanel/40 border-y border-yorkaBorder relative">
             <div class="max-w-6xl mx-auto px-6">
-                <div class="mb-12 text-center relative">
+                <div class="mb-10 text-center relative flex flex-col items-center">
                     <span class="font-mono text-[10px] uppercase tracking-[0.25em] text-yorkaDarkAccent font-bold block mb-2">
                         ✦ Galería & Trabajos ✦
                     </span>
                     <h2 class="font-serif text-3xl md:text-5xl text-yorkaText font-normal">Muestra de <span class="italic text-yorkaAccent">Diseños</span></h2>
-                    <div class="w-20 h-0.5 bg-gradient-to-r from-transparent via-yorkaGold to-transparent mx-auto mt-3"></div>
+                    
+                    <!-- ORNAMENTO 2 EN TÍTULO -->
+                    <div class="mt-3 flex justify-center w-full">
+                        <img src="assets/ornamento2.png" alt="Ornamento" class="h-6 opacity-85 object-contain mx-auto" onerror="this.onerror=null; this.src='ornamento2.png';">
+                    </div>
+
                     <p class="font-sans text-yorkaMuted text-xs md:text-sm mx-auto max-w-lg leading-relaxed mt-3 font-light">
                         Una selección de piezas de línea fina, botánica y proyectos de autor realizados en estudio privado. <span class="text-yorkaAccent font-semibold">(Haz clic en cualquier imagen para verla en pantalla completa)</span>
                     </p>
                 </div>
 
-                <div class="action-card rounded-3xl p-6 md:p-8 shadow-glass">
-                    <div class="min-h-[340px] relative w-full overflow-hidden">
+                <div class="action-card rounded-3xl p-4 sm:p-6 md:p-8 shadow-glass relative overflow-hidden">
+                    
+                    <!-- ORNAMENTO 3 EN ESQUINAS DE LA TARJETA -->
+                    <img src="assets/ornamento3.png" alt="Ornamento Esquina" class="absolute top-2 left-2 w-12 sm:w-16 opacity-30 pointer-events-none z-10" onerror="this.onerror=null; this.src='ornamento3.png';">
+                    <img src="assets/ornamento3.png" alt="Ornamento Esquina" class="absolute top-2 right-2 w-12 sm:w-16 opacity-30 pointer-events-none z-10 scale-x-[-1]" onerror="this.onerror=null; this.src='ornamento3.png';">
+
+                    <div class="min-h-[340px] relative w-full overflow-hidden pt-2">
                         <!-- SLIDE 1 -->
                         <div class="carousel-slide active grid-cols-1 md:grid-cols-3 gap-6 h-full items-center">
                             <div class="group relative h-[280px] rounded-2xl border border-yorkaBorder overflow-hidden shadow-xs hover:border-yorkaGold hover:shadow-card-hover transition-all duration-300 cursor-zoom-in" onclick="openImageLightbox(this.querySelector('img').src)">
@@ -518,12 +539,16 @@
         <!-- INFO EDITORIAL FAQS -->
         <section id="info" class="py-20 md:py-28 bg-yorkaBg relative">
             <div class="max-w-4xl mx-auto px-6">
-                <div class="mb-12 text-center">
+                <div class="mb-10 text-center flex flex-col items-center">
                     <span class="font-mono text-[10px] uppercase tracking-[0.25em] text-yorkaDarkAccent font-bold block mb-2">
                         ✦ Recomendaciones ✦
                     </span>
                     <h2 class="font-serif text-3xl md:text-5xl text-yorkaText font-normal">Información de la <span class="italic text-yorkaAccent">Sesión</span></h2>
-                    <div class="w-20 h-0.5 bg-gradient-to-r from-transparent via-yorkaGold to-transparent mx-auto mt-3"></div>
+                    
+                    <!-- ORNAMENTO 2 EN TÍTULO -->
+                    <div class="mt-3 flex justify-center w-full">
+                        <img src="assets/ornamento2.png" alt="Ornamento" class="h-6 opacity-85 object-contain mx-auto" onerror="this.onerror=null; this.src='ornamento2.png';">
+                    </div>
                 </div>
 
                 <div class="space-y-4">
@@ -561,12 +586,17 @@
         <!-- SECCIÓN DE AGENDAMIENTO -->
         <section id="agendar" class="py-20 md:py-28 bg-yorkaBg border-t border-yorkaBorder relative">
             <div class="max-w-6xl mx-auto px-6">
-                <div class="text-center mb-12">
+                <div class="text-center mb-10 flex flex-col items-center">
                     <span class="font-mono text-[10px] uppercase tracking-[0.25em] text-yorkaDarkAccent font-bold block mb-1">
                         ✦ Reserva Tu Sesión ✦
                     </span>
                     <h2 class="font-serif text-3xl md:text-5xl text-yorkaText font-normal">Agenda de <span class="italic text-yorkaAccent">Disponibilidad</span></h2>
-                    <div class="w-24 h-0.5 bg-gradient-to-r from-transparent via-yorkaGold to-transparent mx-auto mt-3"></div>
+                    
+                    <!-- ORNAMENTO 2 EN TÍTULO -->
+                    <div class="mt-3 flex justify-center w-full">
+                        <img src="assets/ornamento2.png" alt="Ornamento" class="h-6 opacity-85 object-contain mx-auto" onerror="this.onerror=null; this.src='ornamento2.png';">
+                    </div>
+
                     <p class="font-sans text-yorkaMuted text-xs md:text-sm mx-auto max-w-lg leading-relaxed mt-3 font-light">
                         Selecciona un día en el calendario y escoge el bloque disponible. Tu solicitud quedará inmediatamente registrada en el sistema del estudio.
                     </p>
@@ -574,9 +604,14 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
                     <!-- CALENDARIO -->
-                    <div class="md:col-span-7 action-card rounded-3xl p-6 md:p-8">
-                        <div class="flex items-center justify-between mb-6 pb-4 border-b border-yorkaBorder">
-                            <h3 class="font-serif text-lg text-yorkaText flex items-center gap-3 font-medium">
+                    <div class="md:col-span-7 action-card rounded-3xl p-5 sm:p-6 md:p-8 relative overflow-hidden">
+                        
+                        <!-- ORNAMENTO 3 EN ESQUINAS -->
+                        <img src="assets/ornamento3.png" alt="Ornamento Esquina" class="absolute top-2 left-2 w-10 sm:w-14 opacity-25 pointer-events-none z-10" onerror="this.onerror=null; this.src='ornamento3.png';">
+                        <img src="assets/ornamento3.png" alt="Ornamento Esquina" class="absolute top-2 right-2 w-10 sm:w-14 opacity-25 pointer-events-none z-10 scale-x-[-1]" onerror="this.onerror=null; this.src='ornamento3.png';">
+
+                        <div class="flex items-center justify-between mb-6 pb-4 border-b border-yorkaBorder relative z-10">
+                            <h3 class="font-serif text-base sm:text-lg text-yorkaText flex items-center gap-3 font-medium">
                                 <span class="text-xs font-mono bg-yorkaAccent text-white px-2.5 py-1 rounded-lg border border-yorkaGold/30">01</span>
                                 Selecciona Fecha y Hora
                             </h3>
@@ -586,7 +621,7 @@
                             </span>
                         </div>
 
-                        <div class="mb-6">
+                        <div class="mb-6 relative z-10">
                             <div class="flex items-center justify-between mb-4">
                                 <button type="button" onclick="calNavigate(-1)" class="w-8 h-8 flex items-center justify-center rounded-xl bg-yorkaPanel border border-yorkaBorder text-yorkaDarkAccent hover:bg-yorkaAccent hover:text-white transition cursor-pointer">
                                     <i class="fa-solid fa-chevron-left text-xs"></i>
@@ -597,11 +632,11 @@
                                 </button>
                             </div>
 
-                            <div class="grid grid-cols-7 gap-2 mb-2 text-center text-[10px] text-yorkaMuted uppercase tracking-widest font-bold font-mono">
+                            <div class="grid grid-cols-7 gap-1.5 sm:gap-2 mb-2 text-center text-[10px] text-yorkaMuted uppercase tracking-widest font-bold font-mono">
                                 <span>Lu</span><span>Ma</span><span>Mi</span><span>Ju</span><span>Vi</span><span>Sa</span><span>Do</span>
                             </div>
 
-                            <div id="client-calendar-grid" class="grid grid-cols-7 gap-2"></div>
+                            <div id="client-calendar-grid" class="grid grid-cols-7 gap-1.5 sm:gap-2"></div>
 
                             <div class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 mt-5 text-[10px] text-yorkaMuted font-mono">
                                 <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#10b981]"></span>Disponible</span>
@@ -613,7 +648,7 @@
                             <p id="client-day-note" class="hidden mt-4 text-xs text-yorkaDarkAccent bg-yorkaPanel/70 border border-yorkaBorder rounded-xl p-3 leading-relaxed font-mono"></p>
                         </div>
 
-                        <div>
+                        <div class="relative z-10">
                             <label class="block text-[10px] font-mono uppercase text-yorkaMuted tracking-wider mb-3 font-bold">Bloques Horarios Disponibles</label>
                             <div id="client-slots-container" class="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
                                 <div class="col-span-full text-center text-yorkaMuted text-xs py-6 font-mono border border-dashed border-yorkaBorder rounded-2xl">
@@ -624,10 +659,15 @@
                     </div>
 
                     <!-- FORMULARIO DE RESERVA -->
-                    <div class="md:col-span-5 action-card rounded-3xl p-6 md:p-8 flex flex-col justify-between">
-                        <div>
+                    <div class="md:col-span-5 action-card rounded-3xl p-5 sm:p-6 md:p-8 flex flex-col justify-between relative overflow-hidden">
+                        
+                        <!-- ORNAMENTO 3 EN ESQUINAS DE FORMULARIO -->
+                        <img src="assets/ornamento3.png" alt="Ornamento Esquina" class="absolute top-2 left-2 w-10 sm:w-14 opacity-25 pointer-events-none z-10" onerror="this.onerror=null; this.src='ornamento3.png';">
+                        <img src="assets/ornamento3.png" alt="Ornamento Esquina" class="absolute top-2 right-2 w-10 sm:w-14 opacity-25 pointer-events-none z-10 scale-x-[-1]" onerror="this.onerror=null; this.src='ornamento3.png';">
+
+                        <div class="relative z-10">
                             <div class="flex items-center justify-between mb-6 pb-4 border-b border-yorkaBorder">
-                                <h3 class="font-serif text-lg text-yorkaText flex items-center gap-3 font-medium">
+                                <h3 class="font-serif text-base sm:text-lg text-yorkaText flex items-center gap-3 font-medium">
                                     <span class="text-xs font-mono bg-yorkaAccent text-white px-2.5 py-1 rounded-lg border border-yorkaGold/30">02</span>
                                     Tus Datos de Cita
                                 </h3>
@@ -701,14 +741,34 @@
         </section>
     </main>
 
-    <!-- FOOTER EDITORIAL -->
-    <footer class="bg-yorkaPanel py-14 border-t border-yorkaBorder text-center relative z-10 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-6 space-y-3">
-            <div class="flex justify-center mb-1">
-                <img src="assets/logo.jpg" alt="Yorka Tatuajes" class="yorka-logo-img" onerror="this.src='logo.jpg'">
+    <!-- FOOTER EDITORIAL: ORNAMENTO 1 CUBRE TODO EL PANEL PROPORCIONADAMENTE SIN PIXELAR -->
+    <footer class="bg-yorkaPanel py-16 border-t border-yorkaBorder text-center relative z-10 overflow-hidden px-6">
+        
+        <!-- FONDO DECORATIVO CON ORNAMENTO 1 CENTRADO NÍTIDO Y CONTROLADO -->
+        <div class="absolute inset-0 pointer-events-none flex items-center justify-center opacity-15">
+            <img src="assets/ornamento1.png" alt="Fondo Decorativo" class="max-w-xl md:max-w-2xl w-full h-auto object-contain" onerror="this.onerror=null; this.src='ornamento1.png';">
+        </div>
+
+        <div class="max-w-7xl mx-auto space-y-4 relative z-10">
+            
+            <!-- UN SOLO LOGO AL MEDIO ARRIBA DE YORKA TATUAJES -->
+            <div class="flex justify-center items-center mb-1">
+                <img src="assets/logo.jpg" alt="Yorka Tatuajes Logo" class="yorka-logo-img" onerror="this.src='logo.jpg'">
             </div>
-            <p class="font-serif text-2xl text-yorkaText tracking-wide font-medium">Yorka Tatuajes</p>
+
+            <p class="font-serif text-2xl md:text-3xl text-yorkaText tracking-wide font-medium">Yorka Tatuajes</p>
+            
             <p class="font-mono text-xs text-yorkaDarkAccent font-semibold tracking-wider">Estudio Privado • Concepción, Chile</p>
+            
+            <!-- BOTÓN E ICONO DE INSTAGRAM AL FINAL DEL PANEL -->
+            <div class="pt-3">
+                <a href="https://www.instagram.com/yorka_tatuajes/?hl=es-la" target="_blank" rel="noopener noreferrer" 
+                   class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/90 border border-yorkaGold/40 text-yorkaDarkAccent hover:text-yorkaAccent hover:border-yorkaAccent transition-all shadow-xs text-xs font-mono font-bold group">
+                    <i class="fa-brands fa-instagram text-base text-yorkaAccent group-hover:scale-110 transition-transform"></i>
+                    <span>@yorka_tatuajes</span>
+                </a>
+            </div>
+
             <p class="font-sans text-[10px] text-yorkaMuted uppercase tracking-widest pt-2">© 2026. Todos los derechos reservados.</p>
         </div>
     </footer>
@@ -1619,7 +1679,7 @@
         container.innerHTML = "";
 
         if (!selectedClientDate) {
-            container.innerHTML = `<p class="col-span-full text-center text-yorkaMuted text-xs py-4 font-mono border border-dashed border-yorkaBorder rounded-2xl">Selecciona una fecha activa en el calendario</p>`;
+            container.innerHTML = `<p class="col-span-full text-center text-yorkaMuted text-xs py-4 font-mono border border-dashed border-yorkaBorder rounded-2xl">Selecciona una fecha activa en el calendario arriba</p>`;
             return;
         }
 
@@ -2412,7 +2472,7 @@
     /* MANEJO DE TRANSPARENCIA / SCROLL DEL NAVBAR */
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
+        if (window.scrollY > 40) {
             navbar.classList.add('scrolled');
         } else {
             navbar.classList.remove('scrolled');
