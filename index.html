@@ -23,15 +23,15 @@
             theme: {
                 extend: {
                     colors: {
-                        yorkaBg: '#fdfaf8',       /* Blanco cálido hueso */
-                        yorkaPanel: '#f7f0ed',    /* Crema suave */
+                        yorkaBg: '#fdf9f5',       /* Blanco cálido hueso */
+                        yorkaPanel: '#f4e6dc',    /* Beige rosado suave */
                         yorkaCard: '#ffffff',     /* Blanco puro */
-                        yorkaBorder: '#ebdcd5',   /* Borde rosado pastel suave */
-                        yorkaText: '#2d2523',     /* Marrón oscuro suave */
-                        yorkaMuted: '#8c7b75',    /* Marrón ceniza */
-                        yorkaAccent: '#e8aeb7',   /* Rosa suave */
-                        yorkaAccentHover: '#d8969f', /* Rosa más profundo */
-                        yorkaDarkAccent: '#a66871',  /* Acento para textos legibles */
+                        yorkaBorder: '#e4cfc0',   /* Borde beige tostado suave */
+                        yorkaText: '#2a1512',     /* Marrón muy oscuro, casi negro */
+                        yorkaMuted: '#947d72',    /* Marrón ceniza cálido */
+                        yorkaAccent: '#7c1420',   /* Borgoña profundo */
+                        yorkaAccentHover: '#5c0e17', /* Borgoña más oscuro */
+                        yorkaDarkAccent: '#7c1420',  /* Acento para textos legibles */
                         danger: '#d9534f',
                     },
                     fontFamily: {
@@ -46,31 +46,31 @@
 
     <style>
         body {
-            background-color: #fdfaf8;
-            color: #2d2523;
+            background-color: #fdf9f5;
+            color: #2a1512;
             font-family: 'Plus Jakarta Sans', sans-serif;
             overflow-x: hidden;
             scroll-behavior: smooth;
         }
 
-        ::selection { background: #e8aeb7; color: #2d2523; }
+        ::selection { background: #7c1420; color: #ffffff; }
         ::-webkit-scrollbar { width: 4px; height: 4px; }
-        ::-webkit-scrollbar-track { background: #fdfaf8; }
-        ::-webkit-scrollbar-thumb { background: #ebdcd5; }
-        ::-webkit-scrollbar-thumb:hover { background: #e8aeb7; }
+        ::-webkit-scrollbar-track { background: #fdf9f5; }
+        ::-webkit-scrollbar-thumb { background: #e4cfc0; }
+        ::-webkit-scrollbar-thumb:hover { background: #7c1420; }
 
         /* PANTALLA DE CARGA */
         #pantalla-carga {
             position: fixed; inset: 0; width: 100vw; height: 100vh;
-            background-color: #fdfaf8; display: flex; flex-direction: column;
+            background-color: #fdf9f5; display: flex; flex-direction: column;
             align-items: center; justify-content: center; z-index: 999999;
             transition: opacity 1s ease, visibility 1s;
         }
         .ocultar-carga { opacity: 0; visibility: hidden; pointer-events: none; }
         .spinner {
             width: 38px; height: 38px;
-            border: 2px solid #ebdcd5;
-            border-top: 2px solid #e8aeb7;
+            border: 2px solid #e4cfc0;
+            border-top: 2px solid #7c1420;
             border-radius: 50%;
             animation: spin 0.9s linear infinite;
             margin-bottom: 18px;
@@ -78,16 +78,22 @@
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
         /* NAVBAR */
-        .navbar { transition: all 0.4s ease; background-color: rgba(253, 250, 248, 0.92); backdrop-filter: blur(10px); padding: 16px 0; border-bottom: 1px solid #ebdcd5; }
+        .navbar { transition: all 0.4s ease; background-color: rgba(253, 249, 245, 0.92); backdrop-filter: blur(10px); padding: 16px 0; border-bottom: 1px solid #e4cfc0; }
         .nav-link { position: relative; padding-bottom: 4px; cursor: pointer; }
         .nav-link::after {
             content: ''; position: absolute; width: 0; height: 2px; bottom: 0; left: 50%;
-            background-color: #e8aeb7; transition: all 0.3s ease; transform: translateX(-50%);
+            background-color: #7c1420; transition: all 0.3s ease; transform: translateX(-50%);
         }
         .nav-link:hover::after, .nav-link.active::after { width: 100%; }
 
+        /* LOGO */
+        .yorka-logo-img {
+            width: 34px; height: 34px; border-radius: 50%; object-fit: cover;
+            border: 1px solid #e4cfc0; box-shadow: 0 2px 6px rgba(124, 20, 32, 0.15);
+        }
+
         /* ACORDEÓN */
-        .faq-item { border-bottom: 1px solid #ebdcd5; }
+        .faq-item { border-bottom: 1px solid #e4cfc0; }
         .faq-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
 
         /* CARRUSEL PORTAFOLIO */
@@ -95,64 +101,64 @@
         .carousel-slide.active { display: grid; }
         @keyframes fadeIn { from { opacity: 0; transform: scale(0.99); } to { opacity: 1; transform: scale(1); } }
         .carousel-dot {
-            width: 8px; height: 8px; border-radius: 50%; border: 1px solid #ebdcd5; background-color: transparent; cursor: pointer; transition: all 0.3s;
+            width: 8px; height: 8px; border-radius: 50%; border: 1px solid #e4cfc0; background-color: transparent; cursor: pointer; transition: all 0.3s;
         }
-        .carousel-dot.active { background-color: #e8aeb7; border-color: #e8aeb7; transform: scale(1.2); }
+        .carousel-dot.active { background-color: #7c1420; border-color: #7c1420; transform: scale(1.2); }
 
         /* TARJETAS CÁLIDAS */
         .action-card {
             background: #ffffff;
-            border: 1px solid #ebdcd5;
-            box-shadow: 0 10px 30px rgba(232, 174, 183, 0.08);
+            border: 1px solid #e4cfc0;
+            box-shadow: 0 10px 30px rgba(124, 20, 32, 0.08);
             transition: all 0.3s ease;
         }
         .btn-primary-action {
-            background: #e8aeb7;
-            color: #2d2523;
+            background: #7c1420;
+            color: #ffffff;
             transition: all 0.3s ease;
         }
         .btn-primary-action:hover:not(:disabled) {
-            background: #d8969f;
+            background: #5c0e17;
             transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(216, 150, 159, 0.25);
+            box-shadow: 0 6px 16px rgba(92, 14, 23, 0.3);
         }
 
         .slot-btn {
-            border: 1px solid #ebdcd5;
-            background: #fdfaf8;
-            color: #2d2523;
+            border: 1px solid #e4cfc0;
+            background: #fdf9f5;
+            color: #2a1512;
             transition: all 0.2s ease;
         }
         .slot-btn.selected {
-            background: #e8aeb7;
-            color: #2d2523;
-            border-color: #d8969f;
+            background: #7c1420;
+            color: #ffffff;
+            border-color: #5c0e17;
             font-weight: 600;
             transform: scale(1.03);
-            box-shadow: 0 4px 12px rgba(232, 174, 183, 0.3);
+            box-shadow: 0 4px 12px rgba(124, 20, 32, 0.3);
         }
         .slot-btn:not(:disabled):hover {
-            border-color: #e8aeb7;
-            background: #f7f0ed;
+            border-color: #7c1420;
+            background: #f4e6dc;
         }
         .slot-btn:disabled { opacity: 0.3; cursor: not-allowed; text-decoration: line-through; }
 
         /* CALENDARIO Y DÍAS */
         .cal-day {
             position: relative; aspect-ratio: 1 / 1; border-radius: 10px;
-            border: 1px solid #ebdcd5; background: #ffffff;
+            border: 1px solid #e4cfc0; background: #ffffff;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             gap: 2px; cursor: pointer; transition: all 0.2s ease; font-size: 11px;
         }
         .cal-day:not(.cal-disabled):hover {
-            border-color: #e8aeb7; background: #f7f0ed; transform: translateY(-2px);
+            border-color: #7c1420; background: #f4e6dc; transform: translateY(-2px);
         }
         .cal-day.cal-selected {
-            background: #e8aeb7; border-color: #d8969f; color: #2d2523; font-weight: bold;
-            transform: scale(1.05); box-shadow: 0 4px 14px rgba(232, 174, 183, 0.35);
+            background: #7c1420; border-color: #5c0e17; color: #ffffff; font-weight: bold;
+            transform: scale(1.05); box-shadow: 0 4px 14px rgba(124, 20, 32, 0.35);
         }
-        .cal-day.cal-today:not(.cal-selected) { border-color: #a66871; font-weight: bold; }
-        .cal-day.cal-disabled { opacity: 0.3; cursor: not-allowed; background: #f7f0ed; }
+        .cal-day.cal-today:not(.cal-selected) { border-color: #7c1420; font-weight: bold; }
+        .cal-day.cal-disabled { opacity: 0.3; cursor: not-allowed; background: #f4e6dc; }
         .cal-day.cal-empty { visibility: hidden; cursor: default; }
         .cal-dot { width: 5px; height: 5px; border-radius: 50%; position: absolute; bottom: 4px; }
         .cal-dot-green { background: #81c784; }
@@ -167,7 +173,7 @@
             display: flex; flex-direction: column; gap: 10px; max-width: calc(100vw - 40px);
         }
         .toast {
-            background: #ffffff; border: 1px solid #ebdcd5; color: #2d2523;
+            background: #ffffff; border: 1px solid #e4cfc0; color: #2a1512;
             padding: 12px 16px; border-radius: 12px; font-size: 12px;
             display: flex; align-items: center; gap: 10px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.08); min-width: 240px; max-width: 340px;
@@ -176,11 +182,11 @@
         .toast.toast-show { transform: translateX(0); opacity: 1; }
         .toast.toast-success { border-left: 4px solid #81c784; }
         .toast.toast-error { border-left: 4px solid #e57373; }
-        .toast.toast-info { border-left: 4px solid #e8aeb7; }
+        .toast.toast-info { border-left: 4px solid #7c1420; }
 
         /* TABS ADMIN */
         .admin-tab-btn { transition: all 0.25s ease; border-bottom: 2px solid transparent; }
-        .admin-tab-btn.active { color: #2d2523; font-weight: 600; border-bottom-color: #e8aeb7; }
+        .admin-tab-btn.active { color: #2a1512; font-weight: 600; border-bottom-color: #7c1420; }
         .admin-tab-panel { display: none; }
         .admin-tab-panel.active { display: block; }
 
@@ -197,8 +203,11 @@
 
 <body>
 
+<div class="fixed top-0 left-0 w-full h-[3px] bg-yorkaAccent z-50"></div>
+
 <!-- PANTALLA DE CARGA -->
 <div id="pantalla-carga">
+    <img src="assets/logo.jpg" alt="Yorka Tatuajes" class="w-12 h-12 rounded-full object-cover mb-3" style="box-shadow:0 2px 10px rgba(124,20,32,0.2);">
     <div class="spinner"></div>
     <h2 class="font-serif text-lg tracking-widest text-yorkaText uppercase">Yorka Tatuajes</h2>
     <p id="loading-status" class="text-yorkaMuted text-xs mt-2 font-mono">Conectando con la nube...</p>
@@ -209,8 +218,8 @@
 
 <!-- NAVBAR -->
 <nav id="navbar" class="navbar fixed top-0 w-full z-40 flex flex-col items-center px-4">
-    <div class="text-yorkaDarkAccent text-xl mb-1 hover:scale-110 transition-transform cursor-pointer" onclick="showPublicLanding()">
-        <i class="fa-solid fa-feather-pointed"></i>
+    <div class="mb-1 hover:scale-110 transition-transform cursor-pointer" onclick="showPublicLanding()">
+        <img src="assets/logo.jpg" alt="Yorka Tatuajes" class="yorka-logo-img">
     </div>
     <a href="#" onclick="showPublicLanding()" class="font-serif text-2xl md:text-3xl text-yorkaText tracking-wide font-normal mb-2">Yorka Tatuajes</a>
 
@@ -268,12 +277,14 @@
 <!-- VISTA PÚBLICA -->
 <div id="landing-container">
     <header id="estudio" class="relative pt-36 pb-16 md:pt-44 md:pb-24 px-6 max-w-4xl mx-auto text-center">
-        <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-yorkaPanel border border-yorkaBorder text-yorkaDarkAccent mb-4">
-            <i class="fa-solid fa-sparkles text-lg"></i>
-        </div>
-        <h1 class="font-serif text-3xl md:text-5xl text-yorkaText font-normal tracking-wide mb-4">
+        <h1 class="font-serif text-3xl md:text-5xl text-yorkaAccent font-normal tracking-wide mb-4">
             Arte Corporal & Diseños de Autor
         </h1>
+        <div class="flex items-center justify-center gap-2 mb-6">
+            <span class="w-8 h-px bg-yorkaAccent"></span>
+            <i class="fa-solid fa-gem text-yorkaAccent text-[10px]"></i>
+            <span class="w-8 h-px bg-yorkaAccent"></span>
+        </div>
         <p class="font-sans text-xs md:text-sm text-yorkaMuted leading-relaxed max-w-2xl mx-auto font-light mb-8">
             Estudio privado en Concepción, Chile. Especializado en proyectos personalizados e ilustración en piel. Selecciona una fecha en el calendario interactivo y completa tu solicitud de reserva.
         </p>
@@ -288,7 +299,7 @@
             <div class="max-w-5xl mx-auto px-4 md:px-6">
                 <div class="mb-8 text-center">
                     <span class="font-mono text-[10px] uppercase tracking-widest text-yorkaDarkAccent font-semibold">Galería</span>
-                    <h2 class="font-serif text-2xl md:text-3xl text-yorkaText mt-1">Trabajos Recientes</h2>
+                    <h2 class="font-serif text-2xl md:text-3xl text-yorkaAccent mt-1">Trabajos Recientes</h2>
                 </div>
 
                 <div class="action-card rounded-2xl p-4 md:p-8">
@@ -334,7 +345,8 @@
         <section id="info" class="py-16 md:py-24 bg-yorkaBg">
             <div class="max-w-3xl mx-auto px-6">
                 <div class="mb-10 text-center">
-                    <h2 class="font-serif text-2xl md:text-3xl text-yorkaText font-light">Información Importante</h2>
+                    <span class="font-mono text-[10px] uppercase tracking-widest text-yorkaDarkAccent font-semibold">Preguntas & Cuidados</span>
+                    <h2 class="font-serif text-2xl md:text-3xl text-yorkaAccent font-light mt-1">Información Importante</h2>
                 </div>
                 <div class="space-y-2">
                     <div class="faq-item">
@@ -368,7 +380,7 @@
             <div class="max-w-5xl mx-auto px-4 md:px-6 text-center">
                 <div class="mb-8 md:mb-12">
                     <span class="font-mono text-[10px] uppercase tracking-widest text-yorkaDarkAccent font-semibold">Reserva Tu Sesión</span>
-                    <h2 class="font-serif text-2xl md:text-4xl text-yorkaText font-normal mt-1">Agenda de Disponibilidad</h2>
+                    <h2 class="font-serif text-2xl md:text-4xl text-yorkaAccent font-normal mt-1">Agenda de Disponibilidad</h2>
                     <p class="font-sans text-yorkaMuted text-xs mx-auto max-w-lg leading-relaxed mt-2">
                         Selecciona el día y bloque horario disponible. Al enviar tus datos, registrarás tu solicitud en el sistema del estudio.
                     </p>
@@ -391,11 +403,11 @@
 
                             <div class="mb-5">
                                 <div class="flex items-center justify-between mb-3">
-                                    <button type="button" onclick="calNavigate(-1)" class="w-7 h-7 flex items-center justify-center rounded-full bg-yorkaPanel border border-yorkaBorder text-yorkaMuted hover:text-yorkaText hover:border-yorkaDarkAccent transition cursor-pointer">
+                                    <button type="button" onclick="calNavigate(-1)" class="w-7 h-7 flex items-center justify-center rounded-full bg-yorkaPanel border border-yorkaBorder text-yorkaDarkAccent hover:text-yorkaText hover:border-yorkaDarkAccent transition cursor-pointer">
                                         <i class="fa-solid fa-chevron-left text-[10px]"></i>
                                     </button>
                                     <span id="cal-month-label" class="font-serif text-sm md:text-base text-yorkaText tracking-wide capitalize"></span>
-                                    <button type="button" onclick="calNavigate(1)" class="w-7 h-7 flex items-center justify-center rounded-full bg-yorkaPanel border border-yorkaBorder text-yorkaMuted hover:text-yorkaText hover:border-yorkaDarkAccent transition cursor-pointer">
+                                    <button type="button" onclick="calNavigate(1)" class="w-7 h-7 flex items-center justify-center rounded-full bg-yorkaPanel border border-yorkaBorder text-yorkaDarkAccent hover:text-yorkaText hover:border-yorkaDarkAccent transition cursor-pointer">
                                         <i class="fa-solid fa-chevron-right text-[10px]"></i>
                                     </button>
                                 </div>
@@ -445,17 +457,10 @@
                                         <input type="tel" id="client-phone" required placeholder="+56 9 1234 5678"
                                                class="w-full bg-yorkaBg border border-yorkaBorder rounded-lg px-3 py-2 text-yorkaText text-xs focus:outline-none focus:border-yorkaDarkAccent">
                                     </div>
-                                    <div class="grid grid-cols-2 gap-2">
-                                        <div>
-                                            <label class="block text-[10px] font-mono uppercase text-yorkaMuted tracking-wider mb-1">¿De dónde eres?</label>
-                                            <input type="text" id="client-origin" required placeholder="Ej: Concepción"
-                                                   class="w-full bg-yorkaBg border border-yorkaBorder rounded-lg px-3 py-2 text-yorkaText text-xs focus:outline-none focus:border-yorkaDarkAccent">
-                                        </div>
-                                        <div>
-                                            <label class="block text-[10px] font-mono uppercase text-yorkaMuted tracking-wider mb-1">Presupuesto ($)</label>
-                                            <input type="text" id="client-budget" required placeholder="Ej: $60.000"
-                                                   class="w-full bg-yorkaBg border border-yorkaBorder rounded-lg px-3 py-2 text-yorkaText text-xs focus:outline-none focus:border-yorkaDarkAccent">
-                                        </div>
+                                    <div>
+                                        <label class="block text-[10px] font-mono uppercase text-yorkaMuted tracking-wider mb-1">¿De dónde eres?</label>
+                                        <input type="text" id="client-origin" required placeholder="Ej: Concepción"
+                                               class="w-full bg-yorkaBg border border-yorkaBorder rounded-lg px-3 py-2 text-yorkaText text-xs focus:outline-none focus:border-yorkaDarkAccent">
                                     </div>
                                     <div>
                                         <label class="block text-[10px] font-mono uppercase text-yorkaMuted tracking-wider mb-1">Idea o Flash deseado</label>
@@ -476,13 +481,19 @@
                                         </div>
                                     </div>
 
+                                    <div>
+                                        <label class="block text-[10px] font-mono uppercase text-yorkaMuted tracking-wider mb-1">Presupuesto ($)</label>
+                                        <input type="text" id="client-budget" required placeholder="Ej: $60.000"
+                                               class="w-full bg-yorkaBg border border-yorkaBorder rounded-lg px-3 py-2 text-yorkaText text-xs focus:outline-none focus:border-yorkaDarkAccent">
+                                    </div>
+
                                     <div class="bg-yorkaPanel p-3 rounded-lg border border-yorkaBorder text-[11px] text-yorkaMuted space-y-1 mt-1">
                                         <div class="flex justify-between"><span>Fecha:</span> <strong id="summary-date" class="text-yorkaText">--</strong></div>
                                         <div class="flex justify-between"><span>Hora:</span> <strong id="summary-time" class="text-yorkaText">--</strong></div>
                                     </div>
 
                                     <button type="submit" id="btn-submit-booking" disabled
-                                            class="btn-primary-action mt-2 w-full flex items-center justify-center gap-2 text-yorkaText font-mono text-xs font-bold tracking-widest py-3 rounded-xl uppercase cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed">
+                                            class="btn-primary-action mt-2 w-full flex items-center justify-center gap-2 text-white font-mono text-xs font-bold tracking-widest py-3 rounded-xl uppercase cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed">
                                         <i class="fa-regular fa-paper-plane text-xs"></i>
                                         <span id="btn-submit-booking-label">Enviar Solicitud de Reserva</span>
                                     </button>
@@ -497,7 +508,7 @@
 
     <footer class="bg-yorkaPanel py-10 border-t border-yorkaBorder text-center relative z-10">
         <div class="max-w-7xl mx-auto px-6 space-y-2">
-            <div class="text-yorkaDarkAccent text-lg"><i class="fa-solid fa-feather-pointed"></i></div>
+            <div class="flex justify-center"><img src="assets/logo.jpg" alt="Yorka Tatuajes" class="yorka-logo-img"></div>
             <p class="font-serif text-lg text-yorkaText tracking-wide font-normal">Yorka Tatuajes</p>
             <p class="font-sans text-[10px] text-yorkaMuted uppercase tracking-widest">Concepción, Chile. © 2026.</p>
         </div>
@@ -522,7 +533,7 @@
                 <input type="text" id="client-search-input" required placeholder="Ej: @tu_instagram, +56912345678 o nombre"
                        class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-3 py-2 text-yorkaText text-xs focus:outline-none focus:border-yorkaDarkAccent">
             </div>
-            <button type="submit" class="btn-primary-action w-full py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider text-yorkaText cursor-pointer">
+            <button type="submit" class="btn-primary-action w-full py-2.5 rounded-xl text-xs font-semibold uppercase tracking-wider text-white cursor-pointer">
                 Buscar Citas
             </button>
         </form>
@@ -563,7 +574,7 @@
 <div id="login-container" class="hidden min-h-[85vh] pt-32 pb-16 px-4 max-w-sm mx-auto flex flex-col justify-center">
     <div class="action-card rounded-2xl p-6 md:p-8 text-center">
         <div class="text-yorkaDarkAccent text-3xl mb-2"><i class="fa-solid fa-shield-halved"></i></div>
-        <h2 class="font-serif text-xl text-yorkaText mb-1">Acceso Administrativo</h2>
+        <h2 class="font-serif text-xl text-yorkaAccent mb-1">Acceso Administrativo</h2>
         <p class="text-[11px] text-yorkaMuted mb-5 leading-relaxed">
             Ingresa las credenciales para administrar la agenda de Yorka Tatuajes.
         </p>
@@ -578,7 +589,7 @@
                 <input type="password" id="login-password" required placeholder="••••••••" autocomplete="off"
                        class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-3 py-2 text-yorkaText text-xs focus:outline-none focus:border-yorkaDarkAccent">
             </div>
-            <button type="submit" class="btn-primary-action w-full flex items-center justify-center gap-2 text-yorkaText font-mono text-xs font-bold tracking-widest py-3 rounded-xl uppercase cursor-pointer">
+            <button type="submit" class="btn-primary-action w-full flex items-center justify-center gap-2 text-white font-mono text-xs font-bold tracking-widest py-3 rounded-xl uppercase cursor-pointer">
                 <i class="fa-solid fa-right-to-bracket text-xs"></i>
                 <span>Ingresar al Panel</span>
             </button>
@@ -670,11 +681,11 @@
             <!-- CALENDARIO LADO IZQUIERDO -->
             <div class="lg:col-span-7 action-card rounded-2xl p-5 md:p-6">
                 <div class="flex items-center justify-between mb-4">
-                    <button type="button" onclick="adminCalNavigate(-1)" class="w-7 h-7 flex items-center justify-center rounded-full bg-yorkaPanel border border-yorkaBorder text-yorkaMuted hover:text-yorkaText hover:border-yorkaDarkAccent transition cursor-pointer">
+                    <button type="button" onclick="adminCalNavigate(-1)" class="w-7 h-7 flex items-center justify-center rounded-full bg-yorkaPanel border border-yorkaBorder text-yorkaDarkAccent hover:text-yorkaText hover:border-yorkaDarkAccent transition cursor-pointer">
                         <i class="fa-solid fa-chevron-left text-[10px]"></i>
                     </button>
                     <h3 id="admin-cal-month-label" class="font-serif text-lg text-yorkaText tracking-wide capitalize"></h3>
-                    <button type="button" onclick="adminCalNavigate(1)" class="w-7 h-7 flex items-center justify-center rounded-full bg-yorkaPanel border border-yorkaBorder text-yorkaMuted hover:text-yorkaText hover:border-yorkaDarkAccent transition cursor-pointer">
+                    <button type="button" onclick="adminCalNavigate(1)" class="w-7 h-7 flex items-center justify-center rounded-full bg-yorkaPanel border border-yorkaBorder text-yorkaDarkAccent hover:text-yorkaText hover:border-yorkaDarkAccent transition cursor-pointer">
                         <i class="fa-solid fa-chevron-right text-[10px]"></i>
                     </button>
                 </div>
