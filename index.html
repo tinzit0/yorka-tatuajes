@@ -258,6 +258,7 @@
         <div class="hidden md:flex items-center gap-8 font-sans text-[11px] font-bold tracking-[0.18em] uppercase text-white/90 mt-1">
             <div id="public-nav-links" class="flex items-center gap-7">
                 <a href="#estudio" onclick="showPublicLanding()" class="nav-link hover:text-yorkaGold transition-colors font-mono drop-shadow-sm">Estudio</a>
+                <a href="#artista" onclick="showPublicLanding()" class="nav-link hover:text-yorkaGold transition-colors font-mono drop-shadow-sm">Artista</a>
                 <a href="#portafolio" onclick="showPublicLanding()" class="nav-link hover:text-yorkaGold transition-colors font-mono drop-shadow-sm">Portafolio</a>
                 <a href="#info" onclick="showPublicLanding()" class="nav-link hover:text-yorkaGold transition-colors font-mono drop-shadow-sm">Información</a>
                 <a href="#agendar" onclick="showPublicLanding()" class="nav-link hover:text-yorkaGold transition-colors font-mono drop-shadow-sm">Reserva</a>
@@ -302,6 +303,7 @@
         <span class="text-yorkaGold text-xs font-serif block mt-1">✦ Estudio Privado ✦</span>
     </div>
     <a href="#estudio" onclick="showPublicLanding(); toggleMobileMenu();" class="hover:text-yorkaGold mobile-link transition-colors">Estudio</a>
+    <a href="#artista" onclick="showPublicLanding(); toggleMobileMenu();" class="hover:text-yorkaGold mobile-link transition-colors">Artista</a>
     <a href="#portafolio" onclick="showPublicLanding(); toggleMobileMenu();" class="hover:text-yorkaGold mobile-link transition-colors">Portafolio</a>
     <a href="#info" onclick="showPublicLanding(); toggleMobileMenu();" class="hover:text-yorkaGold mobile-link transition-colors font-mono text-xl">Información</a>
     <a href="#agendar" onclick="showPublicLanding(); toggleMobileMenu();" class="hover:text-yorkaGold mobile-link transition-colors">Reserva</a>
@@ -367,7 +369,61 @@
     </header>
 
     <main>
-        <!-- PORTAFOLIO SHOWCASE CON IMÁGENES REALES LIMPIAS -->
+        <!-- SECCIÓN SOBRE LA ARTISTA (YORKA) -->
+        <section id="artista" class="py-20 md:py-28 bg-yorkaBg relative border-t border-yorkaBorder">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-16 items-center">
+                    
+                    <!-- FOTO DE LA ARTISTA -->
+                    <div class="md:col-span-5 relative group">
+                        <div class="absolute -inset-1.5 bg-gradient-to-tr from-yorkaAccent via-yorkaGold to-yorkaAccent rounded-3xl blur-md opacity-30 group-hover:opacity-60 transition duration-700"></div>
+                        <div class="relative rounded-3xl overflow-hidden border border-yorkaGold/50 shadow-2xl bg-yorkaPanel aspect-[4/5] max-h-[500px]">
+                            <img src="assets/artista.jpg" alt="Yorka - Tatuadora de Autor" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" onerror="this.onerror=null; this.src='assets/artista.png'; this.onerror=function(){this.onerror=null; this.src='assets/artista.jpeg';};">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                            <div class="absolute bottom-5 left-5 right-5 text-center">
+                                <span class="block font-serif text-2xl text-white font-medium">Yorka</span>
+                                <span class="font-mono text-[10px] text-yorkaGold uppercase tracking-[0.2em]">Artista Tatuadora & Creadora</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- BIOGRAFÍA & VISIÓN -->
+                    <div class="md:col-span-7 space-y-6">
+                        <span class="font-mono text-[10px] uppercase tracking-[0.25em] text-yorkaDarkAccent font-bold block">
+                            ✦ Conoce a la Artista ✦
+                        </span>
+                        
+                        <h2 class="font-serif text-3xl md:text-5xl text-yorkaText font-normal leading-tight">
+                            Detrás de la aguja: <span class="italic text-yorkaAccent">Yorka</span>
+                        </h2>
+                        
+                        <div class="w-20 h-0.5 bg-gradient-to-r from-yorkaGold to-transparent"></div>
+                        
+                        <p class="font-sans text-yorkaMuted text-xs md:text-sm leading-relaxed font-light">
+                            Hola, soy <strong class="text-yorkaText font-semibold">Yorka</strong>. Entiendo el arte corporal no sólo como una técnica sobre la piel, sino como una extensión genuina de la identidad, estética y vivencias de cada persona.
+                        </p>
+                        
+                        <p class="font-sans text-yorkaMuted text-xs md:text-sm leading-relaxed font-light">
+                            Mi trabajo se enfoca en piezas de línea fina, composiciones botánicas y proyectos de autor desarrollados a medida. Cada cita en mi estudio privado en Concepción está pensada para brindarte un ambiente íntimo, seguro y acogedor donde tu idea cobra vida con la máxima precisión y dedicación.
+                        </p>
+
+                        <div class="grid grid-cols-2 gap-4 pt-4 border-t border-yorkaBorder font-mono text-xs text-yorkaDarkAccent">
+                            <div class="flex items-center gap-2.5">
+                                <i class="fa-solid fa-wand-magic-sparkles text-yorkaGold"></i>
+                                <span>Diseño 100% de Autor</span>
+                            </div>
+                            <div class="flex items-center gap-2.5">
+                                <i class="fa-solid fa-house-user text-yorkaGold"></i>
+                                <span>Estudio Privado Exclusivo</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- PORTAFOLIO SHOWCASE CON IMÁGENES REALES LIMPIAS Y ZOOM INTERACTIVO -->
         <section id="portafolio" class="py-20 md:py-28 bg-yorkaPanel/40 border-y border-yorkaBorder relative">
             <div class="max-w-6xl mx-auto px-6">
                 <div class="mb-12 text-center relative">
@@ -377,7 +433,7 @@
                     <h2 class="font-serif text-3xl md:text-5xl text-yorkaText font-normal">Muestra de <span class="italic text-yorkaAccent">Diseños</span></h2>
                     <div class="w-20 h-0.5 bg-gradient-to-r from-transparent via-yorkaGold to-transparent mx-auto mt-3"></div>
                     <p class="font-sans text-yorkaMuted text-xs md:text-sm mx-auto max-w-lg leading-relaxed mt-3 font-light">
-                        Una selección de piezas de línea fina, botánica y proyectos de autor realizados en estudio privado.
+                        Una selección de piezas de línea fina, botánica y proyectos de autor realizados en estudio privado. <span class="text-yorkaAccent font-semibold">(Haz clic en cualquier imagen para verla en pantalla completa)</span>
                     </p>
                 </div>
 
@@ -385,35 +441,59 @@
                     <div class="min-h-[340px] relative w-full overflow-hidden">
                         <!-- SLIDE 1 -->
                         <div class="carousel-slide active grid-cols-1 md:grid-cols-3 gap-6 h-full items-center">
-                            <div class="group relative h-[280px] rounded-2xl border border-yorkaBorder overflow-hidden shadow-xs hover:border-yorkaGold hover:shadow-card-hover transition-all duration-300">
-                                <img src="assets/imagen2.png" alt="Trabajo de Tatuaje" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='assets/imagen2.jpg'; this.onerror=function(){this.onerror=null; this.src='assets/imagen2.jpeg';};">
+                            <div class="group relative h-[280px] rounded-2xl border border-yorkaBorder overflow-hidden shadow-xs hover:border-yorkaGold hover:shadow-card-hover transition-all duration-300 cursor-zoom-in" onclick="openImageLightbox(this.querySelector('img').src)">
+                                <img src="assets/imagen2.png" alt="Trabajo de Tatuaje" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='assets/imagen2.jpg'; this.onerror=function(){this.onerror=null; this.src='assets/imagen2.jpeg';};">
+                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
+                                    <span class="w-10 h-10 rounded-full bg-black/60 text-white flex items-center justify-center backdrop-blur-sm border border-yorkaGold"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
+                                </div>
                             </div>
-                            <div class="group relative h-[280px] rounded-2xl border border-yorkaBorder overflow-hidden shadow-xs hover:border-yorkaGold hover:shadow-card-hover transition-all duration-300">
-                                <img src="assets/imagen5.png" alt="Trabajo de Tatuaje" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='assets/imagen5.jpg'; this.onerror=function(){this.onerror=null; this.src='assets/imagen5.jpeg';};">
+                            <div class="group relative h-[280px] rounded-2xl border border-yorkaBorder overflow-hidden shadow-xs hover:border-yorkaGold hover:shadow-card-hover transition-all duration-300 cursor-zoom-in" onclick="openImageLightbox(this.querySelector('img').src)">
+                                <img src="assets/imagen5.png" alt="Trabajo de Tatuaje" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='assets/imagen5.jpg'; this.onerror=function(){this.onerror=null; this.src='assets/imagen5.jpeg';};">
+                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
+                                    <span class="w-10 h-10 rounded-full bg-black/60 text-white flex items-center justify-center backdrop-blur-sm border border-yorkaGold"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
+                                </div>
                             </div>
-                            <div class="group relative h-[280px] rounded-2xl border border-yorkaBorder overflow-hidden shadow-xs hover:border-yorkaGold hover:shadow-card-hover transition-all duration-300">
-                                <img src="assets/imagen6.png" alt="Trabajo de Tatuaje" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='assets/imagen6.jpg'; this.onerror=function(){this.onerror=null; this.src='assets/imagen6.jpeg';};">
+                            <div class="group relative h-[280px] rounded-2xl border border-yorkaBorder overflow-hidden shadow-xs hover:border-yorkaGold hover:shadow-card-hover transition-all duration-300 cursor-zoom-in" onclick="openImageLightbox(this.querySelector('img').src)">
+                                <img src="assets/imagen6.png" alt="Trabajo de Tatuaje" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='assets/imagen6.jpg'; this.onerror=function(){this.onerror=null; this.src='assets/imagen6.jpeg';};">
+                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
+                                    <span class="w-10 h-10 rounded-full bg-black/60 text-white flex items-center justify-center backdrop-blur-sm border border-yorkaGold"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
+                                </div>
                             </div>
                         </div>
                         <!-- SLIDE 2 -->
                         <div class="carousel-slide grid-cols-1 md:grid-cols-3 gap-6 h-full items-center">
-                            <div class="group relative h-[280px] rounded-2xl border border-yorkaBorder overflow-hidden shadow-xs hover:border-yorkaGold hover:shadow-card-hover transition-all duration-300">
-                                <img src="assets/imagen7.png" alt="Trabajo de Tatuaje" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='assets/imagen7.jpg'; this.onerror=function(){this.onerror=null; this.src='assets/imagen7.jpeg';};">
+                            <div class="group relative h-[280px] rounded-2xl border border-yorkaBorder overflow-hidden shadow-xs hover:border-yorkaGold hover:shadow-card-hover transition-all duration-300 cursor-zoom-in" onclick="openImageLightbox(this.querySelector('img').src)">
+                                <img src="assets/imagen7.png" alt="Trabajo de Tatuaje" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='assets/imagen7.jpg'; this.onerror=function(){this.onerror=null; this.src='assets/imagen7.jpeg';};">
+                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
+                                    <span class="w-10 h-10 rounded-full bg-black/60 text-white flex items-center justify-center backdrop-blur-sm border border-yorkaGold"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
+                                </div>
                             </div>
-                            <div class="group relative h-[280px] rounded-2xl border border-yorkaBorder overflow-hidden shadow-xs hover:border-yorkaGold hover:shadow-card-hover transition-all duration-300">
-                                <img src="assets/imagen8.png" alt="Trabajo de Tatuaje" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='assets/imagen8.jpg'; this.onerror=function(){this.onerror=null; this.src='assets/imagen8.jpeg';};">
+                            <div class="group relative h-[280px] rounded-2xl border border-yorkaBorder overflow-hidden shadow-xs hover:border-yorkaGold hover:shadow-card-hover transition-all duration-300 cursor-zoom-in" onclick="openImageLightbox(this.querySelector('img').src)">
+                                <img src="assets/imagen8.png" alt="Trabajo de Tatuaje" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='assets/imagen8.jpg'; this.onerror=function(){this.onerror=null; this.src='assets/imagen8.jpeg';};">
+                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
+                                    <span class="w-10 h-10 rounded-full bg-black/60 text-white flex items-center justify-center backdrop-blur-sm border border-yorkaGold"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
+                                </div>
                             </div>
-                            <div class="group relative h-[280px] rounded-2xl border border-yorkaBorder overflow-hidden shadow-xs hover:border-yorkaGold hover:shadow-card-hover transition-all duration-300">
-                                <img src="assets/imagen9.png" alt="Trabajo de Tatuaje" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='assets/imagen9.jpg'; this.onerror=function(){this.onerror=null; this.src='assets/imagen9.jpeg';};">
+                            <div class="group relative h-[280px] rounded-2xl border border-yorkaBorder overflow-hidden shadow-xs hover:border-yorkaGold hover:shadow-card-hover transition-all duration-300 cursor-zoom-in" onclick="openImageLightbox(this.querySelector('img').src)">
+                                <img src="assets/imagen9.png" alt="Trabajo de Tatuaje" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='assets/imagen9.jpg'; this.onerror=function(){this.onerror=null; this.src='assets/imagen9.jpeg';};">
+                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
+                                    <span class="w-10 h-10 rounded-full bg-black/60 text-white flex items-center justify-center backdrop-blur-sm border border-yorkaGold"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
+                                </div>
                             </div>
                         </div>
                         <!-- SLIDE 3 -->
                         <div class="carousel-slide grid-cols-1 md:grid-cols-2 max-w-3xl mx-auto gap-6 h-full items-center">
-                            <div class="group relative h-[280px] rounded-2xl border border-yorkaBorder overflow-hidden shadow-xs hover:border-yorkaGold hover:shadow-card-hover transition-all duration-300">
-                                <img src="assets/imagen10.png" alt="Trabajo de Tatuaje" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='assets/imagen10.jpg'; this.onerror=function(){this.onerror=null; this.src='assets/imagen10.jpeg';};">
+                            <div class="group relative h-[280px] rounded-2xl border border-yorkaBorder overflow-hidden shadow-xs hover:border-yorkaGold hover:shadow-card-hover transition-all duration-300 cursor-zoom-in" onclick="openImageLightbox(this.querySelector('img').src)">
+                                <img src="assets/imagen10.png" alt="Trabajo de Tatuaje" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='assets/imagen10.jpg'; this.onerror=function(){this.onerror=null; this.src='assets/imagen10.jpeg';};">
+                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
+                                    <span class="w-10 h-10 rounded-full bg-black/60 text-white flex items-center justify-center backdrop-blur-sm border border-yorkaGold"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
+                                </div>
                             </div>
-                            <div class="group relative h-[280px] rounded-2xl border border-yorkaBorder overflow-hidden shadow-xs hover:border-yorkaGold hover:shadow-card-hover transition-all duration-300">
-                                <img src="assets/imagen11.png" alt="Trabajo de Tatuaje" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='assets/imagen11.jpg'; this.onerror=function(){this.onerror=null; this.src='assets/imagen11.jpeg';};">
+                            <div class="group relative h-[280px] rounded-2xl border border-yorkaBorder overflow-hidden shadow-xs hover:border-yorkaGold hover:shadow-card-hover transition-all duration-300 cursor-zoom-in" onclick="openImageLightbox(this.querySelector('img').src)">
+                                <img src="assets/imagen11.png" alt="Trabajo de Tatuaje" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.onerror=null; this.src='assets/imagen11.jpg'; this.onerror=function(){this.onerror=null; this.src='assets/imagen11.jpeg';};">
+                                <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
+                                    <span class="w-10 h-10 rounded-full bg-black/60 text-white flex items-center justify-center backdrop-blur-sm border border-yorkaGold"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -573,17 +653,10 @@
                                     </div>
                                 </div>
 
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                    <div>
-                                        <label class="block text-[10px] font-mono uppercase text-yorkaMuted tracking-wider mb-1.5 font-bold">¿De dónde eres? *</label>
-                                        <input type="text" id="client-origin" required placeholder="Ej: Concepción"
-                                               class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-3.5 py-2.5 text-yorkaText text-xs focus:outline-none focus:border-yorkaGold transition">
-                                    </div>
-                                    <div>
-                                        <label class="block text-[10px] font-mono uppercase text-yorkaMuted tracking-wider mb-1.5 font-bold">Presupuesto ($) *</label>
-                                        <input type="text" id="client-budget" required placeholder="Ej: $60.000"
-                                               class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-3.5 py-2.5 text-yorkaText text-xs focus:outline-none focus:border-yorkaGold transition">
-                                    </div>
+                                <div>
+                                    <label class="block text-[10px] font-mono uppercase text-yorkaMuted tracking-wider mb-1.5 font-bold">¿De dónde eres? *</label>
+                                    <input type="text" id="client-origin" required placeholder="Ej: Concepción"
+                                           class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-3.5 py-2.5 text-yorkaText text-xs focus:outline-none focus:border-yorkaGold transition">
                                 </div>
 
                                 <div>
@@ -602,6 +675,12 @@
                                         <img id="image-preview" src="" class="w-full h-full object-cover">
                                         <button type="button" onclick="removeSelectedImage()" class="absolute top-0 right-0 bg-black/80 text-white w-5 h-5 text-xs flex items-center justify-center rounded-bl cursor-pointer hover:bg-red-600 transition">×</button>
                                     </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-[10px] font-mono uppercase text-yorkaMuted tracking-wider mb-1.5 font-bold">Presupuesto ($) *</label>
+                                    <input type="text" id="client-budget" required placeholder="Ej: $120.000"
+                                           class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-3.5 py-2.5 text-yorkaText text-xs focus:outline-none focus:border-yorkaGold transition">
                                 </div>
 
                                 <div class="bg-yorkaPanel/70 p-3.5 rounded-2xl border border-yorkaGold/30 text-xs text-yorkaMuted space-y-1 font-mono">
@@ -680,15 +759,15 @@
     </div>
 </div>
 
-<!-- VISOR DE IMAGEN (LIGHTBOX) PARA EL ADMIN -->
-<div id="lightbox-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex flex-col items-center justify-center p-4" onclick="closeImageLightbox()">
+<!-- VISOR DE IMAGEN (LIGHTBOX / ZOOM) -->
+<div id="lightbox-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[99999] hidden flex flex-col items-center justify-center p-4 cursor-pointer" onclick="closeImageLightbox()">
     <div class="absolute top-6 right-6 z-10">
-        <button onclick="closeImageLightbox()" class="w-10 h-10 rounded-full bg-yorkaCard border border-yorkaBorder text-yorkaText flex items-center justify-center text-lg shadow-lg cursor-pointer hover:bg-yorkaPanel transition" title="Cerrar">
+        <button onclick="closeImageLightbox()" class="w-10 h-10 rounded-full bg-white/10 hover:bg-yorkaAccent border border-white/30 text-white flex items-center justify-center text-lg shadow-lg cursor-pointer transition" title="Cerrar (Esc)">
             <i class="fa-solid fa-xmark"></i>
         </button>
     </div>
-    <div class="max-w-[95vw] max-h-[85vh] flex items-center justify-center" onclick="event.stopPropagation()">
-        <img id="lightbox-img" src="" alt="Referencia de Tatuaje" class="max-h-[85vh] max-w-[95vw] object-contain rounded-2xl shadow-2xl border border-yorkaBorder bg-white p-2">
+    <div class="max-w-[95vw] max-h-[88vh] flex items-center justify-center relative" onclick="event.stopPropagation()">
+        <img id="lightbox-img" src="" alt="Vista ampliada" class="max-h-[88vh] max-w-[95vw] object-contain rounded-2xl shadow-2xl border border-yorkaGold/40 bg-black/40 p-1.5 transition-transform duration-300">
     </div>
 </div>
 
@@ -705,7 +784,7 @@
         <form id="login-form" onsubmit="processDirectLogin(event)" class="space-y-4 text-left mb-6" autocomplete="off">
             <div>
                 <label class="block text-[10px] font-mono uppercase text-yorkaMuted tracking-wider mb-1.5 font-bold">Correo Administrativo</label>
-                <input type="email" id="login-email" required placeholder="yorka_tatuajes@gmail.com" autocomplete="off"
+                <input type="email" id="login-email" required placeholder="ejemplo@gmail.com" autocomplete="off"
                        class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-4 py-3 text-yorkaText text-xs focus:outline-none focus:border-yorkaGold">
             </div>
             <div>
@@ -1665,13 +1744,16 @@
         validateBookingForm();
     }
 
+    /* VISOR LIGHTBOX DE IMÁGENES (ZOOM GENERAL) */
     function openImageLightbox(url) {
+        if (!url) return;
         const modal = document.getElementById('lightbox-modal');
         const img = document.getElementById('lightbox-img');
         if (modal && img) {
             img.src = url;
             modal.classList.remove('hidden');
             modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
         }
     }
 
@@ -1680,8 +1762,13 @@
         if (modal) {
             modal.classList.remove('flex');
             modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
         }
     }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeImageLightbox();
+    });
 
     function adminCalNavigate(delta) {
         const next = new Date(adminCalendarViewDate.getFullYear(), adminCalendarViewDate.getMonth() + delta, 1);
