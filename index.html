@@ -878,6 +878,7 @@
     let adminCalendarViewDate = new Date();
     let selectedAdminDate = getLocalDateString(new Date());
     let selectedAdminDayState = { active: true, slots: [] };
+    let dirtyLocalSlots = false; // true mientras hay cambios de horario sin guardar en el panel admin
 
     let isLoadingData = false;
     let currentSelectedImageFile = null;
@@ -1186,10 +1187,27 @@
     function renderAllViews() {
         renderClientCalendar();
         renderClientSlots();
-        if (!document.getElementById('admin-container').classList.contains('hidden')) {
-            renderAdminDashboard();
+        const adminVisible = !document.getElementById('admin-container').classList.contains('hidden');
+        if (adminVisible) {
+            if (dirtyLocalSlots) {
+                // Hay horas agregadas/quitadas aún sin presionar "GUARDAR HORARIOS DEL DÍA".
+                // Refrescamos todo lo demás pero NO pisamos el panel de horario en edición.
+                renderAdminCalendarGrid();
+                renderBlockedRangesList();
+                renderSavedExceptionsList();
+                renderAdminBookingsTable();
+            } else {
+                renderAdminDashboard();
+            }
         }
         updateAuthUI();
+    }
+
+    // Trae los últimos datos desde Supabase y refresca la pantalla.
+    // Se usa tanto por el canal Realtime como por el respaldo de sondeo (polling).
+    async function refreshFromServer() {
+        await loadDataFromSupabase(false);
+        renderAllViews();
     }
 
     function processDirectLogin(e) {
@@ -1610,6 +1628,7 @@
         selectedAdminDate = dateStr;
         const saved = config.dateExceptions[dateStr];
         selectedAdminDayState = saved ? JSON.parse(JSON.stringify(saved)) : { active: true, slots: [] };
+        dirtyLocalSlots = false;
         renderAdminCalendarGrid();
         renderAdminSelectedDayPanel();
     }
@@ -1655,11 +1674,13 @@
 
     function toggleAdminSelectedDayState() {
         selectedAdminDayState.active = !selectedAdminDayState.active;
+        dirtyLocalSlots = true;
         renderAdminSelectedDayPanel();
     }
 
     function removeAdminSelectedDaySlot(idx) {
         selectedAdminDayState.slots.splice(idx, 1);
+        dirtyLocalSlots = true;
         renderAdminSelectedDayPanel();
     }
 
@@ -1683,6 +1704,7 @@
 
         const saved = await saveState();
         if (saved) {
+            dirtyLocalSlots = false;
             renderAdminCalendarGrid();
             renderSavedExceptionsList();
             showToast(`Horarios del ${formatDateReadable(selectedAdminDate)} guardados con éxito.`, "success");
@@ -1698,6 +1720,7 @@
         }
         const saved = config.dateExceptions[selectedAdminDate];
         selectedAdminDayState = saved ? JSON.parse(JSON.stringify(saved)) : { active: true, slots: [] };
+        dirtyLocalSlots = false;
 
         renderAdminCalendarGrid();
         renderAdminSelectedDayPanel();
@@ -1778,6 +1801,7 @@
             }
             selectedAdminDayState.active = true;
             mergeSlotsInto(selectedAdminDayState, validGenerated);
+            dirtyLocalSlots = true;
             renderAdminSelectedDayPanel();
         }
 
@@ -1810,6 +1834,7 @@
             }
             selectedAdminDayState.active = true;
             mergeSlotsInto(selectedAdminDayState, [timeVal]);
+            dirtyLocalSlots = true;
             renderAdminSelectedDayPanel();
         }
 
@@ -2206,15 +2231,23 @@
 
         supabaseClient
             .channel('realtime_yorka')
-            .on('postgres_changes', { event: '*', schema: 'public', table: 'yorka_settings' }, async () => {
-                await loadDataFromSupabase(false);
-                renderAllViews();
-            })
-            .on('postgres_changes', { event: '*', schema: 'public', table: 'yorka_bookings' }, async () => {
-                await loadDataFromSupabase(false);
-                renderAllViews();
-            })
-            .subscribe();
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'yorka_settings' }, refreshFromServer)
+            .on('postgres_changes', { event: '*', schema: 'public', table: 'yorka_bookings' }, refreshFromServer)
+            .subscribe((status) => {
+                console.log('[Yorka Realtime] estado del canal:', status);
+            });
+
+        // RESPALDO DE SINCRONIZACIÓN (POLLING)
+        // Si Realtime no está habilitado en el panel de Supabase para las tablas
+        // yorka_settings / yorka_bookings, los cambios no llegan solos por el canal
+        // de arriba. Este intervalo revisa la nube cada 6 segundos como respaldo,
+        // para que cualquier dispositivo (celular, tablet, PC) vea las actualizaciones
+        // sin necesidad de recargar la página manualmente.
+        setInterval(() => {
+            if (document.hidden) return; // no gastar datos/batería con la pestaña en segundo plano
+            if (isLoadingData) return;
+            refreshFromServer();
+        }, 6000);
     });
 </script>
 
