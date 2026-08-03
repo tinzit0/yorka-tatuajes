@@ -1955,30 +1955,38 @@
 
     async function insertNewBookingAtomic(b) {
         try {
+            const payload = {
+                id: b.id,
+                date: b.date,
+                time: b.time,
+                client_name: b.clientName,
+                client_email: (b.instagram || 'cliente') + '@ig.com',
+                client_phone: b.clientPhone || '+56900000000',
+                origin: b.origin,
+                budget: b.budget,
+                notes: b.notes,
+                image_url: b.imageUrl || null,
+                status: b.status || 'Pendiente de Comprobante',
+                created_at: b.createdAt || new Date().toISOString()
+            };
+
+            // Si existe el comprobante, lo enviamos
+            if (b.paymentReceiptUrl) {
+                payload.payment_receipt_url = b.paymentReceiptUrl;
+            }
+
             const { error } = await supabaseClient
                 .from('yorka_bookings')
-                .insert({
-                    id: b.id,
-                    date: b.date,
-                    time: b.time,
-                    client_name: b.clientName,
-                    client_email: (b.instagram || 'cliente') + '@ig.com',
-                    client_phone: b.clientPhone || '+56900000000',
-                    origin: b.origin,
-                    budget: b.budget,
-                    notes: b.notes,
-                    image_url: b.imageUrl || null,
-                    payment_receipt_url: b.paymentReceiptUrl || null,
-                    status: b.status || 'Pendiente de Comprobante',
-                    created_at: b.createdAt || new Date().toISOString()
-                });
+                .insert(payload);
 
             if (error) {
+                console.error("Detalle del error en Supabase:", error);
                 const isConflict = error.code === '23505' || (error.message && error.message.toLowerCase().includes('duplicate'));
                 return { success: false, conflict: isConflict, error };
             }
             return { success: true, conflict: false, error: null };
         } catch (err) {
+            console.error("Excepción inesperada:", err);
             return { success: false, conflict: false, error: err };
         }
     }
@@ -2556,7 +2564,7 @@
 
     function generateTimeSlots(start, end, intervalMinutes) {
         const slots = [];
-        const [sh, sm] = start.split(':').map(Number);
+        const [sh, sm] = split(':').map(Number);
         const [eh, em] = end.split(':').map(Number);
         let cursor = sh * 60 + sm;
         const endMinutes = eh * 60 + em;
