@@ -905,6 +905,9 @@
                                     <i class="fa-regular fa-paper-plane text-xs text-yorkaGold"></i>
                                     <span id="btn-submit-booking-label">Reservar Cita (Tienes 15 min)</span>
                                 </button>
+                                <button type="button" id="btn-cancel-reschedule" onclick="resetBookingFormUI()" class="hidden w-full text-center mt-3 text-xs text-yorkaMuted hover:text-yorkaAccent font-mono cursor-pointer transition">
+                                    Cancelar Reagendamiento
+                                </button>
                             </form>
                         </div>
                     </div>
@@ -1385,10 +1388,11 @@
     let isLoadingData = false;
     let currentSelectedImageFile = null;
 
-    // Variables Comprobantes / Límite de Tiempo
+    // Variables Comprobantes / Límite de Tiempo / Reagendamiento
     let currentSelectedReceiptFile = null;
     let activeFoundBookingForReceipt = null;
     let receiptCountdownInterval = null;
+    let bookingToReschedule = null;
 
     function getLocalDateString(d = new Date()) {
         const year = d.getFullYear();
@@ -1714,7 +1718,7 @@
     }
 
     // ==========================================
-    // MANEJO DE CITAS (CLIENTE)
+    // MANEJO DE CITAS Y REAGENDAMIENTO (CLIENTE)
     // ==========================================
     function openClientManageModal() {
         const modal = document.getElementById('client-manage-modal');
@@ -1769,47 +1773,132 @@
                 : 'Sin Instagram';
 
             const isCanceled = b.status.includes('Cancelada');
+            const isPendingReceipt = b.status === 'Pendiente de Comprobante';
+            const hasPaid = b.paymentReceiptUrl || b.status === 'Confirmada' || b.status === 'Pendiente de Revisión';
+            const alreadyRescheduled = b.notes && b.notes.includes('[REAGENDADA]');
+            
+            const apptDate = new Date(`${b.date}T${b.time}:00`);
+            const now = new Date();
+            const diffHours = (apptDate - now) / (1000 * 60 * 60);
+
+            let actionButtons = '';
+            if (!isCanceled) {
+                if (isPendingReceipt) {
+                    actionButtons = `
+                    <button onclick="cancelClientBooking('${b.id}')" class="bg-red-50 hover:bg-red-100 border border-red-200 text-danger text-[10px] px-3 py-1.5 rounded-xl transition font-mono cursor-pointer font-bold w-full sm:w-auto mt-2 sm:mt-0">
+                        Cancelar Reserva
+                    </button>`;
+                } else if (hasPaid) {
+                    actionButtons += `<div class="flex items-center gap-2 mt-2 sm:mt-0 w-full sm:w-auto flex-wrap justify-end">`;
+                    
+                    if (alreadyRescheduled) {
+                        actionButtons += `<span class="text-[9px] text-yorkaMuted italic px-1 font-mono font-bold">Reagendada 1 vez</span>`;
+                    } else if (diffHours >= 48) {
+                        actionButtons += `<button onclick="startReschedule('${b.id}')" class="bg-yorkaGold/10 hover:bg-yorkaGold/20 border border-yorkaGold/40 text-yorkaGold text-[10px] px-3 py-1.5 rounded-xl transition font-mono font-bold cursor-pointer flex-1 sm:flex-none">Reagendar Cita</button>`;
+                    } else {
+                        actionButtons += `<span class="text-[9px] text-danger italic px-1 font-mono font-bold">Plazo vencido para reagendar (<48h)</span>`;
+                    }
+                    
+                    actionButtons += `<button onclick="cancelClientBooking('${b.id}')" class="bg-red-50 hover:bg-red-100 border border-red-200 text-danger text-[10px] px-3 py-1.5 rounded-xl transition font-mono cursor-pointer font-bold flex-1 sm:flex-none">Cancelar</button>`;
+                    actionButtons += `</div>`;
+                }
+            }
 
             card.innerHTML = `
-                <div>
+                <div class="flex-1">
                     <div class="font-mono text-xs font-bold text-yorkaText">${formatDateReadable(b.date)} a las ${b.time}</div>
                     <div class="text-[11px] text-yorkaDarkAccent font-medium">${b.clientName} (${igDisplay})</div>
                     <div class="text-[10px] font-mono text-yorkaMuted"><i class="fa-solid fa-phone text-[9px] text-emerald-600"></i> ${b.clientPhone || 'Sin teléfono'}</div>
                     <div class="text-[10px] ${isCanceled ? 'text-red-600' : 'text-amber-600'} font-bold mt-1">Estado: ${b.status}</div>
                 </div>
-                ${!isCanceled ? `
-                <button onclick="cancelClientBooking('${b.id}')" class="bg-red-50 hover:bg-red-100 border border-red-200 text-danger text-[10px] px-3 py-1.5 rounded-xl transition font-mono self-start sm:self-auto cursor-pointer font-bold">
-                    Cancelar Cita
-                </button>
-                ` : ''}
+                ${actionButtons}
             `;
             container.appendChild(card);
         });
     }
 
     async function cancelClientBooking(id) {
-        showConfirm("¿Estás seguro de cancelar tu reserva? Se liberará la hora en la agenda.", async () => {
-            const item = bookings.find(b => b.id === id);
-            if (item) {
-                item.status = 'Cancelada por el Cliente';
-                const success = await saveBookingToSupabase(item);
-                if (success) {
-                    await loadDataFromSupabase(false);
-                    renderAllViews();
-                    
-                    const inputVal = document.getElementById('client-search-input').value;
-                    if(inputVal) {
-                        searchClientBookings();
-                    } else {
-                        closeClientManageModal();
-                    }
-                    
-                    showToast("Tu cita ha sido cancelada y el horario ha quedado libre.", "success");
+        const item = bookings.find(b => b.id === id);
+        if (!item) return;
+
+        showConfirm("¿Estás seguro de cancelar tu reserva? Según las políticas del estudio, el abono no es reembolsable. Se liberará la hora en la agenda de forma irreversible.", async () => {
+            item.status = 'Cancelada por el Cliente';
+            const success = await saveBookingToSupabase(item);
+            if (success) {
+                await loadDataFromSupabase(false);
+                renderAllViews();
+                
+                const inputVal = document.getElementById('client-search-input').value;
+                if(inputVal) {
+                    searchClientBookings();
                 } else {
-                    showToast("Error al cancelar la cita. Intenta nuevamente.", "error");
+                    closeClientManageModal();
                 }
+                
+                showToast("Tu cita ha sido cancelada y el horario ha quedado libre.", "success");
+            } else {
+                showToast("Error al cancelar la cita. Intenta nuevamente.", "error");
             }
         });
+    }
+
+    function startReschedule(id) {
+        bookingToReschedule = bookings.find(b => b.id === id);
+        if (!bookingToReschedule) return;
+        
+        closeClientManageModal();
+        
+        // Cargar datos en el formulario
+        document.getElementById('client-name').value = bookingToReschedule.clientName;
+        document.getElementById('client-instagram').value = bookingToReschedule.instagram;
+        document.getElementById('client-phone').value = bookingToReschedule.clientPhone;
+        document.getElementById('client-origin').value = bookingToReschedule.origin || '';
+        document.getElementById('client-budget').value = bookingToReschedule.budget || '';
+        document.getElementById('client-notes').value = bookingToReschedule.notes || '';
+        
+        // Cambiar interfaz del formulario
+        const formTitle = document.querySelector('#agendar h3.font-serif');
+        if(formTitle) formTitle.innerHTML = `<span class="text-xs font-mono bg-yorkaGold text-white px-2.5 py-1 rounded-lg border border-yorkaGold/30"><i class="fa-solid fa-arrows-rotate"></i></span> Reagendando Cita`;
+        
+        const submitBtnLabel = document.getElementById('btn-submit-booking-label');
+        if(submitBtnLabel) submitBtnLabel.innerText = "Confirmar Reagendamiento";
+
+        const btnCancel = document.getElementById('btn-cancel-reschedule');
+        if(btnCancel) btnCancel.classList.remove('hidden');
+        
+        // Limpiar selección actual de calendario
+        selectedClientDate = "";
+        selectedClientSlot = "";
+        renderClientCalendar();
+        renderClientSlots();
+        validateBookingForm();
+        
+        // Hacer scroll hacia el agendamiento
+        document.getElementById('agendar').scrollIntoView({ behavior: 'smooth' });
+        showToast("Selecciona tu nueva fecha y hora en el calendario.", "info");
+    }
+
+    function resetBookingFormUI() {
+        document.getElementById('booking-form').reset();
+        
+        const formTitle = document.querySelector('#agendar h3.font-serif');
+        if(formTitle) formTitle.innerHTML = `<span class="text-xs font-mono bg-yorkaAccent text-white px-2.5 py-1 rounded-lg border border-yorkaGold/30">02</span> Tus Datos de Cita`;
+        
+        const submitBtnLabel = document.getElementById('btn-submit-booking-label');
+        if(submitBtnLabel) submitBtnLabel.innerText = "Reservar Cita (Tienes 15 min)";
+
+        const btnCancel = document.getElementById('btn-cancel-reschedule');
+        if(btnCancel) btnCancel.classList.add('hidden');
+        
+        selectedClientDate = getLocalDateString(new Date());
+        selectedClientSlot = "";
+        document.getElementById('summary-date').innerText = formatDateReadable(selectedClientDate);
+        document.getElementById('summary-time').innerText = "--";
+        bookingToReschedule = null;
+
+        renderClientCalendar();
+        renderClientSlots();
+        validateBookingForm();
     }
 
     function previewSelectedImage(event) {
@@ -2350,7 +2439,62 @@
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-xs"></i> <span>Procesando reserva...</span>';
 
-        // Check availability strictly
+        // LÓGICA DE REAGENDAMIENTO DE CITA EXISTENTE
+        if (bookingToReschedule) {
+            // Verificar disponibilidad
+            const { data: existingBookings, error: checkError } = await supabaseClient
+                .from('yorka_bookings')
+                .select('id, status')
+                .eq('date', selectedClientDate)
+                .eq('time', selectedClientSlot);
+
+            const activeExisting = existingBookings ? existingBookings.filter(eb => !eb.status.includes('Cancelada') && eb.id !== bookingToReschedule.id) : [];
+
+            if (activeExisting.length > 0) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
+                showToast("Lo sentimos, alguien acaba de tomar este horario. Elige otro por favor.", "error");
+                await loadDataFromSupabase(false);
+                renderAllViews();
+                return;
+            }
+
+            bookingToReschedule.date = selectedClientDate;
+            bookingToReschedule.time = selectedClientSlot;
+            bookingToReschedule.clientName = document.getElementById('client-name').value;
+            bookingToReschedule.instagram = document.getElementById('client-instagram').value;
+            bookingToReschedule.clientPhone = document.getElementById('client-phone').value;
+            bookingToReschedule.origin = document.getElementById('client-origin').value;
+            bookingToReschedule.budget = document.getElementById('client-budget').value;
+            
+            let notes = document.getElementById('client-notes').value;
+            if (!notes.includes('[REAGENDADA]')) {
+                notes = notes + ' [REAGENDADA]';
+            }
+            bookingToReschedule.notes = notes;
+
+            if (currentSelectedImageFile) {
+                bookingToReschedule.imageUrl = await uploadClientImageToStorage(currentSelectedImageFile);
+            }
+
+            const success = await saveBookingToSupabase(bookingToReschedule);
+            
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnText;
+
+            if (success) {
+                bookingToReschedule = null;
+                resetBookingFormUI();
+                removeSelectedImage();
+                renderAllViews();
+                showToast("¡Cita reagendada exitosamente!", "success");
+            } else {
+                showToast("Ocurrió un error al reagendar.", "error");
+            }
+            return;
+        }
+
+        // LÓGICA NORMAL DE NUEVA CITA
         const { data: existingBookings, error: checkError } = await supabaseClient
             .from('yorka_bookings')
             .select('id, status')
@@ -2415,10 +2559,7 @@
     function closeSuccessModal() {
         document.getElementById('success-modal').classList.remove('flex');
         document.getElementById('success-modal').classList.add('hidden');
-        document.getElementById('booking-form').reset();
-        selectedClientSlot = "";
-        renderClientSlots();
-        validateBookingForm();
+        resetBookingFormUI();
     }
 
     /* VISOR LIGHTBOX DE IMÁGENES (ZOOM GENERAL) */
