@@ -1137,15 +1137,21 @@
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-yorkaBorder">
                     <h3 class="font-serif text-lg text-yorkaText flex items-center gap-2 font-medium">
                         <i class="fa-solid fa-list-check text-yorkaDarkAccent"></i>
-                        Solicitudes de Clientes (`yorka_bookings`)
+                        Solicitudes de Clientes
                     </h3>
-                    <div class="flex items-center gap-3">
+                    
+                    <div class="flex items-center gap-2.5 flex-wrap justify-end">
+                        <select id="admin-status-filter" onchange="renderAdminBookingsTable()" class="bg-yorkaBg border border-yorkaBorder rounded-xl px-3 py-1.5 text-yorkaText text-[11px] focus:outline-none cursor-pointer font-mono font-bold shadow-xs">
+                            <option value="all" selected>Todas las Citas</option>
+                            <option value="active">Solo Activas</option>
+                            <option value="canceled">Solo Canceladas</option>
+                        </select>
                         <input type="month" id="admin-month-filter" onchange="renderAdminBookingsTable()"
-                               class="bg-yorkaBg border border-yorkaBorder rounded-xl px-3 py-1.5 text-yorkaText text-xs focus:outline-none">
-                        <button onclick="clearMonthFilter()" title="Ver todas" class="text-xs bg-yorkaPanel text-yorkaDarkAccent hover:text-yorkaText border border-yorkaBorder px-3 py-1.5 rounded-xl font-mono transition cursor-pointer font-bold">
-                            Todos
+                               class="bg-yorkaBg border border-yorkaBorder rounded-xl px-3 py-1.5 text-yorkaText text-[11px] focus:outline-none shadow-xs font-mono font-bold">
+                        <button onclick="clearAdminFilters()" title="Restablecer Filtros" class="text-[11px] bg-yorkaPanel text-yorkaDarkAccent hover:text-yorkaText border border-yorkaBorder px-3 py-1.5 rounded-xl font-mono transition cursor-pointer font-bold shadow-xs">
+                            Limpiar
                         </button>
-                        <span id="booking-counter" class="text-xs bg-yorkaAccent text-white px-3 py-1 rounded-full font-mono font-bold">0 Citas</span>
+                        <span id="booking-counter" class="text-[11px] bg-yorkaAccent text-white px-3 py-1.5 rounded-xl font-mono font-bold shadow-xs">0 Citas</span>
                     </div>
                 </div>
                 <div class="overflow-x-auto">
@@ -1729,7 +1735,7 @@
     }
 
     function searchClientBookings(e) {
-        e.preventDefault();
+        if(e) e.preventDefault();
         const inputVal = document.getElementById('client-search-input').value.trim().toLowerCase();
         const container = document.getElementById('client-bookings-results');
         if (!container) return;
@@ -1750,7 +1756,7 @@
         });
 
         if (userBookings.length === 0) {
-            container.innerHTML = `<p class="text-xs text-yorkaMuted italic text-center py-3 font-mono">No se encontraron citas activas asociadas a esa búsqueda.</p>`;
+            container.innerHTML = `<p class="text-xs text-yorkaMuted italic text-center py-3 font-mono">No se encontraron citas asociadas a esa búsqueda.</p>`;
             return;
         }
 
@@ -1762,30 +1768,46 @@
                 ? `<a href="https://instagram.com/${igRaw}" target="_blank" rel="noopener noreferrer" class="hover:underline text-yorkaDarkAccent font-semibold">@${igRaw} <i class="fa-brands fa-instagram text-[9px]"></i></a>`
                 : 'Sin Instagram';
 
+            const isCanceled = b.status.includes('Cancelada');
+
             card.innerHTML = `
                 <div>
                     <div class="font-mono text-xs font-bold text-yorkaText">${formatDateReadable(b.date)} a las ${b.time}</div>
                     <div class="text-[11px] text-yorkaDarkAccent font-medium">${b.clientName} (${igDisplay})</div>
                     <div class="text-[10px] font-mono text-yorkaMuted"><i class="fa-solid fa-phone text-[9px] text-emerald-600"></i> ${b.clientPhone || 'Sin teléfono'}</div>
-                    <div class="text-[10px] text-amber-600 font-bold mt-1">Estado: ${b.status}</div>
+                    <div class="text-[10px] ${isCanceled ? 'text-red-600' : 'text-amber-600'} font-bold mt-1">Estado: ${b.status}</div>
                 </div>
+                ${!isCanceled ? `
                 <button onclick="cancelClientBooking('${b.id}')" class="bg-red-50 hover:bg-red-100 border border-red-200 text-danger text-[10px] px-3 py-1.5 rounded-xl transition font-mono self-start sm:self-auto cursor-pointer font-bold">
                     Cancelar Cita
                 </button>
+                ` : ''}
             `;
             container.appendChild(card);
         });
     }
 
     async function cancelClientBooking(id) {
-        showConfirm("¿Estás seguro de cancelar tu reserva? Se eliminará de la agenda y el horario quedará libre.", async () => {
-            const success = await deleteBookingFromSupabase(id);
-            if (success) {
-                bookings = bookings.filter(b => b.id !== id);
-                await loadDataFromSupabase(false);
-                renderAllViews();
-                closeClientManageModal();
-                showToast("Tu cita ha sido eliminada y el horario ha quedado libre.", "success");
+        showConfirm("¿Estás seguro de cancelar tu reserva? Se liberará la hora en la agenda.", async () => {
+            const item = bookings.find(b => b.id === id);
+            if (item) {
+                item.status = 'Cancelada por el Cliente';
+                const success = await saveBookingToSupabase(item);
+                if (success) {
+                    await loadDataFromSupabase(false);
+                    renderAllViews();
+                    
+                    const inputVal = document.getElementById('client-search-input').value;
+                    if(inputVal) {
+                        searchClientBookings();
+                    } else {
+                        closeClientManageModal();
+                    }
+                    
+                    showToast("Tu cita ha sido cancelada y el horario ha quedado libre.", "success");
+                } else {
+                    showToast("Error al cancelar la cita. Intenta nuevamente.", "error");
+                }
             }
         });
     }
@@ -2164,7 +2186,7 @@
         if (sched.blocked || !sched.active) return true;
         const remainingSlots = getRemainingSlotsForDate(dateStr);
         if (remainingSlots.length === 0) return true;
-        const availableSlots = remainingSlots.filter(slot => !bookings.some(b => b.date === dateStr && b.time === slot && b.status !== 'Cancelada'));
+        const availableSlots = remainingSlots.filter(slot => !bookings.some(b => b.date === dateStr && b.time === slot && !b.status.includes('Cancelada')));
         return availableSlots.length === 0;
     }
 
@@ -2175,7 +2197,7 @@
         const remainingSlots = getRemainingSlotsForDate(dateStr);
         if (remainingSlots.length === 0) return { status: 'gray', free: 0, total: 0 };
         const total = remainingSlots.length;
-        const free = remainingSlots.filter(slot => !bookings.some(b => b.date === dateStr && b.time === slot && b.status !== 'Cancelada')).length;
+        const free = remainingSlots.filter(slot => !bookings.some(b => b.date === dateStr && b.time === slot && !b.status.includes('Cancelada'))).length;
         if (free === 0) return { status: 'red', free, total };
         if (free <= 2) return { status: 'yellow', free, total };
         return { status: 'green', free, total };
@@ -2276,7 +2298,7 @@
         }
 
         remainingSlots.forEach(slot => {
-            const isBooked = bookings.some(b => b.date === selectedClientDate && b.time === slot && b.status !== 'Cancelada');
+            const isBooked = bookings.some(b => b.date === selectedClientDate && b.time === slot && !b.status.includes('Cancelada'));
             const btn = document.createElement('button');
             btn.type = 'button';
             btn.className = `slot-btn py-2.5 px-3 rounded-xl text-[11px] sm:text-xs font-mono text-center cursor-pointer ${selectedClientSlot === slot ? 'selected' : ''}`;
@@ -2333,10 +2355,11 @@
             .from('yorka_bookings')
             .select('id, status')
             .eq('date', selectedClientDate)
-            .eq('time', selectedClientSlot)
-            .neq('status', 'Cancelada');
+            .eq('time', selectedClientSlot);
 
-        if (existingBookings && existingBookings.length > 0) {
+        const activeExisting = existingBookings ? existingBookings.filter(eb => !eb.status.includes('Cancelada')) : [];
+
+        if (activeExisting.length > 0) {
             submitBtn.disabled = false;
             submitBtn.innerHTML = originalBtnText;
             showToast("Lo sentimos, alguien acaba de tomar este horario hace un instante. Elige otro por favor.", "error");
@@ -2902,9 +2925,11 @@
         return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&location=${location}&dates=${fechaInicio}/${fechaInicio}`;
     }
 
-    function clearMonthFilter() {
+    function clearAdminFilters() {
         const monthFilter = document.getElementById('admin-month-filter');
+        const statusFilter = document.getElementById('admin-status-filter');
         if (monthFilter) monthFilter.value = "";
+        if (statusFilter) statusFilter.value = "all";
         renderAdminBookingsTable();
     }
 
@@ -2912,13 +2937,24 @@
         const tbody = document.getElementById('admin-bookings-table');
         const counter = document.getElementById('booking-counter');
         const monthFilter = document.getElementById('admin-month-filter');
+        const statusFilter = document.getElementById('admin-status-filter');
+        
         if (!tbody) return;
         tbody.innerHTML = "";
 
         const selectedMonth = monthFilter ? monthFilter.value : "";
+        const selectedStatus = statusFilter ? statusFilter.value : "all";
+        
         let filteredBookings = [...bookings];
+        
         if (selectedMonth) {
             filteredBookings = filteredBookings.filter(b => b.date && b.date.startsWith(selectedMonth));
+        }
+
+        if (selectedStatus === 'canceled') {
+            filteredBookings = filteredBookings.filter(b => b.status.includes('Cancelada'));
+        } else if (selectedStatus === 'active') {
+            filteredBookings = filteredBookings.filter(b => !b.status.includes('Cancelada'));
         }
 
         counter.innerText = `${filteredBookings.length} Citas`;
@@ -2939,8 +2975,8 @@
                 statusBadge = '<span class="bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-1 rounded-full text-[10px] font-mono font-bold">Confirmada</span>';
             } else if (b.status === 'Pendiente de Revisión') {
                 statusBadge = '<span class="bg-blue-50 text-blue-700 border border-blue-200 px-2.5 py-1 rounded-full text-[10px] font-mono font-bold">En Revisión</span>';
-            } else if (b.status === 'Cancelada') {
-                statusBadge = '<span class="bg-red-50 text-red-600 border border-red-200 px-2.5 py-1 rounded-full text-[10px] font-mono font-bold">Cancelada</span>';
+            } else if (b.status.includes('Cancelada')) {
+                statusBadge = `<span class="bg-red-50 text-red-600 border border-red-200 px-2.5 py-1 rounded-full text-[10px] font-mono font-bold">${b.status}</span>`;
             } else {
                 const createdAtTime = new Date(b.createdAt).getTime();
                 const expireTime = createdAtTime + (15 * 60 * 1000);
@@ -3012,7 +3048,8 @@
                             <option value="Pendiente de Comprobante" ${b.status === 'Pendiente de Comprobante' ? 'selected' : ''}>P. Comprobante</option>
                             <option value="Pendiente de Revisión" ${b.status === 'Pendiente de Revisión' ? 'selected' : ''}>En Revisión</option>
                             <option value="Confirmada" ${b.status === 'Confirmada' ? 'selected' : ''}>Confirmar</option>
-                            <option value="Cancelada" ${b.status === 'Cancelada' ? 'selected' : ''}>Cancelar</option>
+                            <option value="Cancelada por Tatuador" ${b.status === 'Cancelada por Tatuador' ? 'selected' : ''}>Cancelar (Tatuador)</option>
+                            ${b.status === 'Cancelada por el Cliente' ? `<option value="Cancelada por el Cliente" selected>Cancelada por Cliente</option>` : ''}
                         </select>
                         <button onclick="deleteBooking('${b.id}')" class="bg-red-50 hover:bg-red-100 text-danger border border-red-200 px-2.5 py-1 rounded-xl text-[11px] cursor-pointer transition">
                             <i class="fa-solid fa-trash text-[10px]"></i>
@@ -3174,7 +3211,9 @@
 
         const currentMonth = today.slice(0, 7);
         const monthFilter = document.getElementById('admin-month-filter');
+        const statusFilter = document.getElementById('admin-status-filter');
         if (monthFilter) monthFilter.value = currentMonth;
+        if (statusFilter) statusFilter.value = "all";
 
         updateAuthUI();
         renderAllViews();
