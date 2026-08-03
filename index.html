@@ -287,22 +287,20 @@
             <img src="assets/ornamento.png" alt="Yorka Tatuajes Logo" class="yorka-logo-img" onerror="this.onerror=null; this.src='assets/logo.jpg';">
         </div>
 
-        <div class="hidden md:flex items-center gap-7 lg:gap-8 font-sans text-[11px] font-bold tracking-[0.18em] uppercase text-white/90 mt-1">
-            <div id="public-nav-links" class="flex items-center gap-5 lg:gap-7">
+        <div class="hidden md:flex items-center gap-5 lg:gap-6 font-sans text-[11px] font-bold tracking-[0.18em] uppercase text-white/90 mt-1">
+            <div id="public-nav-links" class="flex items-center gap-4 lg:gap-5">
                 <a href="#estudio" onclick="showPublicLanding()" class="nav-link hover:text-yorkaGold transition-colors font-mono drop-shadow-sm">Estudio</a>
-                <a href="#artista" onclick="showPublicLanding()" class="nav-link hover:text-yorkaGold transition-colors font-mono drop-shadow-sm">Artista</a>
                 <a href="#disenos" onclick="showPublicLanding()" class="nav-link hover:text-yorkaGold transition-colors font-mono drop-shadow-sm">Diseños</a>
                 <a href="#portafolio" onclick="showPublicLanding()" class="nav-link hover:text-yorkaGold transition-colors font-mono drop-shadow-sm">Portafolio</a>
-                <a href="#info" onclick="showPublicLanding()" class="nav-link hover:text-yorkaGold transition-colors font-mono drop-shadow-sm">Información</a>
+                <a href="#info" onclick="showPublicLanding()" class="nav-link hover:text-yorkaGold transition-colors font-mono drop-shadow-sm">Info</a>
                 <a href="#agendar" onclick="showPublicLanding()" class="nav-link hover:text-yorkaGold transition-colors font-mono drop-shadow-sm">Reserva</a>
                 
-                <button onclick="openClientManageModal()" class="nav-link text-white hover:text-yorkaGold transition-colors flex items-center gap-1.5 font-mono bg-black/30 hover:bg-black/50 px-3.5 py-1 rounded-full border border-white/25 backdrop-blur-md shadow-sm">
+                <button onclick="openClientManageModal()" class="nav-link text-white hover:text-yorkaGold transition-colors flex items-center gap-1.5 font-mono drop-shadow-sm ml-2">
                     <i class="fa-solid fa-calendar-check text-xs text-yorkaGold"></i> Mis Citas
                 </button>
-                
-                <a href="https://www.instagram.com/yorka_tatuajes/?hl=es-la" target="_blank" rel="noopener noreferrer" class="nav-link text-white/90 hover:text-yorkaGold transition-colors flex items-center gap-1.5 font-mono drop-shadow-sm">
-                    <i class="fa-brands fa-instagram text-xs"></i> @yorka_tatuajes
-                </a>
+                <button onclick="openReceiptModal()" class="nav-link text-white hover:text-yorkaGold transition-colors flex items-center gap-1.5 font-mono bg-black/30 hover:bg-black/50 px-3.5 py-1 rounded-full border border-white/25 backdrop-blur-md shadow-sm">
+                    <i class="fa-solid fa-receipt text-xs text-yorkaGold"></i> Comprobante
+                </button>
                 
                 <span class="w-px h-3 bg-white/40"></span>
                 <span id="sync-status-header" class="sync-indicator">
@@ -314,7 +312,7 @@
             <div id="auth-nav-slot">
                 <button onclick="handleAdminNavClick()" id="nav-admin-toggle" class="nav-link text-white/90 hover:text-yorkaGold transition-colors flex items-center gap-1.5 font-mono drop-shadow-sm">
                     <i class="fa-solid fa-user-gear text-xs text-yorkaGold"></i>
-                    <span id="nav-admin-label">Panel Admin</span>
+                    <span id="nav-admin-label">Admin</span>
                 </button>
             </div>
         </div>
@@ -326,7 +324,7 @@
 </nav>
 
 <!-- MENÚ MÓVIL EDITORIAL DE ALTA GAMA -->
-<div id="mobileMenu" class="fixed inset-0 bg-black/95 backdrop-blur-2xl z-50 hidden flex-col justify-center items-center gap-6 font-serif text-2xl text-white px-6">
+<div id="mobileMenu" class="fixed inset-0 bg-black/95 backdrop-blur-2xl z-50 hidden flex-col justify-center items-center gap-5 font-serif text-2xl text-white px-6">
     <button onclick="toggleMobileMenu()" class="absolute top-6 right-6 text-2xl text-white/70 hover:text-white p-2">
         <i class="fa-solid fa-xmark"></i>
     </button>
@@ -335,20 +333,20 @@
         <span class="font-serif text-xl text-white tracking-widest uppercase block">Yorka Tatuajes</span>
         <span class="text-yorkaGold text-xs font-serif block mt-1 tracking-widest">✦ BLOOD LEVEL ESTUDIO ✦</span>
     </div>
-    <a href="#estudio" onclick="showPublicLanding(); toggleMobileMenu();" class="hover:text-yorkaGold mobile-link transition-colors">Estudio</a>
-    <a href="#artista" onclick="showPublicLanding(); toggleMobileMenu();" class="hover:text-yorkaGold mobile-link transition-colors">Artista</a>
+    <a href="#estudio" onclick="showPublicLanding(); toggleMobileMenu();" class="hover:text-yorkaGold mobile-link transition-colors">Estudio & Artista</a>
     <a href="#disenos" onclick="showPublicLanding(); toggleMobileMenu();" class="hover:text-yorkaGold mobile-link transition-colors">Diseños Disponibles</a>
     <a href="#portafolio" onclick="showPublicLanding(); toggleMobileMenu();" class="hover:text-yorkaGold mobile-link transition-colors">Portafolio</a>
     <a href="#info" onclick="showPublicLanding(); toggleMobileMenu();" class="hover:text-yorkaGold mobile-link transition-colors font-mono text-xl">Información</a>
     <a href="#agendar" onclick="showPublicLanding(); toggleMobileMenu();" class="hover:text-yorkaGold mobile-link transition-colors">Reserva</a>
-    <button onclick="openClientManageModal(); toggleMobileMenu();" class="hover:text-yorkaGold text-yorkaGold transition-colors flex items-center gap-2 text-xl font-serif">
-        <i class="fa-solid fa-calendar-check text-base"></i>
+    <button onclick="openClientManageModal(); toggleMobileMenu();" class="hover:text-yorkaGold text-white transition-colors flex items-center gap-2 text-xl font-serif">
+        <i class="fa-solid fa-calendar-check text-base text-yorkaGold"></i>
         <span>Mis Citas</span>
     </button>
-    <a href="https://www.instagram.com/yorka_tatuajes/?hl=es-la" target="_blank" rel="noopener noreferrer" class="hover:text-yorkaGold mobile-link transition-colors flex items-center gap-2 text-base font-sans font-semibold text-white/70">
-        <i class="fa-brands fa-instagram"></i> @yorka_tatuajes
-    </a>
-    <button onclick="handleAdminNavClick(); toggleMobileMenu();" class="hover:text-yorkaGold mobile-link text-yorkaGold transition-colors flex items-center gap-2 text-base font-mono mt-2 pt-4 border-t border-white/20 w-48 justify-center">
+    <button onclick="openReceiptModal(); toggleMobileMenu();" class="hover:text-yorkaGold text-yorkaGold transition-colors flex items-center gap-2 text-xl font-serif mt-1">
+        <i class="fa-solid fa-receipt text-base"></i>
+        <span>Subir Comprobante</span>
+    </button>
+    <button onclick="handleAdminNavClick(); toggleMobileMenu();" class="hover:text-yorkaGold mobile-link text-white/50 transition-colors flex items-center gap-2 text-sm font-mono mt-2 pt-4 border-t border-white/20 w-48 justify-center">
         <i class="fa-solid fa-user-gear text-sm"></i>
         <span id="mobile-admin-label">Panel Admin</span>
     </button>
@@ -403,10 +401,9 @@
     </header>
 
     <main class="bg-yorkaBg">
-        <!-- SECCIÓN SOBRE LA ARTISTA (YORKA) CON ESQUINAS EN "L" GRANDES Y SIMÉTRICAS -->
+        <!-- SECCIÓN SOBRE LA ARTISTA (YORKA) -->
         <section id="artista" class="py-20 md:py-28 bg-yorkaBg relative border-t border-yorkaBorder overflow-hidden">
             
-            <!-- ESQUINAS EN FORMA DE L SIMÉTRICAS PERFECTAS (DIRECCIÓN CORRECTA) -->
             <img src="assets/ornamento3.png" alt="Esquina Superior Izquierda" class="absolute top-0 left-0 w-20 sm:w-28 md:w-36 opacity-30 pointer-events-none z-10" style="transform: rotate(0deg);" onerror="this.onerror=null; this.src='ornamento3.png';">
             <img src="assets/ornamento3.png" alt="Esquina Superior Derecha" class="absolute top-0 right-0 w-20 sm:w-28 md:w-36 opacity-30 pointer-events-none z-10" style="transform: scaleX(-1);" onerror="this.onerror=null; this.src='ornamento3.png';">
             <img src="assets/ornamento3.png" alt="Esquina Inferior Izquierda" class="absolute bottom-0 left-0 w-20 sm:w-28 md:w-36 opacity-30 pointer-events-none z-10" style="transform: scaleY(-1);" onerror="this.onerror=null; this.src='ornamento3.png';">
@@ -415,7 +412,6 @@
             <div class="scroll-reveal max-w-6xl mx-auto px-6 relative z-10">
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-10 lg:gap-16 items-center">
                     
-                    <!-- FOTO DE LA ARTISTA -->
                     <div class="md:col-span-5 relative group">
                         <div class="absolute -inset-1.5 bg-gradient-to-tr from-yorkaAccent via-yorkaGold to-yorkaAccent rounded-3xl blur-md opacity-30 group-hover:opacity-60 transition duration-700"></div>
                         <div class="relative rounded-3xl overflow-hidden border border-yorkaGold/50 shadow-2xl bg-yorkaPanel aspect-[4/5] max-h-[500px]">
@@ -428,7 +424,6 @@
                         </div>
                     </div>
 
-                    <!-- BIOGRAFÍA & VISIÓN (ORNAMENTO 2 PERFECTAMENTE CENTRADO) -->
                     <div class="md:col-span-7 space-y-4 text-center flex flex-col items-center">
                         <div class="flex justify-center w-full mb-1">
                             <img src="assets/ornamento4.png" alt="Ornamento" class="h-16 md:h-24 opacity-90 object-contain mx-auto" onerror="this.onerror=null; this.src='ornamento4.png';">
@@ -441,7 +436,6 @@
                             Detrás de la aguja: <span class="italic text-yorkaAccent">Yorka</span>
                         </h2>
                         
-                        <!-- SEGUNDA FIGURA (ORNAMENTO 2) EXACTAMENTE AL MEDIO -->
                         <div class="py-2 flex justify-center items-center w-full">
                             <img src="assets/ornamento2.png" alt="Ornamento" class="h-8 md:h-10 opacity-90 object-contain mx-auto" onerror="this.onerror=null; this.src='ornamento2.png';">
                         </div>
@@ -451,7 +445,7 @@
                         </p>
                         
                         <p class="font-sans text-yorkaMuted text-xs md:text-sm leading-relaxed font-light text-center md:text-left">
-                            Cada sesión implica un tiempo exclusivo destinado al desarrollo de tu diseño y la planificación de tu tatuaje. Por esta razón, la reserva de la fecha se realiza mediante un abono, el cual asegura tu cupo y se descuenta del valor total del tatuaje el día de la sesión.
+                            Cada sesión implica un tiempo exclusivo destinado al desarrollo de tu diseño y la planificación de tu tatuaje. Por esta razón, la reserva de la fecha se realiza mediante un abono de <strong class="text-yorkaAccent font-semibold">$40.000 CLP</strong>, el cual asegura tu cupo y se descuenta del valor total del tatuaje el día de la sesión.
                         </p>
 
                         <p class="font-sans text-yorkaMuted text-xs md:text-sm leading-relaxed font-light text-center md:text-left">
@@ -478,10 +472,9 @@
             </div>
         </section>
 
-        <!-- SECCIÓN: DISEÑOS DISPONIBLES EN FORMATO CARRUSEL (EXACTAMENTE 4 FOTOS POR PESTAÑA) -->
+        <!-- SECCIÓN: DISEÑOS DISPONIBLES EN FORMATO CARRUSEL -->
         <section id="disenos" class="py-20 md:py-28 bg-yorkaBg relative border-t border-yorkaBorder overflow-hidden">
             
-            <!-- ESQUINAS GRANDES EN LA SECCIÓN -->
             <img src="assets/ornamento3.png" alt="Esquina Superior Izquierda" class="absolute top-0 left-0 w-20 sm:w-28 md:w-36 opacity-30 pointer-events-none z-10" style="transform: rotate(0deg);" onerror="this.onerror=null; this.src='ornamento3.png';">
             <img src="assets/ornamento3.png" alt="Esquina Superior Derecha" class="absolute top-0 right-0 w-20 sm:w-28 md:w-36 opacity-30 pointer-events-none z-10" style="transform: scaleX(-1);" onerror="this.onerror=null; this.src='ornamento3.png';">
             <img src="assets/ornamento3.png" alt="Esquina Inferior Izquierda" class="absolute bottom-0 left-0 w-20 sm:w-28 md:w-36 opacity-30 pointer-events-none z-10" style="transform: scaleY(-1);" onerror="this.onerror=null; this.src='ornamento3.png';">
@@ -497,7 +490,6 @@
                     </span>
                     <h2 class="font-serif text-3xl md:text-5xl text-yorkaText font-normal">Diseños <span class="italic text-yorkaAccent">Disponibles</span></h2>
                     
-                    <!-- SEGUNDA FIGURA (ORNAMENTO 2) CENTRADA BAJO EL TÍTULO -->
                     <div class="mt-3 flex justify-center w-full">
                         <img src="assets/ornamento2.png" alt="Ornamento" class="h-8 md:h-10 opacity-90 object-contain mx-auto" onerror="this.onerror=null; this.src='ornamento2.png';">
                     </div>
@@ -507,17 +499,15 @@
                     </p>
                 </div>
 
-                <!-- CONTENEDOR CARRUSEL DE DISEÑOS CON ESQUINAS EN "L" PROPORCIONALES (4 ITEMS POR SLIDE) -->
                 <div class="action-card rounded-3xl p-4 sm:p-6 md:p-8 shadow-glass relative overflow-hidden">
                     
-                    <!-- ESQUINAS DECORATIVAS ORNAMENTO 3 DENTRO DE LA TARJETA -->
                     <img src="assets/ornamento3.png" alt="Esquina" class="absolute top-0 left-0 w-12 sm:w-16 opacity-35 pointer-events-none z-10" style="transform: rotate(0deg);" onerror="this.onerror=null; this.src='ornamento3.png';">
                     <img src="assets/ornamento3.png" alt="Esquina" class="absolute top-0 right-0 w-12 sm:w-16 opacity-35 pointer-events-none z-10" style="transform: scaleX(-1);" onerror="this.onerror=null; this.src='ornamento3.png';">
                     <img src="assets/ornamento3.png" alt="Esquina" class="absolute bottom-0 left-0 w-12 sm:w-16 opacity-35 pointer-events-none z-10" style="transform: scaleY(-1);" onerror="this.onerror=null; this.src='ornamento3.png';">
                     <img src="assets/ornamento3.png" alt="Esquina" class="absolute bottom-0 right-0 w-12 sm:w-16 opacity-35 pointer-events-none z-10" style="transform: scale(-1);" onerror="this.onerror=null; this.src='ornamento3.png';">
 
                     <div id="disenos-carousel-container" class="min-h-[340px] relative w-full overflow-hidden pt-2">
-                        <!-- Las diapositivas de 4 fotos se cargan dinámicamente mediante JS -->
+                        <!-- Las diapositivas se cargan dinámicamente -->
                     </div>
 
                     <div class="border-t border-yorkaBorder pt-5 mt-6 flex justify-between items-center text-yorkaMuted text-xs font-mono relative z-20">
@@ -535,10 +525,9 @@
             </div>
         </section>
 
-        <!-- PORTAFOLIO SHOWCASE CON ESQUINAS EN "L" ORNAMENTO 3 -->
+        <!-- PORTAFOLIO SHOWCASE -->
         <section id="portafolio" class="py-20 md:py-28 bg-yorkaPanel/40 border-y border-yorkaBorder relative overflow-hidden">
             
-            <!-- ESQUINAS GRANDES EN LA SECCIÓN -->
             <img src="assets/ornamento3.png" alt="Esquina Superior Izquierda" class="absolute top-0 left-0 w-20 sm:w-28 md:w-36 opacity-30 pointer-events-none z-10" style="transform: rotate(0deg);" onerror="this.onerror=null; this.src='ornamento3.png';">
             <img src="assets/ornamento3.png" alt="Esquina Superior Derecha" class="absolute top-0 right-0 w-20 sm:w-28 md:w-36 opacity-30 pointer-events-none z-10" style="transform: scaleX(-1);" onerror="this.onerror=null; this.src='ornamento3.png';">
             <img src="assets/ornamento3.png" alt="Esquina Inferior Izquierda" class="absolute bottom-0 left-0 w-20 sm:w-28 md:w-36 opacity-30 pointer-events-none z-10" style="transform: scaleY(-1);" onerror="this.onerror=null; this.src='ornamento3.png';">
@@ -554,7 +543,6 @@
                     </span>
                     <h2 class="font-serif text-3xl md:text-5xl text-yorkaText font-normal">Muestra de <span class="italic text-yorkaAccent">Trabajos</span></h2>
                     
-                    <!-- SEGUNDA FIGURA (ORNAMENTO 2) CENTRADA BAJO EL TÍTULO -->
                     <div class="mt-3 flex justify-center w-full">
                         <img src="assets/ornamento2.png" alt="Ornamento" class="h-8 md:h-10 opacity-90 object-contain mx-auto" onerror="this.onerror=null; this.src='ornamento2.png';">
                     </div>
@@ -566,7 +554,6 @@
 
                 <div class="action-card rounded-3xl p-4 sm:p-6 md:p-8 shadow-glass relative overflow-hidden">
                     
-                    <!-- ESQUINAS DECORATIVAS ORNAMENTO 3 EN FORMA DE "L" -->
                     <img src="assets/ornamento3.png" alt="Esquina" class="absolute top-0 left-0 w-10 sm:w-14 opacity-35 pointer-events-none z-10" style="transform: rotate(0deg);" onerror="this.onerror=null; this.src='ornamento3.png';">
                     <img src="assets/ornamento3.png" alt="Esquina" class="absolute top-0 right-0 w-10 sm:w-14 opacity-35 pointer-events-none z-10" style="transform: scaleX(-1);" onerror="this.onerror=null; this.src='ornamento3.png';">
                     <img src="assets/ornamento3.png" alt="Esquina" class="absolute bottom-0 left-0 w-10 sm:w-14 opacity-35 pointer-events-none z-10" style="transform: scaleY(-1);" onerror="this.onerror=null; this.src='ornamento3.png';">
@@ -681,10 +668,9 @@
             </div>
         </section>
 
-        <!-- INFO EDITORIAL FAQS CON ESQUINAS EN "L" ORNAMENTO 3 -->
+        <!-- INFO EDITORIAL FAQS -->
         <section id="info" class="py-20 md:py-28 bg-yorkaBg relative overflow-hidden">
             
-            <!-- ESQUINAS GRANDES EN LA SECCIÓN -->
             <img src="assets/ornamento3.png" alt="Esquina Superior Izquierda" class="absolute top-0 left-0 w-20 sm:w-28 md:w-36 opacity-30 pointer-events-none z-10" style="transform: rotate(0deg);" onerror="this.onerror=null; this.src='ornamento3.png';">
             <img src="assets/ornamento3.png" alt="Esquina Superior Derecha" class="absolute top-0 right-0 w-20 sm:w-28 md:w-36 opacity-30 pointer-events-none z-10" style="transform: scaleX(-1);" onerror="this.onerror=null; this.src='ornamento3.png';">
             <img src="assets/ornamento3.png" alt="Esquina Inferior Izquierda" class="absolute bottom-0 left-0 w-20 sm:w-28 md:w-36 opacity-30 pointer-events-none z-10" style="transform: scaleY(-1);" onerror="this.onerror=null; this.src='ornamento3.png';">
@@ -700,7 +686,6 @@
                     </span>
                     <h2 class="font-serif text-3xl md:text-5xl text-yorkaText font-normal">Información de la <span class="italic text-yorkaAccent">Sesión</span></h2>
                     
-                    <!-- SEGUNDA FIGURA (ORNAMENTO 2) CENTRADA BAJO EL TÍTULO -->
                     <div class="mt-3 flex justify-center w-full">
                         <img src="assets/ornamento2.png" alt="Ornamento" class="h-8 md:h-10 opacity-90 object-contain mx-auto" onerror="this.onerror=null; this.src='ornamento2.png';">
                     </div>
@@ -738,10 +723,9 @@
             </div>
         </section>
 
-        <!-- SECCIÓN DE AGENDAMIENTO CON ESQUINAS EN "L" ORNAMENTO 3 -->
+        <!-- SECCIÓN DE AGENDAMIENTO -->
         <section id="agendar" class="py-20 md:py-28 bg-yorkaBg border-t border-yorkaBorder relative overflow-hidden">
             
-            <!-- ESQUINAS GRANDES EN LA SECCIÓN -->
             <img src="assets/ornamento3.png" alt="Esquina Superior Izquierda" class="absolute top-0 left-0 w-20 sm:w-28 md:w-36 opacity-30 pointer-events-none z-10" style="transform: rotate(0deg);" onerror="this.onerror=null; this.src='ornamento3.png';">
             <img src="assets/ornamento3.png" alt="Esquina Superior Derecha" class="absolute top-0 right-0 w-20 sm:w-28 md:w-36 opacity-30 pointer-events-none z-10" style="transform: scaleX(-1);" onerror="this.onerror=null; this.src='ornamento3.png';">
             <img src="assets/ornamento3.png" alt="Esquina Inferior Izquierda" class="absolute bottom-0 left-0 w-20 sm:w-28 md:w-36 opacity-30 pointer-events-none z-10" style="transform: scaleY(-1);" onerror="this.onerror=null; this.src='ornamento3.png';">
@@ -757,13 +741,12 @@
                     </span>
                     <h2 class="font-serif text-3xl md:text-5xl text-yorkaText font-normal">Agenda de <span class="italic text-yorkaAccent">Disponibilidad</span></h2>
                     
-                    <!-- SEGUNDA FIGURA (ORNAMENTO 2) CENTRADA BAJO EL TÍTULO -->
                     <div class="mt-3 flex justify-center w-full">
                         <img src="assets/ornamento2.png" alt="Ornamento" class="h-8 md:h-10 opacity-90 object-contain mx-auto" onerror="this.onerror=null; this.src='ornamento2.png';">
                     </div>
 
                     <p class="font-sans text-yorkaMuted text-xs md:text-sm mx-auto max-w-lg leading-relaxed mt-3 font-light">
-                        Selecciona un día en el calendario y escoge el bloque disponible. Tu solicitud quedará inmediatamente registrada en el sistema del estudio.
+                        Selecciona un día y bloque disponible. Al reservar, tendrás <strong class="text-yorkaAccent">15 minutos</strong> para pagar el abono y subir tu comprobante.
                     </p>
                 </div>
 
@@ -771,7 +754,6 @@
                     <!-- CALENDARIO -->
                     <div class="md:col-span-7 action-card rounded-3xl p-5 sm:p-6 md:p-8 relative overflow-hidden">
                         
-                        <!-- ESQUINAS DECORATIVAS ORNAMENTO 3 EN FORMA DE "L" -->
                         <img src="assets/ornamento3.png" alt="Esquina" class="absolute top-0 left-0 w-10 sm:w-14 opacity-35 pointer-events-none z-10" style="transform: rotate(0deg);" onerror="this.onerror=null; this.src='ornamento3.png';">
                         <img src="assets/ornamento3.png" alt="Esquina" class="absolute top-0 right-0 w-10 sm:w-14 opacity-35 pointer-events-none z-10" style="transform: scaleX(-1);" onerror="this.onerror=null; this.src='ornamento3.png';">
                         <img src="assets/ornamento3.png" alt="Esquina" class="absolute bottom-0 left-0 w-10 sm:w-14 opacity-35 pointer-events-none z-10" style="transform: scaleY(-1);" onerror="this.onerror=null; this.src='ornamento3.png';">
@@ -828,7 +810,6 @@
                     <!-- FORMULARIO DE RESERVA -->
                     <div class="md:col-span-5 action-card rounded-3xl p-5 sm:p-6 md:p-8 flex flex-col justify-between relative overflow-hidden">
                         
-                        <!-- ESQUINAS DECORATIVAS ORNAMENTO 3 EN FORMA DE "L" -->
                         <img src="assets/ornamento3.png" alt="Esquina" class="absolute top-0 left-0 w-10 sm:w-14 opacity-35 pointer-events-none z-10" style="transform: rotate(0deg);" onerror="this.onerror=null; this.src='ornamento3.png';">
                         <img src="assets/ornamento3.png" alt="Esquina" class="absolute top-0 right-0 w-10 sm:w-14 opacity-35 pointer-events-none z-10" style="transform: scaleX(-1);" onerror="this.onerror=null; this.src='ornamento3.png';">
                         <img src="assets/ornamento3.png" alt="Esquina" class="absolute bottom-0 left-0 w-10 sm:w-14 opacity-35 pointer-events-none z-10" style="transform: scaleY(-1);" onerror="this.onerror=null; this.src='ornamento3.png';">
@@ -894,17 +875,43 @@
 
                                 <div class="bg-yorkaPanel/70 p-3.5 rounded-2xl border border-yorkaGold/30 text-xs text-yorkaMuted space-y-1 font-mono">
                                     <div class="flex justify-between"><span>Fecha seleccionada:</span> <strong id="summary-date" class="text-yorkaText">--</strong></div>
-                                    <div class="flex justify-between"><span>Hora seleccionada:</span> <strong id="summary-time" class="text-yorkaAccent font-bold">--</strong></div>
+                                    <div class="flex justify-between"><span>Hora seleccionada:</span> <strong id="summary-time" class="text-yorkaText">--</strong></div>
+                                    <div class="flex justify-between"><span>Abono requerido:</span> <strong class="text-yorkaAccent font-bold">$40.000 CLP</strong></div>
                                 </div>
 
                                 <button type="submit" id="btn-submit-booking" disabled
-                                        class="btn-primary-action mt-3 w-full flex items-center justify-center gap-2 text-white font-mono text-xs font-bold tracking-widest py-3.5 rounded-2xl uppercase cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed">
+                                        class="btn-primary-action mt-3 w-full flex items-center justify-center gap-2 text-white font-mono text-[11px] sm:text-xs font-bold tracking-widest py-3.5 rounded-2xl uppercase cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed">
                                     <i class="fa-regular fa-paper-plane text-xs text-yorkaGold"></i>
-                                    <span id="btn-submit-booking-label">Enviar Solicitud de Reserva</span>
+                                    <span id="btn-submit-booking-label">Reservar Cita (Tienes 15 min)</span>
                                 </button>
                             </form>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN DE PAGO DIRECTO WEBPAY -->
+        <section id="pago-directo" class="py-16 md:py-24 bg-yorkaPanel border-t border-yorkaBorder relative overflow-hidden">
+            <div class="max-w-4xl mx-auto px-6 text-center space-y-6 relative z-10">
+                <div class="inline-flex items-center justify-center w-14 h-14 rounded-full bg-white border border-yorkaGold/40 text-yorkaAccent mb-2 shadow-sm">
+                    <i class="fa-solid fa-credit-card text-2xl"></i>
+                </div>
+                <h3 class="font-serif text-3xl md:text-4xl text-yorkaText font-normal">¿Prefieres pagar con <span class="italic text-yorkaAccent">Tarjeta</span>?</h3>
+                <p class="font-sans text-yorkaMuted text-xs md:text-sm leading-relaxed max-w-xl mx-auto font-light">
+                    Puedes realizar el pago de tu abono de <strong class="text-yorkaAccent font-semibold">$40.000 CLP</strong> de forma rápida y segura a través de la pasarela oficial de Webpay Plus. Recuerda que tienes 15 minutos tras agendar para subir tu comprobante.
+                </p>
+                <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="https://www.webpay.cl/company/158953" target="_blank" rel="noopener noreferrer" 
+                       class="btn-primary-action inline-flex items-center justify-center gap-3 font-mono text-xs font-bold px-8 py-4 rounded-2xl uppercase tracking-widest text-white shadow-xl hover:-translate-y-1 transition-transform w-full sm:w-auto">
+                        <i class="fa-solid fa-lock text-sm text-yorkaGold"></i>
+                        <span>Pagar en Webpay Plus</span>
+                    </a>
+                    <button onclick="openReceiptModal()" 
+                            class="inline-flex items-center justify-center gap-2 font-mono text-xs font-semibold px-8 py-4 rounded-2xl uppercase tracking-wider text-yorkaText bg-white border border-yorkaBorder hover:border-yorkaGold hover:bg-yorkaBg transition shadow-sm w-full sm:w-auto cursor-pointer">
+                        <i class="fa-solid fa-receipt text-yorkaAccent text-sm"></i>
+                        <span>Subir Comprobante</span>
+                    </button>
                 </div>
             </div>
         </section>
@@ -913,14 +920,12 @@
     <!-- FOOTER EDITORIAL CON FIGURA ROJA (LOGO ORNAMENTO) -->
     <footer class="bg-yorkaPanel py-16 border-t border-yorkaBorder text-center relative z-10 overflow-hidden px-6">
         
-        <!-- FONDO DECORATIVO CON ORNAMENTO 1 CENTRADO NÍTIDO -->
         <div class="absolute inset-0 pointer-events-none flex items-center justify-center opacity-15">
             <img src="assets/ornamento1.png" alt="Fondo Decorativo" class="max-w-xl md:max-w-2xl w-full h-auto object-contain" onerror="this.onerror=null; this.src='ornamento1.png';">
         </div>
 
         <div class="max-w-7xl mx-auto space-y-4 relative z-10">
             
-            <!-- LOGO FIGURA ROJA AL MEDIO ARRIBA DE YORKA TATUAJES -->
             <div class="flex justify-center items-center mb-1">
                 <img src="assets/ornamento.png" alt="Yorka Tatuajes Logo" class="yorka-logo-img" onerror="this.onerror=null; this.src='assets/logo.jpg';">
             </div>
@@ -929,7 +934,6 @@
             
             <p class="font-mono text-xs text-yorkaDarkAccent font-semibold tracking-wider">Blood Level Estudio • Concepción, Chile</p>
             
-            <!-- BOTÓN E ICONO DE INSTAGRAM -->
             <div class="pt-3">
                 <a href="https://www.instagram.com/yorka_tatuajes/?hl=es-la" target="_blank" rel="noopener noreferrer" 
                    class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/90 border border-yorkaGold/40 text-yorkaDarkAccent hover:text-yorkaAccent hover:border-yorkaAccent transition-all shadow-xs text-xs font-mono font-bold group">
@@ -941,6 +945,34 @@
             <p class="font-sans text-[10px] text-yorkaMuted uppercase tracking-widest pt-2">© 2026. Todos los derechos reservados.</p>
         </div>
     </footer>
+</div>
+
+<!-- MODAL SUBIR COMPROBANTE -->
+<div id="receipt-upload-modal" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="action-card rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl border border-yorkaBorder space-y-5">
+        <div class="flex items-center justify-between border-b border-yorkaBorder pb-4">
+            <h3 class="font-serif text-xl text-yorkaText flex items-center gap-2 font-medium">
+                <i class="fa-solid fa-receipt text-yorkaDarkAccent"></i>
+                Subir Comprobante
+            </h3>
+            <button onclick="closeReceiptModal()" class="text-yorkaMuted hover:text-yorkaText text-2xl cursor-pointer">×</button>
+        </div>
+        <p class="text-xs text-yorkaMuted leading-relaxed">
+            Ingresa tu usuario de Instagram o teléfono para buscar tu reserva activa. Tienes un límite de 15 minutos desde que reservaste.
+        </p>
+        <form onsubmit="verifyBookingForReceipt(event)" class="space-y-4">
+            <div>
+                <input type="text" id="receipt-search-input" required placeholder="Ej: @tu_instagram o +56912345678"
+                       class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-4 py-3 text-yorkaText text-xs focus:outline-none focus:border-yorkaGold">
+            </div>
+            <button type="submit" class="btn-primary-action w-full py-3 rounded-xl text-xs font-bold uppercase tracking-wider text-white cursor-pointer font-mono">
+                Verificar Reserva
+            </button>
+        </form>
+
+        <div id="receipt-booking-info" class="space-y-3 pt-2">
+        </div>
+    </div>
 </div>
 
 <!-- MODAL CONSULTAR / CANCELAR CITAS (CLIENTE) -->
@@ -961,7 +993,7 @@
                 <input type="text" id="client-search-input" required placeholder="Ej: @tu_instagram, +56912345678 o nombre"
                        class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-4 py-3 text-yorkaText text-xs focus:outline-none focus:border-yorkaGold">
             </div>
-            <button type="submit" class="btn-primary-action w-full py-3 rounded-xl text-xs font-bold uppercase tracking-wider text-white cursor-pointer">
+            <button type="submit" class="btn-primary-action w-full py-3 rounded-xl text-xs font-bold uppercase tracking-wider text-white cursor-pointer font-mono">
                 Buscar Mis Citas
             </button>
         </form>
@@ -977,14 +1009,18 @@
         <div class="w-14 h-14 rounded-full bg-emerald-50 text-emerald-700 flex items-center justify-center text-2xl mx-auto border border-emerald-200">
             <i class="fa-solid fa-circle-check"></i>
         </div>
-        <h3 class="font-serif text-2xl text-yorkaText font-medium">¡Solicitud Registrada!</h3>
+        <h3 class="font-serif text-2xl text-yorkaText font-medium">¡Cita Pre-Reservada!</h3>
         <p class="text-xs text-yorkaMuted leading-relaxed font-light">
-            Tu reserva ha sido guardada en la agenda del estudio. Puedes añadir directamente el evento a tu calendario de Google.
+            Tu reserva ha sido guardada temporalmente. Tienes <strong class="text-yorkaAccent">15 minutos</strong> para realizar el abono y subir el comprobante, de lo contrario la hora se liberará automáticamente.
         </p>
-        <div id="success-modal-gcal-wrap" class="pt-2"></div>
-        <button onclick="closeSuccessModal()" class="btn-primary-action w-full font-mono text-xs font-bold py-3.5 rounded-2xl uppercase tracking-wider">
-            Cerrar Ventana
-        </button>
+        <div class="pt-2">
+            <button onclick="closeSuccessModal(); openReceiptModal();" class="btn-primary-action w-full font-mono text-xs font-bold py-3.5 rounded-2xl uppercase tracking-wider">
+                Ir a Subir Comprobante
+            </button>
+            <button onclick="closeSuccessModal()" class="text-xs font-mono text-yorkaMuted hover:text-yorkaText transition mt-4 bg-transparent border-none cursor-pointer">
+                Cerrar y subir luego
+            </button>
+        </div>
     </div>
 </div>
 
@@ -1231,8 +1267,8 @@
         <h3 class="font-serif text-xl text-yorkaText">Restablecer Agenda</h3>
         <p class="text-xs text-yorkaMuted font-mono leading-relaxed">Se eliminarán los horarios personalizados configurados.</p>
         <div class="flex gap-3 font-mono text-xs">
-            <button onclick="closeResetModal()" class="flex-1 bg-yorkaPanel text-yorkaText py-2.5 rounded-xl border border-yorkaBorder">Cancelar</button>
-            <button onclick="confirmResetSystem()" class="flex-1 btn-primary-action py-2.5 rounded-xl font-bold">Restablecer</button>
+            <button onclick="closeResetModal()" class="flex-1 bg-yorkaPanel text-yorkaText py-2.5 rounded-xl border border-yorkaBorder cursor-pointer">Cancelar</button>
+            <button onclick="confirmResetSystem()" class="flex-1 btn-primary-action py-2.5 rounded-xl font-bold cursor-pointer">Restablecer</button>
         </div>
     </div>
 </div>
@@ -1242,8 +1278,8 @@
         <h3 class="font-serif text-xl text-yorkaText">Confirmar Acción</h3>
         <p id="confirm-modal-message" class="text-xs text-yorkaMuted font-mono leading-relaxed">¿Deseas continuar?</p>
         <div class="flex gap-3 font-mono text-xs">
-            <button onclick="closeConfirmModal()" class="flex-1 bg-yorkaPanel text-yorkaText py-2.5 rounded-xl border border-yorkaBorder">Cancelar</button>
-            <button onclick="acceptConfirmModal()" class="flex-1 btn-primary-action py-2.5 rounded-xl font-bold">Confirmar</button>
+            <button onclick="closeConfirmModal()" class="flex-1 bg-yorkaPanel text-yorkaText py-2.5 rounded-xl border border-yorkaBorder cursor-pointer">Cancelar</button>
+            <button onclick="acceptConfirmModal()" class="flex-1 btn-primary-action py-2.5 rounded-xl font-bold cursor-pointer">Confirmar</button>
         </div>
     </div>
 </div>
@@ -1275,8 +1311,8 @@
             </div>
         </div>
         <div class="flex gap-3 font-mono text-xs pt-2">
-            <button onclick="closeBulkSlotModal()" class="flex-1 bg-yorkaPanel text-yorkaText py-2.5 rounded-xl border border-yorkaBorder">Cancelar</button>
-            <button onclick="confirmBulkSlotGeneration()" class="flex-1 btn-primary-action py-2.5 rounded-xl font-bold">Generar</button>
+            <button onclick="closeBulkSlotModal()" class="flex-1 bg-yorkaPanel text-yorkaText py-2.5 rounded-xl border border-yorkaBorder cursor-pointer">Cancelar</button>
+            <button onclick="confirmBulkSlotGeneration()" class="flex-1 btn-primary-action py-2.5 rounded-xl font-bold cursor-pointer">Generar</button>
         </div>
     </div>
 </div>
@@ -1289,8 +1325,8 @@
             <input type="time" id="single-slot-input" value="12:00" class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-4 py-3 text-yorkaText text-sm">
         </div>
         <div class="flex gap-3 font-mono text-xs pt-2">
-            <button onclick="closeSingleSlotModal()" class="flex-1 bg-yorkaPanel text-yorkaText py-2.5 rounded-xl border border-yorkaBorder">Cancelar</button>
-            <button onclick="confirmSingleSlotAddition()" class="flex-1 btn-primary-action py-2.5 rounded-xl font-bold">Añadir</button>
+            <button onclick="closeSingleSlotModal()" class="flex-1 bg-yorkaPanel text-yorkaText py-2.5 rounded-xl border border-yorkaBorder cursor-pointer">Cancelar</button>
+            <button onclick="confirmSingleSlotAddition()" class="flex-1 btn-primary-action py-2.5 rounded-xl font-bold cursor-pointer">Añadir</button>
         </div>
     </div>
 </div>
@@ -1322,6 +1358,11 @@
     let isLoadingData = false;
     let currentSelectedImageFile = null;
 
+    // Variables Comprobantes / Límite de Tiempo
+    let currentSelectedReceiptFile = null;
+    let activeFoundBookingForReceipt = null;
+    let receiptCountdownInterval = null;
+
     function getLocalDateString(d = new Date()) {
         const year = d.getFullYear();
         const month = String(d.getMonth() + 1).padStart(2, '0');
@@ -1340,7 +1381,7 @@
         setTimeout(() => {
             toast.classList.remove('toast-show');
             setTimeout(() => toast.remove(), 400);
-        }, 3500);
+        }, 3800);
     }
 
     let pendingConfirmAction = null;
@@ -1375,10 +1416,10 @@
         });
     }
 
-    /* LÓGICA DEL CARRUSEL DE DISEÑOS DISPONIBLES (ESTRICTAMENTE 4 FOTOS POR PESTAÑA) */
+    /* LÓGICA DEL CARRUSEL DE DISEÑOS DISPONIBLES */
     let currentDisenoSlide = 0;
     const totalDisenos = 34;
-    const itemsPerDisenoSlide = 4; // Exactamente 4 fotos por slide
+    const itemsPerDisenoSlide = 4;
     const totalDisenoSlides = Math.ceil(totalDisenos / itemsPerDisenoSlide);
 
     function renderDisenosCarousel() {
@@ -1464,6 +1505,190 @@
         showToast(`¡Diseño Flash #${num} seleccionado! Completa tus datos abajo.`, 'success');
     }
 
+    // ==========================================
+    // LÓGICA DE COMPROBANTES DE PAGO
+    // ==========================================
+    function openReceiptModal() {
+        const modal = document.getElementById('receipt-upload-modal');
+        const info = document.getElementById('receipt-booking-info');
+        if (modal) {
+            if (info) info.innerHTML = "";
+            document.getElementById('receipt-search-input').value = "";
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+    }
+
+    function closeReceiptModal() {
+        const modal = document.getElementById('receipt-upload-modal');
+        if (modal) {
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+            if (receiptCountdownInterval) clearInterval(receiptCountdownInterval);
+            activeFoundBookingForReceipt = null;
+            currentSelectedReceiptFile = null;
+        }
+    }
+
+    function verifyBookingForReceipt(e) {
+        e.preventDefault();
+        const inputVal = document.getElementById('receipt-search-input').value.trim().toLowerCase().replace('@', '');
+        const infoDiv = document.getElementById('receipt-booking-info');
+        if (!infoDiv) return;
+        infoDiv.innerHTML = "";
+
+        const found = bookings.find(b => {
+            const phoneMatch = b.clientPhone && b.clientPhone.toLowerCase().includes(inputVal);
+            const igMatch = b.instagram && b.instagram.toLowerCase().replace('@', '').includes(inputVal);
+            return (phoneMatch || igMatch) && (b.status === 'Pendiente de Comprobante' || b.status === 'Pendiente de Revisión');
+        });
+
+        if (!found) {
+            infoDiv.innerHTML = `<p class="text-xs text-danger italic text-center py-2 font-mono">No se encontró ninguna reserva pendiente con esos datos.</p>`;
+            return;
+        }
+
+        const createdAtTime = new Date(found.createdAt).getTime();
+        const now = new Date().getTime();
+        const diffMs = now - createdAtTime;
+        const fifteenMinutesMs = 15 * 60 * 1000;
+
+        if (diffMs > fifteenMinutesMs && found.status === 'Pendiente de Comprobante') {
+            deleteBookingFromSupabase(found.id);
+            bookings = bookings.filter(b => b.id !== found.id);
+            renderAllViews();
+            infoDiv.innerHTML = `<p class="text-xs text-danger text-center font-mono">El tiempo límite de 15 minutos ha expirado. Tu reserva fue eliminada automáticamente y el horario ha quedado libre.</p>`;
+            return;
+        }
+
+        activeFoundBookingForReceipt = found;
+        
+        infoDiv.innerHTML = `
+            <div class="bg-yorkaPanel p-4 rounded-xl border border-yorkaBorder space-y-3 text-xs">
+                <div class="flex justify-between text-yorkaText border-b border-yorkaBorder/50 pb-1"><span>Cliente:</span> <strong class="font-bold">${found.clientName}</strong></div>
+                <div class="flex justify-between text-yorkaText border-b border-yorkaBorder/50 pb-1"><span>Cita:</span> <strong>${formatDateReadable(found.date)} a las ${found.time}</strong></div>
+                <div class="flex justify-between text-yorkaText border-b border-yorkaBorder/50 pb-1"><span>Estado:</span> <strong class="text-amber-600">${found.status}</strong></div>
+                
+                <div class="bg-red-50 border border-red-200 text-danger p-3 rounded-lg text-center font-mono font-bold text-sm shadow-xs">
+                    ⏱️ Tiempo restante para abonar:<br>
+                    <span id="countdown-timer-text" class="text-base text-yorkaAccent">--:--</span>
+                </div>
+
+                ${found.status === 'Pendiente de Comprobante' ? `
+                    <div class="space-y-2 pt-2">
+                        <label class="block text-[10px] uppercase text-yorkaMuted tracking-wider font-bold font-mono">Adjuntar Comprobante (Captura)</label>
+                        <input type="file" id="upload-receipt-file" accept="image/*" onchange="previewReceiptFile(event)"
+                               class="w-full text-xs text-yorkaMuted bg-yorkaBg border border-yorkaBorder rounded-xl p-1.5 focus:outline-none file:mr-2 file:py-1 file:px-2 file:rounded-lg file:border-0 file:text-[10px] file:font-semibold file:bg-yorkaPanel file:text-yorkaDarkAccent cursor-pointer transition">
+                        <div id="receipt-preview-container" class="hidden mt-2 relative w-16 h-16 rounded-lg overflow-hidden border border-yorkaGold shadow-sm">
+                            <img id="receipt-preview" src="" class="w-full h-full object-cover">
+                            <button type="button" onclick="removeReceiptFile()" class="absolute top-0 right-0 bg-black/80 text-white w-5 h-5 text-[10px] flex items-center justify-center rounded-bl cursor-pointer">×</button>
+                        </div>
+                        <button onclick="submitReceiptUpload()" class="btn-primary-action w-full py-3 rounded-xl text-xs font-bold uppercase tracking-wider text-white cursor-pointer mt-2 font-mono">
+                            Enviar Comprobante al Estudio
+                        </button>
+                    </div>
+                ` : '<p class="text-emerald-600 text-center font-mono text-xs pt-2 font-bold"><i class="fa-solid fa-circle-check"></i> Comprobante ya enviado. En revisión por Yorka.</p>'}
+            </div>
+        `;
+
+        startReceiptCountdown(createdAtTime + fifteenMinutesMs);
+    }
+
+    function previewReceiptFile(event) {
+        const file = event.target.files[0];
+        const previewContainer = document.getElementById('receipt-preview-container');
+        const previewImg = document.getElementById('receipt-preview');
+
+        if (file) {
+            currentSelectedReceiptFile = file;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                if(previewImg) previewImg.src = e.target.result;
+                if(previewContainer) previewContainer.classList.remove('hidden');
+            }
+            reader.readAsDataURL(file);
+        } else {
+            removeReceiptFile();
+        }
+    }
+
+    function removeReceiptFile() {
+        currentSelectedReceiptFile = null;
+        const fileInput = document.getElementById('upload-receipt-file');
+        const previewContainer = document.getElementById('receipt-preview-container');
+        if (fileInput) fileInput.value = "";
+        if (previewContainer) previewContainer.classList.add('hidden');
+    }
+
+    function startReceiptCountdown(expireTimestamp) {
+        if (receiptCountdownInterval) clearInterval(receiptCountdownInterval);
+
+        function updateTimer() {
+            const now = new Date().getTime();
+            const distance = expireTimestamp - now;
+            const timerSpan = document.getElementById('countdown-timer-text');
+
+            if (distance <= 0) {
+                clearInterval(receiptCountdownInterval);
+                if (timerSpan) timerSpan.innerText = "00:00";
+                if (activeFoundBookingForReceipt) {
+                    deleteBookingFromSupabase(activeFoundBookingForReceipt.id);
+                    bookings = bookings.filter(b => b.id !== activeFoundBookingForReceipt.id);
+                    renderAllViews();
+                }
+                const infoDiv = document.getElementById('receipt-booking-info');
+                if (infoDiv) infoDiv.innerHTML = `<p class="text-xs text-danger text-center font-mono font-bold">¡El tiempo ha expirado (15 min)! La reserva fue eliminada automáticamente.</p>`;
+                return;
+            }
+
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            if (timerSpan) {
+                timerSpan.innerText = `${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
+            }
+        }
+
+        updateTimer();
+        receiptCountdownInterval = setInterval(updateTimer, 1000);
+    }
+
+    async function submitReceiptUpload() {
+        if (!currentSelectedReceiptFile) {
+            showToast("Selecciona la imagen de tu comprobante.", "error");
+            return;
+        }
+        if (!activeFoundBookingForReceipt) return;
+
+        showToast("Subiendo comprobante...", "info");
+        const receiptUrl = await uploadFileToStorage(currentSelectedReceiptFile, 'receipts');
+
+        if (!receiptUrl) {
+            showToast("Error al subir la imagen a la nube.", "error");
+            return;
+        }
+
+        activeFoundBookingForReceipt.paymentReceiptUrl = receiptUrl;
+        activeFoundBookingForReceipt.status = 'Pendiente de Revisión';
+
+        const itemIdx = bookings.findIndex(b => b.id === activeFoundBookingForReceipt.id);
+        if (itemIdx !== -1) {
+            bookings[itemIdx].paymentReceiptUrl = receiptUrl;
+            bookings[itemIdx].status = 'Pendiente de Revisión';
+        }
+
+        const success = await saveBookingToSupabase(activeFoundBookingForReceipt);
+        if (success) {
+            await loadDataFromSupabase(false);
+            renderAllViews();
+            showToast("¡Comprobante enviado con éxito!", "success");
+            closeReceiptModal();
+        }
+    }
+
+    // ==========================================
+    // MANEJO DE CITAS (CLIENTE)
+    // ==========================================
     function openClientManageModal() {
         const modal = document.getElementById('client-manage-modal');
         const results = document.getElementById('client-bookings-results');
@@ -1521,7 +1746,7 @@
                     <div class="font-mono text-xs font-bold text-yorkaText">${formatDateReadable(b.date)} a las ${b.time}</div>
                     <div class="text-[11px] text-yorkaDarkAccent font-medium">${b.clientName} (${igDisplay})</div>
                     <div class="text-[10px] font-mono text-yorkaMuted"><i class="fa-solid fa-phone text-[9px] text-emerald-600"></i> ${b.clientPhone || 'Sin teléfono'}</div>
-                    <div class="text-[10px] text-yorkaMuted truncate max-w-[200px] mt-1">${b.notes || 'Sin especificaciones'}</div>
+                    <div class="text-[10px] text-amber-600 font-bold mt-1">Estado: ${b.status}</div>
                 </div>
                 <button onclick="cancelClientBooking('${b.id}')" class="bg-red-50 hover:bg-red-100 border border-red-200 text-danger text-[10px] px-3 py-1.5 rounded-xl transition font-mono self-start sm:self-auto cursor-pointer font-bold">
                     Cancelar Cita
@@ -1570,11 +1795,11 @@
         if (previewContainer) previewContainer.classList.add('hidden');
     }
 
-    async function uploadClientImageToStorage(file) {
+    async function uploadFileToStorage(file, folder = 'references') {
         try {
             const fileExt = file.name.split('.').pop();
             const fileName = `${Date.now()}_${Math.random().toString(36).substring(2, 7)}.${fileExt}`;
-            const filePath = `references/${fileName}`;
+            const filePath = `${folder}/${fileName}`;
 
             const { data, error } = await supabaseClient
                 .storage
@@ -1593,8 +1818,37 @@
 
             return publicUrlData.publicUrl;
         } catch (err) {
-            console.error("Error inesperado en uploadClientImageToStorage:", err);
+            console.error("Error inesperado en uploadFileToStorage:", err);
             return null;
+        }
+    }
+
+    async function uploadClientImageToStorage(file) {
+        return uploadFileToStorage(file, 'references');
+    }
+
+    let cleanupInProgress = false;
+    async function cleanupExpiredBookings() {
+        if (cleanupInProgress) return false;
+        const now = Date.now();
+        const FIFTEEN_MIN = 15 * 60 * 1000;
+        const expired = bookings.filter(b =>
+            b.status === 'Pendiente de Comprobante' &&
+            b.createdAt &&
+            (now - new Date(b.createdAt).getTime()) > FIFTEEN_MIN
+        );
+        if (expired.length === 0) return false;
+
+        cleanupInProgress = true;
+        try {
+            for (const b of expired) {
+                await deleteBookingFromSupabase(b.id);
+            }
+            const expiredIds = new Set(expired.map(b => b.id));
+            bookings = bookings.filter(b => !expiredIds.has(b.id));
+            return true;
+        } finally {
+            cleanupInProgress = false;
         }
     }
 
@@ -1629,7 +1883,8 @@
                     budget: b.budget || '$0',
                     notes: b.notes,
                     imageUrl: b.image_url || null,
-                    status: b.status || 'Pendiente',
+                    paymentReceiptUrl: b.payment_receipt_url || null,
+                    status: b.status || 'Pendiente de Comprobante',
                     createdAt: b.created_at
                 }));
             }
@@ -1683,7 +1938,8 @@
                 budget: b.budget,
                 notes: b.notes,
                 image_url: b.imageUrl || null,
-                status: b.status || 'Pendiente',
+                payment_receipt_url: b.paymentReceiptUrl || null,
+                status: b.status || 'Pendiente de Comprobante',
                 created_at: b.createdAt || new Date().toISOString()
             }, { onConflict: 'id' });
             if (error) {
@@ -1694,6 +1950,36 @@
         } catch (err) {
             console.error("Supabase booking exception:", err);
             return false;
+        }
+    }
+
+    async function insertNewBookingAtomic(b) {
+        try {
+            const { error } = await supabaseClient
+                .from('yorka_bookings')
+                .insert({
+                    id: b.id,
+                    date: b.date,
+                    time: b.time,
+                    client_name: b.clientName,
+                    client_email: (b.instagram || 'cliente') + '@ig.com',
+                    client_phone: b.clientPhone || '+56900000000',
+                    origin: b.origin,
+                    budget: b.budget,
+                    notes: b.notes,
+                    image_url: b.imageUrl || null,
+                    payment_receipt_url: b.paymentReceiptUrl || null,
+                    status: b.status || 'Pendiente de Comprobante',
+                    created_at: b.createdAt || new Date().toISOString()
+                });
+
+            if (error) {
+                const isConflict = error.code === '23505' || (error.message && error.message.toLowerCase().includes('duplicate'));
+                return { success: false, conflict: isConflict, error };
+            }
+            return { success: true, conflict: false, error: null };
+        } catch (err) {
+            return { success: false, conflict: false, error: err };
         }
     }
 
@@ -1723,6 +2009,7 @@
 
     async function refreshFromServer() {
         await loadDataFromSupabase(false);
+        await cleanupExpiredBookings();
         renderAllViews();
     }
 
@@ -1762,7 +2049,7 @@
             navSlot.innerHTML = `
                 <button onclick="handleAdminNavClick()" id="nav-admin-toggle" class="nav-link text-white/90 font-mono flex items-center gap-1.5 font-bold drop-shadow-sm">
                     <i class="fa-solid fa-user-gear text-xs text-yorkaGold"></i>
-                    <span>Panel Admin</span>
+                    <span>Admin</span>
                 </button>
             `;
         }
@@ -1963,7 +2250,7 @@
             const isBooked = bookings.some(b => b.date === selectedClientDate && b.time === slot && b.status !== 'Cancelada');
             const btn = document.createElement('button');
             btn.type = 'button';
-            btn.className = `slot-btn py-2.5 px-3 rounded-xl text-xs font-mono text-center cursor-pointer ${selectedClientSlot === slot ? 'selected' : ''}`;
+            btn.className = `slot-btn py-2.5 px-3 rounded-xl text-[11px] sm:text-xs font-mono text-center cursor-pointer ${selectedClientSlot === slot ? 'selected' : ''}`;
             btn.disabled = isBooked;
             btn.innerText = isBooked ? `${slot} (Ocupado)` : slot;
 
@@ -2001,6 +2288,7 @@
 
     async function processClientBooking(e) {
         e.preventDefault();
+        
         if (isDayFullyBookedOrClosed(selectedClientDate)) {
             showToast("Este día ya no tiene disponibilidad.", "error");
             return;
@@ -2009,7 +2297,24 @@
         const submitBtn = document.getElementById('btn-submit-booking');
         const originalBtnText = submitBtn.innerHTML;
         submitBtn.disabled = true;
-        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-xs"></i> <span>Subiendo imagen y procesando...</span>';
+        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-xs"></i> <span>Procesando reserva...</span>';
+
+        // Check availability strictly
+        const { data: existingBookings, error: checkError } = await supabaseClient
+            .from('yorka_bookings')
+            .select('id, status')
+            .eq('date', selectedClientDate)
+            .eq('time', selectedClientSlot)
+            .neq('status', 'Cancelada');
+
+        if (existingBookings && existingBookings.length > 0) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnText;
+            showToast("Lo sentimos, alguien acaba de tomar este horario hace un instante. Elige otro por favor.", "error");
+            await loadDataFromSupabase(false);
+            renderAllViews();
+            return;
+        }
 
         let uploadedImageUrl = null;
         if (currentSelectedImageFile) {
@@ -2027,29 +2332,29 @@
             budget: document.getElementById('client-budget').value,
             notes: document.getElementById('client-notes').value,
             imageUrl: uploadedImageUrl,
-            status: 'Pendiente',
+            paymentReceiptUrl: null,
+            status: 'Pendiente de Comprobante',
             createdAt: new Date().toISOString()
         };
 
-        const success = await saveBookingToSupabase(pendingBookingData);
+        const result = await insertNewBookingAtomic(pendingBookingData);
         submitBtn.disabled = false;
         submitBtn.innerHTML = originalBtnText;
 
-        if (!success) {
-            showToast("Ocurrió un problema al enviar la reserva.", "error");
+        if (!result.success) {
+            if (result.conflict) {
+                showToast("Lo sentimos, alguien acaba de tomar este horario hace un instante. Elige otro por favor.", "error");
+            } else {
+                showToast("Ocurrió un problema al enviar la reserva.", "error");
+            }
+            await loadDataFromSupabase(false);
+            renderAllViews();
             return;
         }
 
         bookings.push(pendingBookingData);
         removeSelectedImage();
         renderAllViews();
-
-        const gcalUrl = getGoogleCalendarUrl(pendingBookingData);
-        document.getElementById('success-modal-gcal-wrap').innerHTML = `
-            <a href="${gcalUrl}" target="_blank" class="w-full bg-yorkaPanel border border-yorkaBorder hover:bg-yorkaBg text-yorkaText font-mono text-xs py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition font-bold mb-2 shadow-xs">
-                <i class="fa-brands fa-google text-xs text-yorkaGold"></i> Agregar a Google Calendar
-            </a>
-        `;
 
         document.getElementById('success-modal').classList.remove('hidden');
         document.getElementById('success-modal').classList.add('flex');
@@ -2600,14 +2905,39 @@
             tr.className = "hover:bg-yorkaPanel/50 border-b border-yorkaBorder/60 transition-colors";
 
             let statusBadge = "";
-            if (b.status === 'Confirmada') statusBadge = '<span class="bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-1 rounded-full text-[10px] font-mono font-bold">Confirmada</span>';
-            else if (b.status === 'Pendiente') statusBadge = '<span class="bg-amber-50 text-amber-700 border border-amber-200 px-2.5 py-1 rounded-full text-[10px] font-mono font-bold">Pendiente</span>';
-            else statusBadge = '<span class="bg-red-50 text-red-600 border border-red-200 px-2.5 py-1 rounded-full text-[10px] font-mono font-bold">Cancelada</span>';
+
+            if (b.status === 'Confirmada') {
+                statusBadge = '<span class="bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-1 rounded-full text-[10px] font-mono font-bold">Confirmada</span>';
+            } else if (b.status === 'Pendiente de Revisión') {
+                statusBadge = '<span class="bg-blue-50 text-blue-700 border border-blue-200 px-2.5 py-1 rounded-full text-[10px] font-mono font-bold">En Revisión</span>';
+            } else if (b.status === 'Cancelada') {
+                statusBadge = '<span class="bg-red-50 text-red-600 border border-red-200 px-2.5 py-1 rounded-full text-[10px] font-mono font-bold">Cancelada</span>';
+            } else {
+                const createdAtTime = new Date(b.createdAt).getTime();
+                const expireTime = createdAtTime + (15 * 60 * 1000);
+                const now = new Date().getTime();
+                const diff = expireTime - now;
+
+                let badgeText = "Expirado (15m)";
+                let badgeClass = "bg-red-50 text-red-600 border-red-200";
+                if (diff > 0) {
+                    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const secs = Math.floor((diff % (1000 * 60)) / 1000);
+                    badgeText = `Falta ${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
+                    badgeClass = "bg-amber-50 text-amber-700 border-amber-200";
+                }
+                statusBadge = `<span class="admin-timer-badge ${badgeClass} border px-2.5 py-1 rounded-full text-[10px] font-mono font-bold inline-block" data-created="${b.createdAt}">${badgeText}</span>`;
+            }
 
             const gcalLink = getGoogleCalendarUrl(b);
             const imageButton = b.imageUrl ? `
-                <button onclick="openImageLightbox('${b.imageUrl}')" class="mt-1.5 bg-yorkaPanel hover:bg-yorkaBorder text-yorkaDarkAccent border border-yorkaBorder px-2.5 py-1 rounded-lg text-[10px] font-mono flex items-center gap-1 transition cursor-pointer font-bold">
+                <button onclick="openImageLightbox('${b.imageUrl}')" class="mt-1.5 bg-yorkaPanel hover:bg-yorkaBorder text-yorkaDarkAccent border border-yorkaBorder px-2.5 py-1 rounded-lg text-[10px] font-mono flex items-center gap-1 transition cursor-pointer font-bold w-fit">
                     <i class="fa-solid fa-image text-[10px]"></i> Ver Referencia
+                </button>
+            ` : '';
+            const receiptButton = b.paymentReceiptUrl ? `
+                <button onclick="openImageLightbox('${b.paymentReceiptUrl}')" class="mt-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 px-2.5 py-1 rounded-lg text-[10px] font-mono flex items-center gap-1 transition cursor-pointer font-bold w-fit">
+                    <i class="fa-solid fa-receipt text-[10px]"></i> Ver Comprobante
                 </button>
             ` : '';
 
@@ -2630,16 +2960,16 @@
                     <div class="text-yorkaText font-bold text-xs">${b.date}</div>
                     <div class="text-yorkaDarkAccent text-[11px] font-semibold">${b.time}</div>
                 </td>
-                <td class="py-4 align-top">
+                <td class="py-4 align-top pr-3">
                     <div class="text-yorkaText font-semibold text-xs break-words">${b.clientName}</div>
                     <div class="flex flex-col gap-0.5 mt-1">
                         <div>${igLink}</div>
                         <div>${phoneLink}</div>
                     </div>
                     <div class="text-yorkaMuted text-[11px] leading-relaxed break-words whitespace-pre-wrap mt-1.5 font-light">${b.notes || 'Sin idea especificada'}</div>
-                    ${imageButton}
+                    <div class="flex flex-wrap gap-2">${imageButton}${receiptButton}</div>
                 </td>
-                <td class="py-4 text-xs align-top">
+                <td class="py-4 text-xs align-top pr-2">
                     <div class="text-yorkaText font-mono font-bold">${b.budget}</div>
                     <div class="text-yorkaMuted">${b.origin}</div>
                 </td>
@@ -2650,7 +2980,8 @@
                             <i class="fa-brands fa-google text-[10px] text-yorkaGold"></i> Calendar
                         </a>
                         <select onchange="updateBookingStatus('${b.id}', this.value)" class="bg-yorkaCard border border-yorkaBorder rounded-xl px-2 py-1 text-[11px] text-yorkaText focus:outline-none cursor-pointer font-mono shadow-xs">
-                            <option value="Pendiente" ${b.status === 'Pendiente' ? 'selected' : ''}>Pendiente</option>
+                            <option value="Pendiente de Comprobante" ${b.status === 'Pendiente de Comprobante' ? 'selected' : ''}>P. Comprobante</option>
+                            <option value="Pendiente de Revisión" ${b.status === 'Pendiente de Revisión' ? 'selected' : ''}>En Revisión</option>
                             <option value="Confirmada" ${b.status === 'Confirmada' ? 'selected' : ''}>Confirmar</option>
                             <option value="Cancelada" ${b.status === 'Cancelada' ? 'selected' : ''}>Cancelar</option>
                         </select>
@@ -2661,6 +2992,28 @@
                 </td>
             `;
             tbody.appendChild(tr);
+        });
+    }
+
+    function updateAdminTimersOnly() {
+        if (document.getElementById('admin-container').classList.contains('hidden')) return;
+        const badges = document.querySelectorAll('.admin-timer-badge');
+        badges.forEach(el => {
+            const createdAt = el.getAttribute('data-created');
+            if (!createdAt) return;
+            const createdAtTime = new Date(createdAt).getTime();
+            const expireTime = createdAtTime + (15 * 60 * 1000);
+            const now = new Date().getTime();
+            const diff = expireTime - now;
+
+            if (diff > 0) {
+                const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const secs = Math.floor((diff % (1000 * 60)) / 1000);
+                el.innerText = `Falta ${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}`;
+            } else {
+                el.innerText = `Expirado (15m)`;
+                el.className = el.className.replace('bg-amber-50 text-amber-700 border-amber-200', 'bg-red-50 text-red-600 border-red-200');
+            }
         });
     }
 
@@ -2807,10 +3160,18 @@
                 console.log('[Yorka Realtime] estado del canal:', status);
             });
 
+        // Loop para timers en admin panel
         setInterval(() => {
+            try { updateAdminTimersOnly(); } catch(e) {}
+        }, 1000);
+
+        setInterval(async () => {
             if (document.hidden) return;
             if (isLoadingData) return;
-            refreshFromServer();
+            const cleaned = await cleanupExpiredBookings();
+            if (cleaned) {
+                renderAllViews();
+            }
         }, 6000);
     });
 </script>
