@@ -2564,7 +2564,7 @@
 
     function generateTimeSlots(start, end, intervalMinutes) {
         const slots = [];
-        const [sh, sm] = split(':').map(Number);
+        const [sh, sm] = start.split(':').map(Number);
         const [eh, em] = end.split(':').map(Number);
         let cursor = sh * 60 + sm;
         const endMinutes = eh * 60 + em;
@@ -3102,13 +3102,11 @@
 
     const mobileBtn = document.getElementById('mobileBtn');
     const mobileMenu = document.getElementById('mobileMenu');
-    const mobileLinks = document.querySelectorAll('.mobile-link');
     function toggleMobileMenu() {
         mobileMenu.classList.toggle('hidden');
         mobileMenu.classList.toggle('flex');
     }
     if (mobileBtn) mobileBtn.addEventListener('click', toggleMobileMenu);
-    mobileLinks.forEach(link => link.addEventListener('click', toggleMobileMenu));
 
     function toggleFaq(btn) {
         const content = btn.nextElementSibling;
