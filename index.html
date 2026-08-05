@@ -1447,7 +1447,6 @@
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     const ADMIN_EMAIL = "yorka_tatuajes@gmail.com";
-    const ADMIN_PASS = "yorka2026";
 
     let config = {
         dateExceptions: {},
@@ -1455,7 +1454,7 @@
         blockedReasons: {},
     };
     let bookings = [];
-    let currentUser = JSON.parse(localStorage.getItem('yorka_user_session')) || null;
+    let currentUser = null; // se define al validar la sesión real de Supabase Auth (ver checkAdminSession)
 
     let selectedClientDate = "";
     let selectedClientSlot = "";
@@ -2253,27 +2252,49 @@
         renderAllViews();
     }
 
-    function processDirectLogin(e) {
+    async function processDirectLogin(e) {
         e.preventDefault();
         const emailInput = document.getElementById('login-email').value.trim().toLowerCase();
         const passInput = document.getElementById('login-password').value;
+        const submitBtn = e.target.querySelector('button[type="submit"]');
 
-        if (emailInput === ADMIN_EMAIL.toLowerCase() && passInput === ADMIN_PASS) {
-            currentUser = { email: ADMIN_EMAIL, name: "Yorka Admin" };
-            localStorage.setItem('yorka_user_session', JSON.stringify(currentUser));
-            document.getElementById('login-form').reset();
-            updateAuthUI();
-            showAdminPanel();
-        } else {
+        if (submitBtn) { submitBtn.disabled = true; }
+
+        const { data, error } = await supabaseClient.auth.signInWithPassword({
+            email: emailInput,
+            password: passInput
+        });
+
+        if (submitBtn) { submitBtn.disabled = false; }
+
+        if (error || !data.session) {
             showToast("Credenciales incorrectas.", "error");
+            return;
         }
+
+        currentUser = { email: data.user.email, name: "Yorka Admin" };
+        document.getElementById('login-form').reset();
+        updateAuthUI();
+        await loadDataFromSupabase(false);
+        showAdminPanel();
     }
 
-    function logoutAdmin() {
+    async function logoutAdmin() {
+        await supabaseClient.auth.signOut();
         currentUser = null;
-        localStorage.removeItem('yorka_user_session');
         updateAuthUI();
         showPublicLanding();
+    }
+
+    // Verifica si ya hay una sesión real de Supabase Auth activa (persistida por el propio SDK)
+    async function checkAdminSession() {
+        const { data } = await supabaseClient.auth.getSession();
+        if (data.session && data.session.user && data.session.user.email === ADMIN_EMAIL) {
+            currentUser = { email: data.session.user.email, name: "Yorka Admin" };
+        } else {
+            currentUser = null;
+        }
+        updateAuthUI();
     }
 
     function updateAuthUI() {
@@ -3470,8 +3491,17 @@
         if (monthFilter) monthFilter.value = currentMonth;
         if (statusFilter) statusFilter.value = "all";
 
-        updateAuthUI();
+        await checkAdminSession();
         renderAllViews();
+
+        supabaseClient.auth.onAuthStateChange((_event, session) => {
+            if (session && session.user && session.user.email === ADMIN_EMAIL) {
+                currentUser = { email: session.user.email, name: "Yorka Admin" };
+            } else {
+                currentUser = null;
+            }
+            updateAuthUI();
+        });
 
         supabaseClient
             .channel('realtime_yorka')
