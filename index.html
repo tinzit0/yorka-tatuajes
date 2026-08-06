@@ -1066,8 +1066,10 @@
         </p>
         <form onsubmit="verifyBookingForReceipt(event)" class="space-y-4">
             <div>
-                <input type="text" id="receipt-search-input" required placeholder="Ej: @tu_instagram o +56912345678"
+                <input type="text" id="receipt-search-input" required placeholder="Instagram: @tu_usuario"
                        class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-4 py-3 text-yorkaText text-xs focus:outline-none focus:border-yorkaGold">
+                <input type="tel" id="receipt-phone-input" required placeholder="Teléfono: +56912345678"
+                       class="w-full mt-2 bg-yorkaBg border border-yorkaBorder rounded-xl px-4 py-3 text-yorkaText text-xs focus:outline-none focus:border-yorkaGold">
             </div>
             <button type="submit" class="btn-primary-action w-full py-3 rounded-xl text-xs font-bold uppercase tracking-wider text-white cursor-pointer font-mono">
                 Verificar Reserva
@@ -1118,6 +1120,11 @@
             Tu reserva ha sido guardada temporalmente. Tienes <strong class="text-yorkaAccent">15 minutos</strong> para realizar el abono y subir el comprobante, de lo contrario la hora se liberará automáticamente.
         </p>
         <div class="pt-2">
+            <div class="bg-yorkaPanel border border-yorkaGold/40 rounded-xl p-3 text-left mb-3">
+                <p class="text-[10px] uppercase font-mono font-bold text-yorkaMuted">Código privado de reserva</p>
+                <code id="booking-access-code" class="block mt-1 text-center text-yorkaAccent font-mono font-bold tracking-widest select-all">--</code>
+                <p class="text-[9px] text-yorkaMuted mt-1">Guárdalo junto con tu Instagram y teléfono.</p>
+            </div>
             <button onclick="closeSuccessModal(); openReceiptModal();" class="btn-primary-action w-full font-mono text-xs font-bold py-3.5 rounded-2xl uppercase tracking-wider">
                 Ir a Subir Comprobante
             </button>
@@ -1640,12 +1647,36 @@
         }
     }
 
-    function verifyBookingForReceipt(e) {
+    async function verifyBookingForReceipt(e) {
         e.preventDefault();
+        const secureInstagram = document.getElementById('receipt-search-input').value.trim();
+        const securePhone = document.getElementById('receipt-phone-input').value.trim();
         const inputVal = document.getElementById('receipt-search-input').value.trim().toLowerCase().replace('@', '');
         const infoDiv = document.getElementById('receipt-booking-info');
         if (!infoDiv) return;
         infoDiv.innerHTML = "";
+
+        const { data: secureData, error: secureError } = await supabaseClient.functions.invoke('rapid-processor', {
+            body: {
+                action: 'lookup-booking',
+                instagram: secureInstagram,
+                phone: securePhone,
+            }
+        });
+        if (!secureError && secureData?.booking) {
+            const found = secureData.booking;
+            activeFoundBookingForReceipt = found;
+            infoDiv.innerHTML = `<div class="bg-yorkaPanel p-4 rounded-xl border border-yorkaBorder space-y-3 text-xs"><div class="flex justify-between text-yorkaText"><span>Cliente:</span><strong>${found.clientName}</strong></div><div class="flex justify-between text-yorkaText"><span>Estado:</span><strong>${found.status}</strong></div>${found.status === 'Pendiente de Comprobante' ? '<p class="text-emerald-600 text-center font-bold">Datos verificados. Ya puedes adjuntar el comprobante.</p>' : '<p class="text-emerald-600 text-center font-bold">Comprobante ya enviado. En revisión.</p>'}</div>`;
+            if (found.status === 'Pendiente de Comprobante') {
+                infoDiv.innerHTML += `<div class="mt-4 rounded-2xl border border-yorkaGold/30 bg-yorkaBg/70 p-4 space-y-3"><div class="flex items-center gap-2"><span class="w-7 h-7 rounded-full bg-yorkaGold/15 text-yorkaDarkAccent flex items-center justify-center"><i class="fa-solid fa-receipt text-xs"></i></span><div><p class="text-[11px] font-mono font-bold uppercase tracking-wide text-yorkaText">Comprobante de pago</p><p class="text-[10px] text-yorkaMuted mt-0.5">JPG, PNG o PDF · máximo 8 MB</p></div></div><label for="upload-receipt-file" class="flex items-center justify-center gap-2 w-full rounded-xl border border-dashed border-yorkaGold/50 bg-yorkaPanel px-3 py-3 text-[11px] font-mono font-bold text-yorkaDarkAccent hover:bg-yorkaBorder/40 cursor-pointer transition"><i class="fa-solid fa-cloud-arrow-up"></i><span>Seleccionar archivo</span></label><input type="file" id="upload-receipt-file" accept="image/jpeg,image/png,application/pdf" onchange="previewReceiptFile(event)" class="sr-only"><div id="receipt-preview-container" class="hidden relative mt-1 rounded-xl border border-yorkaBorder bg-yorkaPanel p-2"><img id="receipt-preview" src="" class="w-full max-h-44 object-contain rounded-lg"><button type="button" onclick="removeReceiptFile()" class="absolute right-2 top-2 w-7 h-7 rounded-full bg-black/75 text-white text-xs hover:bg-red-600 transition" aria-label="Quitar archivo"><i class="fa-solid fa-xmark"></i></button></div><button type="button" onclick="submitReceiptUpload()" class="btn-primary-action w-full py-3 rounded-xl text-[11px] font-bold uppercase tracking-wider text-white"><i class="fa-solid fa-paper-plane mr-1"></i>Enviar comprobante</button></div>`;
+                startReceiptCountdown(new Date(found.createdAt).getTime() + 15 * 60 * 1000);
+            }
+            return;
+        }
+        if (secureError || !secureData?.booking) {
+            infoDiv.innerHTML = `<p class="text-xs text-danger italic text-center py-2 font-mono">No se pudo verificar la reserva con esos datos.</p>`;
+            return;
+        }
 
         const found = bookings.find(b => {
             const phoneMatch = b.clientPhone && b.clientPhone.toLowerCase().includes(inputVal);
@@ -1769,6 +1800,51 @@
             return;
         }
         if (!activeFoundBookingForReceipt) return;
+
+        const secureFile = currentSelectedReceiptFile;
+        if (!['image/jpeg', 'image/png', 'application/pdf'].includes(secureFile.type) || secureFile.size > 8 * 1024 * 1024) {
+            showToast("El archivo debe ser JPG, PNG o PDF y pesar menos de 8 MB.", "error");
+            return;
+        }
+        showToast("Subiendo comprobante...", "info");
+        const bookingId = activeFoundBookingForReceipt.id;
+        const { data: signedData, error: signedError } = await supabaseClient.functions.invoke('rapid-processor', {
+            body: { action: 'create', bookingId, contentType: secureFile.type, size: secureFile.size }
+        });
+        if (signedError || !signedData?.uploadUrl || !signedData?.objectKey) {
+            console.error('Error obteniendo URL firmada:', signedError || signedData);
+            showToast("No se pudo autorizar la subida del comprobante.", "error");
+            return;
+        }
+        if (!signedData.token) {
+            console.error('La función no devolvió token de subida:', signedData);
+            showToast("No se pudo preparar la subida.", "error");
+            return;
+        }
+        const { error: uploadError } = await supabaseClient.storage
+            .from('tattoo-ideas')
+            .uploadToSignedUrl(signedData.objectKey, signedData.token, secureFile, {
+                contentType: secureFile.type,
+                upsert: false
+            });
+        if (uploadError) {
+            console.error('Error subiendo comprobante:', uploadError);
+            showToast("Error al subir la imagen a la nube.", "error");
+            return;
+        }
+        const { data: completedData, error: completeError } = await supabaseClient.functions.invoke('rapid-processor', {
+            body: { action: 'complete', bookingId, objectKey: signedData.objectKey }
+        });
+        if (completeError || !completedData?.ok) {
+            console.error('Error confirmando comprobante:', completeError || completedData);
+            showToast("El archivo subió, pero no se pudo confirmar la reserva.", "error");
+            return;
+        }
+        await loadDataFromSupabase(false);
+        renderAllViews();
+        showToast("Comprobante enviado con éxito.", "success");
+        closeReceiptModal();
+        return;
 
         showToast("Subiendo comprobante...", "info");
         const receiptUrl = await uploadFileToStorage(currentSelectedReceiptFile, 'receipts');
@@ -2187,35 +2263,41 @@
 
     async function insertNewBookingAtomic(b) {
         try {
-            const payload = {
-                id: b.id,
-                date: b.date,
-                time: b.time,
-                client_name: b.clientName,
-                client_email: (b.instagram || 'cliente') + '@ig.com',
-                client_phone: b.clientPhone || '+56900000000',
-                origin: b.origin,
-                budget: b.budget,
-                notes: b.notes,
-                image_url: b.imageUrl || null,
-                status: b.status || 'Pendiente de Comprobante',
-                created_at: b.createdAt || new Date().toISOString()
-            };
-
-            if (b.paymentReceiptUrl) {
-                payload.payment_receipt_url = b.paymentReceiptUrl;
-            }
-
-            const { error } = await supabaseClient
-                .from('yorka_bookings')
-                .insert(payload);
-
+            // Las reservas públicas se crean mediante una función SECURITY DEFINER.
+            // Así el navegador no puede elegir id, estado, timestamps ni URLs de archivos.
+            const { data, error } = await supabaseClient.functions.invoke('rapid-processor', {
+                body: {
+                    action: 'create-booking',
+                    date: b.date,
+                    time: b.time,
+                    clientName: b.clientName,
+                    instagram: b.instagram,
+                    phone: b.clientPhone,
+                    origin: b.origin,
+                    budget: b.budget,
+                    notes: b.notes || null
+                }
+            });
+            /*
+                p_date: b.date,
+                p_time: b.time,
+                p_client_name: b.clientName,
+                p_instagram: b.instagram,
+                p_client_phone: b.clientPhone,
+                p_origin: b.origin,
+                p_budget: b.budget,
+                p_notes: b.notes || null
+            });
+            */
             if (error) {
                 console.error("Detalle del error en Supabase:", error);
-                const isConflict = error.code === '23505' || (error.message && error.message.toLowerCase().includes('duplicate'));
+                const errorText = `${error.code || ''} ${error.message || ''}`.toLowerCase();
+                const isConflict = errorText.includes('horario no disponible') || error.code === '23505';
                 return { success: false, conflict: isConflict, error };
             }
-            return { success: true, conflict: false, error: null };
+            const serverBooking = data?.booking || data;
+            const accessToken = data?.access_token || null;
+            return { success: true, conflict: false, error: null, booking: serverBooking, accessToken };
         } catch (err) {
             console.error("Excepción inesperada:", err);
             return { success: false, conflict: false, error: err };
@@ -2635,7 +2717,9 @@
 
         let uploadedImageUrl = null;
         if (currentSelectedImageFile) {
-            uploadedImageUrl = await uploadClientImageToStorage(currentSelectedImageFile);
+            // El bucket es privado; la referencia se incorporará mediante una URL firmada.
+            // No bloquear la reserva ni intentar una subida pública directa.
+            showToast("La foto referencial se podrá adjuntar después de crear la reserva.", "info");
         }
 
         const pendingBookingData = {
@@ -2669,10 +2753,19 @@
             return;
         }
 
+        // La función genera el ID y el timestamp en el servidor.
+        if (result.booking && typeof result.booking === 'object') {
+            pendingBookingData.id = result.booking.id || pendingBookingData.id;
+            pendingBookingData.createdAt = result.booking.created_at || pendingBookingData.createdAt;
+        }
+        const accessCodeEl = document.getElementById('booking-access-code');
+        if (accessCodeEl) accessCodeEl.textContent = result.accessToken || '--';
         bookings.push(pendingBookingData);
         removeSelectedImage();
         renderAllViews();
 
+        const legacyAccessCode = document.getElementById('booking-access-code');
+        if (legacyAccessCode?.parentElement) legacyAccessCode.parentElement.remove();
         document.getElementById('success-modal').classList.remove('hidden');
         document.getElementById('success-modal').classList.add('flex');
     }
@@ -2694,6 +2787,19 @@
             modal.classList.add('flex');
             document.body.style.overflow = 'hidden';
         }
+    }
+
+    async function viewPrivateReceipt(objectKey) {
+        if (!objectKey) return;
+        const { data, error } = await supabaseClient.functions.invoke('rapid-processor', {
+            body: { action: 'download', objectKey }
+        });
+        if (error || !data?.signedUrl) {
+            console.error('Error obteniendo comprobante:', error || data);
+            showToast('No se pudo abrir el comprobante.', 'error');
+            return;
+        }
+        openImageLightbox(data.signedUrl);
     }
 
     function closeImageLightbox() {
@@ -3263,7 +3369,7 @@
                 </button>
             ` : '';
             const receiptButton = b.paymentReceiptUrl ? `
-                <button onclick="openImageLightbox('${b.paymentReceiptUrl}')" class="mt-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 px-2.5 py-1 rounded-lg text-[10px] font-mono flex items-center gap-1 transition cursor-pointer font-bold w-fit">
+                <button onclick="viewPrivateReceipt('${b.paymentReceiptUrl}')" class="mt-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 px-2.5 py-1 rounded-lg text-[10px] font-mono flex items-center gap-1 transition cursor-pointer font-bold w-fit">
                     <i class="fa-solid fa-receipt text-[10px]"></i> Ver Comprobante
                 </button>
             ` : '';
