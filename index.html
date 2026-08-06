@@ -2312,6 +2312,27 @@
         } catch (err) { return false; }
     }
 
+    async function attachReferenceToBooking(booking, imageUrl, accessToken = null) {
+        if (!booking?.id || !imageUrl) return false;
+        try {
+            const { data, error } = await supabaseClient.functions.invoke('rapid-processor', {
+                body: { action: 'attach-reference', bookingId: booking.id, imageUrl, accessToken }
+            });
+            if (!error && data?.ok) return true;
+        } catch (err) {
+            console.warn('No se pudo vincular la referencia mediante la función segura:', err);
+        }
+        const { error: updateError } = await supabaseClient
+            .from('yorka_bookings')
+            .update({ image_url: imageUrl })
+            .eq('id', booking.id);
+        if (updateError) {
+            console.error('Error vinculando foto de referencia:', updateError);
+            return false;
+        }
+        return true;
+    }
+
     function renderAllViews() {
         renderClientCalendar();
         renderClientSlots();
@@ -2765,6 +2786,12 @@
             pendingBookingData.id = result.booking.id || pendingBookingData.id;
             pendingBookingData.createdAt = result.booking.created_at || pendingBookingData.createdAt;
             pendingBookingData.imageUrl = result.booking.image_url || result.booking.imageUrl || pendingBookingData.imageUrl;
+        }
+        if (uploadedImageUrl && pendingBookingData.imageUrl === uploadedImageUrl) {
+            const referenceSaved = await attachReferenceToBooking(pendingBookingData, uploadedImageUrl, result.accessToken);
+            if (!referenceSaved) {
+                showToast("La cita se creó, pero no se pudo vincular la foto de referencia.", "error");
+            }
         }
         const accessCodeEl = document.getElementById('booking-access-code');
         if (accessCodeEl) accessCodeEl.textContent = result.accessToken || '--';
