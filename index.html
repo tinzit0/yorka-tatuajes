@@ -2275,7 +2275,8 @@
                     phone: b.clientPhone,
                     origin: b.origin,
                     budget: b.budget,
-                    notes: b.notes || null
+                    notes: b.notes || null,
+                    imageUrl: b.imageUrl || null
                 }
             });
             /*
@@ -2717,9 +2718,15 @@
 
         let uploadedImageUrl = null;
         if (currentSelectedImageFile) {
-            // El bucket es privado; la referencia se incorporará mediante una URL firmada.
-            // No bloquear la reserva ni intentar una subida pública directa.
-            showToast("La foto referencial se podrá adjuntar después de crear la reserva.", "info");
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-xs"></i> <span>Subiendo referencia...</span>';
+            uploadedImageUrl = await uploadClientImageToStorage(currentSelectedImageFile);
+
+            if (!uploadedImageUrl) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
+                showToast("No se pudo subir la foto referencial. Intenta nuevamente.", "error");
+                return;
+            }
         }
 
         const pendingBookingData = {
@@ -2757,6 +2764,7 @@
         if (result.booking && typeof result.booking === 'object') {
             pendingBookingData.id = result.booking.id || pendingBookingData.id;
             pendingBookingData.createdAt = result.booking.created_at || pendingBookingData.createdAt;
+            pendingBookingData.imageUrl = result.booking.image_url || result.booking.imageUrl || pendingBookingData.imageUrl;
         }
         const accessCodeEl = document.getElementById('booking-access-code');
         if (accessCodeEl) accessCodeEl.textContent = result.accessToken || '--';
