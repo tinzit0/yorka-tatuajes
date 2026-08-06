@@ -4,12 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Yorka Tatuajes | Blood Level Estudio & Agendamiento de Autor</title>
-    <meta name="description" content="Tatuajes de autor, fine line, botánica, puntillismo y ornamentación por Yorka en Blood Level Estudio, Concepción. Revisa diseños y agenda online.">
-    <meta name="theme-color" content="#100c0a">
-    <meta name="color-scheme" content="light dark">
-    <meta name="robots" content="index, follow, max-image-preview:large">
-    <link rel="canonical" href="https://yorka-tatuajes.vercel.app/">
-    <link rel="icon" type="image/png" href="assets/ornamento.png">
+    <meta name="description" content="Estudio de tatuajes y arte corporal de autor por Yorka en Blood Level Estudio. Concepción, Chile.">
 
     <!-- Vista previa para Redes Sociales (NUEVAS ETIQUETAS) -->
     <meta property="og:type" content="website">
@@ -24,24 +19,6 @@
     <meta name="twitter:title" content="Yorka Tatuajes | Blood Level Estudio">
     <meta name="twitter:description" content="Estudio de tatuajes y arte corporal de autor por Yorka en Concepción, Chile.">
     <meta name="twitter:image" content="https://yorka-tatuajes.vercel.app/assets/ornamento4.png">
-
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "TattooParlor",
-      "name": "Yorka Tatuajes",
-      "description": "Tatuajes de autor, fine line, botánica, puntillismo y ornamentación en Concepción, Chile.",
-      "image": "https://yorka-tatuajes.vercel.app/assets/ornamento4.png",
-      "url": "https://yorka-tatuajes.vercel.app/",
-      "sameAs": ["https://www.instagram.com/yorka_tatuajes/"],
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Concepción",
-        "addressCountry": "CL"
-      }
-    }
-    </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -304,404 +281,17 @@
                 transition: none !important;
             }
         }
-
-
-        /* =========================================================
-           YORKA PREMIUM UI — refinamiento visual, UX y accesibilidad
-           ========================================================= */
-        :root {
-            --ink: #120e0c;
-            --ink-soft: #2b211d;
-            --paper: #fbfaf8;
-            --paper-warm: #f3eee9;
-            --wine: #951c24;
-            --wine-deep: #681017;
-            --gold: #c3a05b;
-            --gold-soft: #e4d2aa;
-            --line: rgba(74, 50, 39, 0.14);
-            --ease-premium: cubic-bezier(.16, 1, .3, 1);
-        }
-
-        html {
-            scroll-padding-top: 108px;
-            background: var(--ink);
-        }
-
-        body {
-            background:
-                radial-gradient(circle at 15% 0%, rgba(195, 160, 91, .08), transparent 30rem),
-                var(--paper);
-            text-rendering: optimizeLegibility;
-        }
-
-        a, button, input, select, textarea { -webkit-tap-highlight-color: transparent; }
-        button, a { touch-action: manipulation; }
-        img { user-select: none; -webkit-user-drag: none; }
-
-        :focus-visible {
-            outline: 3px solid rgba(195, 160, 91, .68) !important;
-            outline-offset: 3px;
-            border-radius: 10px;
-        }
-
-        .skip-link {
-            position: fixed;
-            top: 12px;
-            left: 12px;
-            z-index: 1000000;
-            transform: translateY(-160%);
-            background: #fff;
-            color: var(--ink);
-            border: 1px solid var(--gold);
-            border-radius: 999px;
-            padding: 10px 16px;
-            font-size: 12px;
-            font-weight: 800;
-            transition: transform .2s ease;
-        }
-        .skip-link:focus { transform: translateY(0); }
-
-        #scroll-progress {
-            position: fixed;
-            inset: 0 auto auto 0;
-            height: 3px;
-            width: 0;
-            z-index: 100000;
-            pointer-events: none;
-            background: linear-gradient(90deg, var(--wine), var(--gold), #f1dfb7);
-            box-shadow: 0 0 14px rgba(195, 160, 91, .55);
-            transition: width .08s linear;
-        }
-
-        /* Navbar horizontal, sobrio y legible */
-        .navbar {
-            padding: 18px 20px !important;
-        }
-        .navbar > .max-w-7xl {
-            flex-direction: row !important;
-            justify-content: space-between;
-            gap: 24px;
-        }
-        .navbar > .max-w-7xl > .group {
-            margin-bottom: 0 !important;
-            flex-shrink: 0;
-        }
-        .navbar > .max-w-7xl > .hidden.md\:flex {
-            margin-top: 0 !important;
-            background: rgba(8, 7, 6, .28);
-            border: 1px solid rgba(255,255,255,.14);
-            border-radius: 999px;
-            padding: 8px 12px;
-            backdrop-filter: blur(12px);
-            box-shadow: 0 14px 35px rgba(0,0,0,.12);
-        }
-        .navbar.scrolled {
-            padding: 10px 20px !important;
-            background: rgba(13, 10, 9, .91) !important;
-            box-shadow: 0 10px 35px rgba(0,0,0,.22);
-        }
-        .navbar.scrolled > .max-w-7xl > .hidden.md\:flex {
-            background: transparent;
-            border-color: transparent;
-            box-shadow: none;
-        }
-        .navbar .font-serif.text-2xl {
-            white-space: nowrap;
-            letter-spacing: -.035em;
-        }
-        .navbar .yorka-logo-img { width: 31px; height: 31px; }
-        .nav-link { padding: 5px 1px 7px; }
-        .nav-link::after { height: 2px; border-radius: 999px; }
-        .nav-link.active { color: #f1ddb1 !important; }
-
-        /* Hero cinematográfico */
-        #estudio {
-            isolation: isolate;
-            min-height: 100svh;
-            padding-top: 150px !important;
-        }
-        #estudio::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            z-index: 1;
-            pointer-events: none;
-            background:
-                radial-gradient(circle at 50% 40%, transparent 0 20%, rgba(0,0,0,.18) 62%, rgba(0,0,0,.68) 100%),
-                linear-gradient(90deg, rgba(12,8,7,.3), transparent 38%, transparent 62%, rgba(12,8,7,.3));
-        }
-        #hero-bg-carousel { transform: scale(1.02); }
-        .hero-bg-slide.active { animation: premiumHeroZoom 7s ease-out both; }
-        @keyframes premiumHeroZoom {
-            from { transform: scale(1.055); }
-            to { transform: scale(1); }
-        }
-        #estudio > .relative.z-10 { z-index: 2; }
-        #estudio h1 {
-            color: transparent !important;
-            background: linear-gradient(180deg, #fff 0%, #f7ead0 52%, #c9a65d 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            letter-spacing: -.055em;
-            font-weight: 500;
-            filter: drop-shadow(0 14px 32px rgba(0,0,0,.45));
-        }
-        #estudio p { font-size: clamp(.86rem, 1.4vw, 1.03rem); }
-        .hero-trust-strip {
-            margin: 32px auto 0;
-            width: min(100%, 700px);
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0,1fr));
-            border: 1px solid rgba(255,255,255,.18);
-            border-radius: 18px;
-            background: rgba(7,6,5,.3);
-            backdrop-filter: blur(14px);
-            overflow: hidden;
-        }
-        .hero-trust-item {
-            min-height: 62px;
-            padding: 12px 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 9px;
-            color: rgba(255,255,255,.86);
-            font-family: 'Space Mono', monospace;
-            font-size: 9px;
-            line-height: 1.3;
-            letter-spacing: .08em;
-            text-transform: uppercase;
-        }
-        .hero-trust-item + .hero-trust-item { border-left: 1px solid rgba(255,255,255,.14); }
-        .hero-trust-item i { color: var(--gold); font-size: 13px; }
-
-        /* Secciones: menos ruido, más jerarquía */
-        main > section { scroll-margin-top: 90px; }
-        main > section[id] { position: relative; }
-        main > section[id]::after {
-            content: '';
-            position: absolute;
-            left: 50%;
-            bottom: 0;
-            width: min(86%, 980px);
-            height: 1px;
-            transform: translateX(-50%);
-            background: linear-gradient(90deg, transparent, rgba(195,160,91,.28), transparent);
-            pointer-events: none;
-        }
-        main section > img[alt*="Esquina"] { opacity: .12 !important; filter: saturate(.7); }
-        main section .h-16.md\:h-24 { opacity: .72 !important; max-width: 230px; }
-        main section .h-8.md\:h-10 { opacity: .58 !important; max-width: 180px; }
-        main h2 { letter-spacing: -.035em; }
-        main h2 span { font-style: italic; }
-        main p { text-wrap: pretty; }
-
-        .action-card {
-            background: rgba(255,255,255,.9);
-            border-color: var(--line);
-            box-shadow:
-                0 1px 0 rgba(255,255,255,.8) inset,
-                0 25px 70px -38px rgba(38,20,14,.3);
-            backdrop-filter: blur(18px) saturate(1.05);
-        }
-        .action-card:hover {
-            transform: translateY(-2px);
-            box-shadow:
-                0 1px 0 rgba(255,255,255,.9) inset,
-                0 34px 85px -42px rgba(103,18,25,.34);
-        }
-        .action-card > img[alt="Esquina"] { opacity: .11 !important; }
-
-        .btn-primary-action {
-            position: relative;
-            overflow: hidden;
-            isolation: isolate;
-            background: linear-gradient(135deg, #a1242e 0%, #6d1119 100%);
-            box-shadow: 0 14px 30px -12px rgba(111, 16, 24, .65);
-        }
-        .btn-primary-action::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            z-index: -1;
-            transform: translateX(-120%) skewX(-18deg);
-            width: 55%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,.25), transparent);
-            transition: transform .7s var(--ease-premium);
-        }
-        .btn-primary-action:hover::before { transform: translateX(240%) skewX(-18deg); }
-        .btn-primary-action:active:not(:disabled) { transform: translateY(0) scale(.985); }
-
-        input, textarea, select {
-            min-height: 44px;
-            box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;
-        }
-        input:hover, textarea:hover, select:hover { border-color: rgba(195,160,91,.62) !important; }
-        input:focus, textarea:focus, select:focus {
-            border-color: var(--gold) !important;
-            box-shadow: 0 0 0 4px rgba(195,160,91,.12) !important;
-            background-color: #fff !important;
-        }
-        textarea { min-height: 92px !important; }
-        label { letter-spacing: .07em; }
-
-        .faq-item {
-            transition: transform .3s var(--ease-premium), box-shadow .3s var(--ease-premium), border-color .3s;
-        }
-        .faq-item:hover {
-            transform: translateY(-2px);
-            border-color: rgba(195,160,91,.5);
-            box-shadow: 0 18px 35px -28px rgba(69,30,18,.45);
-        }
-        .faq-item.is-open { border-color: rgba(149,28,36,.35); }
-
-        .cal-day { border-radius: 14px; min-width: 0; }
-        .cal-day.cal-selected { transform: translateY(-2px) scale(1.025); }
-        .slot-btn { min-height: 42px; border-radius: 12px; }
-
-        /* Galerías con acabado editorial */
-        #disenos-carousel-container .group,
-        #portafolio .carousel-slide > .group {
-            box-shadow: 0 18px 35px -30px rgba(23,14,10,.65);
-        }
-        #disenos-carousel-container img,
-        #portafolio .carousel-slide img { filter: saturate(.9) contrast(1.03); }
-        #disenos-carousel-container .group:hover img,
-        #portafolio .carousel-slide > .group:hover img { filter: saturate(1) contrast(1.05); }
-        .carousel-dot { width: 7px; height: 7px; }
-        .carousel-dot.active { width: 22px; border-radius: 999px; transform: none; }
-
-        /* Modales más pulidos */
-        [id$="-modal"] > .action-card,
-        #client-manage-modal > .action-card,
-        #receipt-upload-modal > .action-card,
-        #success-modal > .action-card {
-            animation: modalIn .35s var(--ease-premium) both;
-        }
-        @keyframes modalIn {
-            from { opacity: 0; transform: translateY(18px) scale(.97); }
-            to { opacity: 1; transform: none; }
-        }
-
-        #toast-container { z-index: 1000000; }
-        .toast { border-radius: 14px; }
-
-        /* Panel administrativo */
-        #admin-container > div {
-            background:
-                radial-gradient(circle at 100% 0%, rgba(195,160,91,.08), transparent 30rem),
-                #fbfaf8;
-        }
-        #admin-container table tbody tr { transition: background-color .2s ease; }
-        #admin-container table tbody tr:hover { background: rgba(195,160,91,.055); }
-        .admin-tab-btn.active { color: var(--wine-deep); border-bottom-color: var(--gold); }
-
-        /* CTA móvil persistente */
-        .mobile-sticky-cta {
-            display: none;
-            position: fixed;
-            left: 14px;
-            right: 14px;
-            bottom: max(14px, env(safe-area-inset-bottom));
-            z-index: 39;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 18px 45px rgba(0,0,0,.28);
-        }
-        .mobile-sticky-cta a {
-            min-height: 52px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            color: white;
-            background: linear-gradient(135deg, #a1242e, #681017);
-            border: 1px solid rgba(227,205,155,.5);
-            font: 700 11px/1 'Space Mono', monospace;
-            letter-spacing: .11em;
-            text-transform: uppercase;
-        }
-
-        .footer-quick-links {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 8px 18px;
-            margin: 18px 0 4px;
-            font: 700 10px/1.4 'Space Mono', monospace;
-            text-transform: uppercase;
-            letter-spacing: .1em;
-        }
-        .footer-quick-links a { color: var(--yorkaMuted, #766c64); }
-        .footer-quick-links a:hover { color: var(--wine); }
-
-        @media (max-width: 1120px) {
-            .navbar > .max-w-7xl > .hidden.md\:flex { gap: 12px !important; }
-            #public-nav-links { gap: 11px !important; }
-            #public-nav-links .nav-link { letter-spacing: .1em; }
-            #sync-status-header { display: none; }
-        }
-
-        @media (max-width: 767px) {
-            html { scroll-padding-top: 84px; }
-            .navbar { padding: 13px 16px !important; }
-            .navbar > .max-w-7xl { justify-content: center; }
-            .navbar .font-serif.text-2xl { font-size: 1.35rem !important; }
-            .navbar .yorka-logo-img { width: 27px; height: 27px; }
-            #mobileBtn { top: 10px !important; }
-            #estudio { padding-top: 128px !important; padding-bottom: 120px !important; }
-            #estudio h1 { font-size: clamp(3.25rem, 17vw, 5rem) !important; }
-            .hero-trust-strip { grid-template-columns: 1fr; max-width: 320px; }
-            .hero-trust-item { min-height: 46px; }
-            .hero-trust-item + .hero-trust-item { border-left: 0; border-top: 1px solid rgba(255,255,255,.12); }
-            main section > img[alt*="Esquina"] { width: 74px !important; opacity: .09 !important; }
-            .action-card:hover { transform: none; }
-            .mobile-sticky-cta { display: block; }
-            body { padding-bottom: 78px; }
-            #toast-container { left: 14px; right: 14px; bottom: 80px; max-width: none; }
-            .toast { min-width: 0; max-width: none; width: 100%; }
-            #portafolio .carousel-slide.active,
-            #disenos-carousel-container .carousel-slide.active {
-                display: flex !important;
-                overflow-x: auto;
-                scroll-snap-type: x mandatory;
-                gap: 14px;
-                padding: 5px 3px 14px;
-                scrollbar-width: none;
-            }
-            #portafolio .carousel-slide.active::-webkit-scrollbar,
-            #disenos-carousel-container .carousel-slide.active::-webkit-scrollbar { display: none; }
-            #portafolio .carousel-slide.active > *,
-            #disenos-carousel-container .carousel-slide.active > * {
-                flex: 0 0 82%;
-                scroll-snap-align: center;
-            }
-            #admin-container { padding-top: 105px !important; }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                scroll-behavior: auto !important;
-                animation-duration: .01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: .01ms !important;
-            }
-        }
-
     </style>
 </head>
 
 
 <body class="relative min-h-screen bg-[#0f0c0a]">
 
-<a class="skip-link" href="#contenido-principal">Saltar al contenido</a>
-<div id="scroll-progress" aria-hidden="true"></div>
-
 <!-- LÍNEA SUPERIOR DECORATIVA MINIMAL -->
 <div class="fixed top-0 left-0 w-full h-[3px] bg-gradient-to-r from-yorkaAccent via-yorkaGold via-50% to-yorkaAccent z-50"></div>
 
 <!-- TOASTS DE NOTIFICACIÓN -->
-<div id="toast-container" role="status" aria-live="polite" aria-atomic="true"></div>
+<div id="toast-container"></div>
 
 <!-- NAVBAR HIGH-END TOTALMENTE TRANSPARENTE CON FIGURA ROJA (LOGO ORNAMENTO) -->
 <nav id="navbar" class="navbar fixed top-0 w-full z-40 flex flex-col items-center px-4 md:px-6">
@@ -749,7 +339,7 @@
         </div>
     </div>
 
-    <button id="mobileBtn" type="button" aria-label="Abrir menú" aria-controls="mobileMenu" aria-expanded="false" class="md:hidden absolute right-4 sm:right-6 top-4 text-white hover:text-yorkaGold focus:outline-none transition-colors p-2">
+    <button id="mobileBtn" class="md:hidden absolute right-4 sm:right-6 top-4 text-white hover:text-yorkaGold focus:outline-none transition-colors p-2">
         <i class="fa-solid fa-bars-staggered text-2xl"></i>
     </button>
 </nav>
@@ -828,16 +418,10 @@
                     Ver Diseños <i class="fa-solid fa-arrow-down text-[10px] text-yorkaGold"></i>
                 </a>
             </div>
-
-            <div class="hero-trust-strip" aria-label="Características del servicio">
-                <div class="hero-trust-item"><i class="fa-solid fa-pen-ruler"></i><span>Diseño de autor</span></div>
-                <div class="hero-trust-item"><i class="fa-regular fa-calendar-check"></i><span>Agenda online</span></div>
-                <div class="hero-trust-item"><i class="fa-solid fa-location-dot"></i><span>Concepción, Chile</span></div>
-            </div>
         </div>
     </header>
 
-    <main id="contenido-principal" class="bg-yorkaBg">
+    <main class="bg-yorkaBg">
         <!-- SECCIÓN SOBRE LA ARTISTA (YORKA) -->
         <section id="artista" class="py-20 md:py-28 bg-yorkaBg relative border-t border-yorkaBorder overflow-hidden">
             
@@ -879,7 +463,7 @@
                         </div>
                         
                         <p class="font-sans text-yorkaMuted text-xs md:text-sm leading-relaxed font-light text-center md:text-left">
-                            Hola, soy <strong class="text-yorkaText font-semibold">Yorka</strong>. Trabajo como tatuadora y me especializo en botánica, fine line, puntillismo de arrastre, ornamentos y composición en negro. Cada tatuaje que realizo está diseñado exclusivamente para la persona que lo llevará, cuidando la composición, el detalle y la forma en que se adapta al cuerpo. Mi objetivo es crear piezas únicas que no solo se vean bien el día que se hacen, sino que también conserven su belleza con el paso del tiempo.
+                            Hola soy <strong class="text-yorkaText font-semibold">Yorka</strong>, trabajo como tatuadora, especializándome en botánica, fine line, puntillismo de arrastre, ornamentos y composición en negro. Cada tatuaje que realizo está diseñado exclusivamente para la persona que lo llevará, cuidando la composición, el detalle y la forma en que se adapta al cuerpo. Mi objetivo es crear piezas únicas que no solo se vean bien el día que se hacen, sino que también conserven su belleza con el paso del tiempo.
                         </p>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-yorkaBorder font-mono text-xs text-yorkaDarkAccent text-left w-full">
@@ -1119,7 +703,7 @@
 
                 <div class="space-y-4">
                     <div class="faq-item bg-yorkaCard rounded-2xl border border-yorkaBorder p-2 px-5 relative overflow-hidden shadow-xs">
-                        <button type="button" aria-expanded="false" class="w-full text-left py-4 flex justify-between items-center focus:outline-none group cursor-pointer" onclick="toggleFaq(this)">
+                        <button class="w-full text-left py-4 flex justify-between items-center focus:outline-none group cursor-pointer" onclick="toggleFaq(this)">
                             <span class="font-serif text-lg text-yorkaText group-hover:text-yorkaAccent transition-colors font-medium">Diseños Personalizados y Flashes</span>
                             <div class="w-7 h-7 rounded-full bg-yorkaPanel flex items-center justify-center group-hover:bg-yorkaAccent group-hover:text-white transition-all border border-yorkaGold/30">
                                 <i class="fa-solid fa-angle-down text-xs transition-transform duration-300"></i>
@@ -1133,7 +717,7 @@
                     </div>
 
                     <div class="faq-item bg-yorkaCard rounded-2xl border border-yorkaBorder p-2 px-5 relative overflow-hidden shadow-xs">
-                        <button type="button" aria-expanded="false" class="w-full text-left py-4 flex justify-between items-center focus:outline-none group cursor-pointer" onclick="toggleFaq(this)">
+                        <button class="w-full text-left py-4 flex justify-between items-center focus:outline-none group cursor-pointer" onclick="toggleFaq(this)">
                             <span class="font-serif text-lg text-yorkaText group-hover:text-yorkaAccent transition-colors font-medium">Preparación previa para la sesión</span>
                             <div class="w-7 h-7 rounded-full bg-yorkaPanel flex items-center justify-center group-hover:bg-yorkaAccent group-hover:text-white transition-all border border-yorkaGold/30">
                                 <i class="fa-solid fa-angle-down text-xs transition-transform duration-300"></i>
@@ -1142,20 +726,6 @@
                         <div class="faq-content">
                             <p class="pb-5 font-sans text-yorkaMuted text-xs md:text-sm leading-relaxed font-light">
                                 Acude descansado e hidratado. Consume una comida completa antes de llegar al estudio. Evita el consumo de alcohol o anticoagulantes 24 horas antes y viste ropa cómoda que proporcione acceso fácil a la zona a tatuar.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item bg-yorkaCard rounded-2xl border border-yorkaBorder p-2 px-5 relative overflow-hidden shadow-xs">
-                        <button type="button" aria-expanded="false" class="w-full text-left py-4 flex justify-between items-center focus:outline-none group cursor-pointer" onclick="toggleFaq(this)">
-                            <span class="font-serif text-lg text-yorkaText group-hover:text-yorkaAccent transition-colors font-medium">¿Cómo funciona la reserva?</span>
-                            <div class="w-7 h-7 rounded-full bg-yorkaPanel flex items-center justify-center group-hover:bg-yorkaAccent group-hover:text-white transition-all border border-yorkaGold/30">
-                                <i class="fa-solid fa-angle-down text-xs transition-transform duration-300"></i>
-                            </div>
-                        </button>
-                        <div class="faq-content">
-                            <p class="pb-5 font-sans text-yorkaMuted text-xs md:text-sm leading-relaxed font-light">
-                                Selecciona una fecha y hora disponible, completa tus datos y confirma la pre-reserva. Luego tendrás 15 minutos para pagar el abono de $40.000 CLP y subir el comprobante. Si el comprobante no se envía dentro de ese plazo, el horario se libera automáticamente.
                             </p>
                         </div>
                     </div>
@@ -1266,26 +836,26 @@
                             <form id="booking-form" onsubmit="processClientBooking(event)" class="space-y-4">
                                 <div>
                                     <label class="block text-[10px] font-mono uppercase text-yorkaMuted tracking-wider mb-1.5 font-bold">Nombre Completo *</label>
-                                    <input type="text" id="client-name" name="name" autocomplete="name" required placeholder="Ej: Valentina Silva"
+                                    <input type="text" id="client-name" required placeholder="Ej: Valentina Silva"
                                            class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-3.5 py-2.5 text-yorkaText text-xs focus:outline-none focus:border-yorkaGold transition">
                                 </div>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                     <div>
                                         <label class="block text-[10px] font-mono uppercase text-yorkaMuted tracking-wider mb-1.5 font-bold">Instagram (@usuario) *</label>
-                                        <input type="text" id="client-instagram" name="instagram" autocomplete="off" autocapitalize="none" spellcheck="false" required placeholder="@tu_usuario"
+                                        <input type="text" id="client-instagram" required placeholder="@tu_usuario"
                                                class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-3.5 py-2.5 text-yorkaText text-xs focus:outline-none focus:border-yorkaGold transition">
                                     </div>
                                     <div>
                                         <label class="block text-[10px] font-mono uppercase text-yorkaMuted tracking-wider mb-1.5 font-bold">WhatsApp / Teléfono *</label>
-                                        <input type="tel" id="client-phone" name="phone" autocomplete="tel" inputmode="tel" required placeholder="+56 9 1234 5678"
+                                        <input type="tel" id="client-phone" required placeholder="+56 9 1234 5678"
                                                class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-3.5 py-2.5 text-yorkaText text-xs focus:outline-none focus:border-yorkaGold transition">
                                     </div>
                                 </div>
 
                                 <div>
                                     <label class="block text-[10px] font-mono uppercase text-yorkaMuted tracking-wider mb-1.5 font-bold">¿De dónde eres? *</label>
-                                    <input type="text" id="client-origin" name="origin" autocomplete="address-level2" required placeholder="Ej: Concepción"
+                                    <input type="text" id="client-origin" required placeholder="Ej: Concepción"
                                            class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-3.5 py-2.5 text-yorkaText text-xs focus:outline-none focus:border-yorkaGold transition">
                                 </div>
 
@@ -1298,7 +868,7 @@
                                 <div>
                                     <label class="block text-[10px] font-mono uppercase text-yorkaMuted tracking-wider mb-1.5 font-bold">Imagen Referencial (Opcional)</label>
                                     <div class="relative flex items-center">
-                                        <input type="file" id="client-image" name="reference-image" accept="image/jpeg,image/png,image/webp" onchange="previewSelectedImage(event)"
+                                        <input type="file" id="client-image" accept="image/*" onchange="previewSelectedImage(event)"
                                                class="w-full text-xs text-yorkaMuted bg-yorkaBg border border-yorkaBorder rounded-xl p-2 focus:outline-none focus:border-yorkaGold file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-[10px] file:font-bold file:bg-yorkaPanel file:text-yorkaDarkAccent hover:file:bg-yorkaBorder cursor-pointer transition">
                                     </div>
                                     <div id="image-preview-container" class="hidden mt-3 relative w-20 h-20 rounded-xl overflow-hidden border border-yorkaGold shadow-md">
@@ -1309,7 +879,7 @@
 
                                 <div>
                                     <label class="block text-[10px] font-mono uppercase text-yorkaMuted tracking-wider mb-1.5 font-bold">Presupuesto ($) *</label>
-                                    <input type="text" id="client-budget" name="budget" inputmode="numeric" required placeholder="Ej: $120.000"
+                                    <input type="text" id="client-budget" required placeholder="Ej: $120.000"
                                            class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-3.5 py-2.5 text-yorkaText text-xs focus:outline-none focus:border-yorkaGold transition">
                                 </div>
 
@@ -1431,7 +1001,7 @@
                             <form onsubmit="searchPageClientBookings(event)" class="space-y-4">
                                 <div>
                                     <label class="block text-[10px] font-mono uppercase text-yorkaMuted tracking-wider mb-1.5 font-bold">Dato de la reserva</label>
-                                    <input type="text" id="page-client-search-input" autocomplete="off" autocapitalize="none" required placeholder="Ej: @tu_instagram o +56912345678"
+                                    <input type="text" id="page-client-search-input" required placeholder="Ej: @tu_instagram o +56912345678"
                                            class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-4 py-3.5 text-yorkaText text-sm focus:outline-none focus:border-yorkaGold transition shadow-inner">
                                 </div>
                                 <button type="submit" class="btn-primary-action w-full py-4 rounded-xl text-xs font-bold uppercase tracking-wider text-white cursor-pointer font-mono shadow-md">
@@ -1468,14 +1038,6 @@
             
             <p class="font-mono text-xs text-yorkaDarkAccent font-semibold tracking-wider">Blood Level Estudio • Concepción, Chile</p>
             
-            <nav class="footer-quick-links" aria-label="Enlaces del pie de página">
-                <a href="#artista">Artista</a>
-                <a href="#disenos">Diseños</a>
-                <a href="#portafolio">Portafolio</a>
-                <a href="#info">Información</a>
-                <a href="#agendar">Reservar</a>
-            </nav>
-
             <div class="pt-3">
                 <a href="https://www.instagram.com/yorka_tatuajes/?hl=es-la" target="_blank" rel="noopener noreferrer" 
                    class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/90 border border-yorkaGold/40 text-yorkaDarkAccent hover:text-yorkaAccent hover:border-yorkaAccent transition-all shadow-xs text-xs font-mono font-bold group">
@@ -1487,13 +1049,6 @@
             <p class="font-sans text-[10px] text-yorkaMuted uppercase tracking-widest pt-2">© 2026. Todos los derechos reservados.</p>
         </div>
     </footer>
-</div>
-
-<div class="mobile-sticky-cta" id="mobile-sticky-cta">
-    <a href="#agendar" aria-label="Ir a reservar una cita">
-        <i class="fa-regular fa-calendar-check text-yorkaGold"></i>
-        Reservar una sesión
-    </a>
 </div>
 
 <!-- MODAL SUBIR COMPROBANTE -->
@@ -1511,7 +1066,7 @@
         </p>
         <form onsubmit="verifyBookingForReceipt(event)" class="space-y-4">
             <div>
-                <input type="text" id="receipt-search-input" autocomplete="off" autocapitalize="none" required placeholder="Ej: @tu_instagram o +56912345678"
+                <input type="text" id="receipt-search-input" required placeholder="Ej: @tu_instagram o +56912345678"
                        class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-4 py-3 text-yorkaText text-xs focus:outline-none focus:border-yorkaGold">
             </div>
             <button type="submit" class="btn-primary-action w-full py-3 rounded-xl text-xs font-bold uppercase tracking-wider text-white cursor-pointer font-mono">
@@ -1535,11 +1090,11 @@
             <button onclick="closeClientManageModal()" class="text-yorkaMuted hover:text-yorkaText text-2xl cursor-pointer">×</button>
         </div>
         <p class="text-xs text-yorkaMuted leading-relaxed">
-            Ingresa el Instagram o teléfono exacto utilizado al reservar para consultar tus citas.
+            Ingresa tu Instagram, teléfono o nombre registrado para ver el historial de citas guardadas.
         </p>
         <form onsubmit="searchClientBookings(event)" class="space-y-4">
             <div>
-                <input type="text" id="client-search-input" autocomplete="off" autocapitalize="none" required placeholder="Ej: @tu_instagram o +56912345678"
+                <input type="text" id="client-search-input" required placeholder="Ej: @tu_instagram, +56912345678 o nombre"
                        class="w-full bg-yorkaBg border border-yorkaBorder rounded-xl px-4 py-3 text-yorkaText text-xs focus:outline-none focus:border-yorkaGold">
             </div>
             <button type="submit" class="btn-primary-action w-full py-3 rounded-xl text-xs font-bold uppercase tracking-wider text-white cursor-pointer font-mono">
@@ -1918,32 +1473,6 @@
     let receiptCountdownInterval = null;
     let bookingToReschedule = null;
 
-    function escapeHTML(value) {
-        return String(value ?? '').replace(/[&<>'"]/g, char => ({
-            '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
-        })[char]);
-    }
-
-    function normalizeInstagramHandle(value) {
-        return String(value || '').trim().replace(/^@/, '').replace(/[^a-zA-Z0-9._]/g, '').slice(0, 30);
-    }
-
-    function normalizePhone(value) {
-        return String(value || '').replace(/\D/g, '');
-    }
-
-    function validateImageFile(file, maxMB = 8) {
-        if (!file) return { valid: false, message: 'No se seleccionó ningún archivo.' };
-        const allowed = ['image/jpeg', 'image/png', 'image/webp'];
-        if (!allowed.includes(file.type)) {
-            return { valid: false, message: 'Usa una imagen JPG, PNG o WEBP.' };
-        }
-        if (file.size > maxMB * 1024 * 1024) {
-            return { valid: false, message: `La imagen no puede superar ${maxMB} MB.` };
-        }
-        return { valid: true };
-    }
-
     function getLocalDateString(d = new Date()) {
         const year = d.getFullYear();
         const month = String(d.getMonth() + 1).padStart(2, '0');
@@ -1956,10 +1485,7 @@
         if (!container) return;
         const toast = document.createElement('div');
         toast.className = `toast toast-${type}`;
-        const messageSpan = document.createElement('span');
-        messageSpan.className = 'flex-1';
-        messageSpan.textContent = message;
-        toast.appendChild(messageSpan);
+        toast.innerHTML = `<span class="flex-1">${message}</span>`;
         container.appendChild(toast);
         requestAnimationFrame(() => toast.classList.add('toast-show'));
         setTimeout(() => {
@@ -2121,11 +1647,9 @@
         if (!infoDiv) return;
         infoDiv.innerHTML = "";
 
-        const normalizedSearchIG = normalizeInstagramHandle(inputVal);
-        const normalizedSearchPhone = normalizePhone(inputVal);
         const found = bookings.find(b => {
-            const phoneMatch = normalizedSearchPhone.length >= 8 && normalizePhone(b.clientPhone) === normalizedSearchPhone;
-            const igMatch = normalizedSearchIG.length >= 2 && normalizeInstagramHandle(b.instagram).toLowerCase() === normalizedSearchIG.toLowerCase();
+            const phoneMatch = b.clientPhone && b.clientPhone.toLowerCase().includes(inputVal);
+            const igMatch = b.instagram && b.instagram.toLowerCase().replace('@', '').includes(inputVal);
             return (phoneMatch || igMatch) && (b.status === 'Pendiente de Comprobante' || b.status === 'Pendiente de Revisión');
         });
 
@@ -2151,9 +1675,9 @@
         
         infoDiv.innerHTML = `
             <div class="bg-yorkaPanel p-4 rounded-xl border border-yorkaBorder space-y-3 text-xs">
-                <div class="flex justify-between text-yorkaText border-b border-yorkaBorder/50 pb-1"><span>Cliente:</span> <strong class="font-bold">${escapeHTML(found.clientName)}</strong></div>
-                <div class="flex justify-between text-yorkaText border-b border-yorkaBorder/50 pb-1"><span>Cita:</span> <strong>${formatDateReadable(found.date)} a las ${escapeHTML(found.time)}</strong></div>
-                <div class="flex justify-between text-yorkaText border-b border-yorkaBorder/50 pb-1"><span>Estado:</span> <strong class="text-amber-600">${escapeHTML(found.status)}</strong></div>
+                <div class="flex justify-between text-yorkaText border-b border-yorkaBorder/50 pb-1"><span>Cliente:</span> <strong class="font-bold">${found.clientName}</strong></div>
+                <div class="flex justify-between text-yorkaText border-b border-yorkaBorder/50 pb-1"><span>Cita:</span> <strong>${formatDateReadable(found.date)} a las ${found.time}</strong></div>
+                <div class="flex justify-between text-yorkaText border-b border-yorkaBorder/50 pb-1"><span>Estado:</span> <strong class="text-amber-600">${found.status}</strong></div>
                 
                 <div class="bg-red-50 border border-red-200 text-danger p-3 rounded-lg text-center font-mono font-bold text-sm shadow-xs">
                     ⏱️ Tiempo restante para abonar:<br>
@@ -2186,13 +1710,6 @@
         const previewImg = document.getElementById('receipt-preview');
 
         if (file) {
-            const validation = validateImageFile(file);
-            if (!validation.valid) {
-                showToast(validation.message, 'error');
-                event.target.value = '';
-                removeReceiptFile();
-                return;
-            }
             currentSelectedReceiptFile = file;
             const reader = new FileReader();
             reader.onload = function(e) {
@@ -2324,18 +1841,13 @@
             return;
         }
 
-        const matchInstagram = normalizeInstagramHandle(inputVal).toLowerCase();
-        const matchPhone = normalizePhone(inputVal);
-
-        if (matchInstagram.length < 2 && matchPhone.length < 8) {
-            container.innerHTML = `<p class="text-xs text-danger text-center py-5 font-mono bg-red-50 border border-red-200 rounded-2xl">Ingresa el Instagram o teléfono completo usado en la reserva.</p>`;
-            return;
-        }
+        const matchInput = inputVal.replace('@', '');
 
         const userBookings = bookings.filter(b => {
-            const igMatch = matchInstagram.length >= 2 && normalizeInstagramHandle(b.instagram).toLowerCase() === matchInstagram;
-            const phoneMatch = matchPhone.length >= 8 && normalizePhone(b.clientPhone) === matchPhone;
-            return igMatch || phoneMatch;
+            const nameMatch = b.clientName && b.clientName.toLowerCase().includes(matchInput);
+            const igMatch = b.instagram && b.instagram.toLowerCase().replace('@', '').includes(matchInput);
+            const phoneMatch = b.clientPhone && b.clientPhone.toLowerCase().includes(matchInput);
+            return nameMatch || igMatch || phoneMatch;
         });
 
         if (userBookings.length === 0) {
@@ -2347,7 +1859,7 @@
             const card = document.createElement('div');
             card.className = "bg-yorkaBg border border-yorkaBorder rounded-2xl p-4 flex flex-col gap-3 shadow-sm relative overflow-hidden";
             
-            const igRaw = normalizeInstagramHandle(b.instagram);
+            const igRaw = (b.instagram || '').trim().replace(/^@/, '');
             const igDisplay = igRaw 
                 ? `<a href="https://instagram.com/${igRaw}" target="_blank" rel="noopener noreferrer" class="hover:underline text-yorkaDarkAccent font-semibold">@${igRaw} <i class="fa-brands fa-instagram text-[9px]"></i></a>`
                 : 'Sin Instagram';
@@ -2393,9 +1905,9 @@
                 <div class="absolute top-0 left-0 w-1 h-full ${colorBorder}"></div>
                 <div class="flex-1 w-full pl-2">
                     <div class="font-mono text-xs font-bold text-yorkaText">${formatDateReadable(b.date)} a las ${b.time}</div>
-                    <div class="text-[11px] text-yorkaDarkAccent font-medium mt-1">${escapeHTML(b.clientName)} (${igDisplay})</div>
-                    <div class="text-[10px] font-mono text-yorkaMuted mt-0.5"><i class="fa-solid fa-phone text-[9px] text-emerald-600"></i> ${escapeHTML(b.clientPhone || 'Sin teléfono')}</div>
-                    <div class="text-[10px] ${isCanceled ? 'text-red-600 bg-red-50 border-red-200' : 'text-yorkaText bg-yorkaPanel border-yorkaBorder'} border font-bold mt-2 px-2.5 py-1 rounded-md inline-block">Estado: ${escapeHTML(b.status)}</div>
+                    <div class="text-[11px] text-yorkaDarkAccent font-medium mt-1">${b.clientName} (${igDisplay})</div>
+                    <div class="text-[10px] font-mono text-yorkaMuted mt-0.5"><i class="fa-solid fa-phone text-[9px] text-emerald-600"></i> ${b.clientPhone || 'Sin teléfono'}</div>
+                    <div class="text-[10px] ${isCanceled ? 'text-red-600 bg-red-50 border-red-200' : 'text-yorkaText bg-yorkaPanel border-yorkaBorder'} border font-bold mt-2 px-2.5 py-1 rounded-md inline-block">Estado: ${b.status}</div>
                 </div>
                 ${actionButtons}
             `;
@@ -2495,13 +2007,6 @@
         const previewImg = document.getElementById('image-preview');
 
         if (file) {
-            const validation = validateImageFile(file);
-            if (!validation.valid) {
-                showToast(validation.message, 'error');
-                event.target.value = '';
-                removeSelectedImage();
-                return;
-            }
             currentSelectedImageFile = file;
             const reader = new FileReader();
             reader.onload = function(e) {
@@ -2524,7 +2029,7 @@
 
     async function uploadFileToStorage(file, folder = 'references') {
         try {
-            const fileExt = ({'image/jpeg':'jpg','image/png':'png','image/webp':'webp'})[file.type] || 'jpg';
+            const fileExt = file.name.split('.').pop();
             const fileName = `${Date.now()}_${Math.random().toString(36).substring(2, 7)}.${fileExt}`;
             const filePath = `${folder}/${fileName}`;
 
@@ -2767,12 +2272,6 @@
             return;
         }
 
-        if ((data.user.email || '').toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
-            await supabaseClient.auth.signOut();
-            showToast("Esta cuenta no tiene autorización administrativa.", "error");
-            return;
-        }
-
         currentUser = { email: data.user.email, name: "Yorka Admin" };
         document.getElementById('login-form').reset();
         updateAuthUI();
@@ -2790,7 +2289,7 @@
     // Verifica si ya hay una sesión real de Supabase Auth activa (persistida por el propio SDK)
     async function checkAdminSession() {
         const { data } = await supabaseClient.auth.getSession();
-        if (data.session && data.session.user && data.session.user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
+        if (data.session && data.session.user && data.session.user.email === ADMIN_EMAIL) {
             currentUser = { email: data.session.user.email, name: "Yorka Admin" };
         } else {
             currentUser = null;
@@ -2821,18 +2320,11 @@
         currentUser && currentUser.email.toLowerCase() === ADMIN_EMAIL.toLowerCase() ? showAdminPanel() : showLoginView();
     }
 
-    function setMobileStickyCTAVisible(visible) {
-        const cta = document.getElementById('mobile-sticky-cta');
-        if (!cta) return;
-        cta.style.display = visible && window.innerWidth < 768 ? '' : 'none';
-    }
-
     function showPublicLanding() {
         document.getElementById('landing-container').classList.remove('hidden');
         document.getElementById('admin-container').classList.add('hidden');
         document.getElementById('login-container').classList.add('hidden');
         document.getElementById('public-nav-links').classList.remove('hidden');
-        setMobileStickyCTAVisible(true);
         renderAllViews();
     }
 
@@ -2841,7 +2333,6 @@
         document.getElementById('admin-container').classList.add('hidden');
         document.getElementById('login-container').classList.remove('hidden');
         document.getElementById('public-nav-links').classList.add('hidden');
-        setMobileStickyCTAVisible(false);
     }
 
     function showAdminPanel() {
@@ -2853,7 +2344,6 @@
         document.getElementById('login-container').classList.add('hidden');
         document.getElementById('admin-container').classList.remove('hidden');
         document.getElementById('public-nav-links').classList.add('hidden');
-        setMobileStickyCTAVisible(false);
         renderAdminDashboard();
     }
 
@@ -3152,12 +2642,12 @@
             id: 'YORKA-' + Date.now().toString().slice(-5) + '-' + Math.random().toString(36).slice(2, 6),
             date: selectedClientDate,
             time: selectedClientSlot,
-            clientName: document.getElementById('client-name').value.trim(),
-            instagram: normalizeInstagramHandle(document.getElementById('client-instagram').value),
-            clientPhone: document.getElementById('client-phone').value.trim(),
-            origin: document.getElementById('client-origin').value.trim(),
-            budget: document.getElementById('client-budget').value.trim(),
-            notes: document.getElementById('client-notes').value.trim(),
+            clientName: document.getElementById('client-name').value,
+            instagram: document.getElementById('client-instagram').value,
+            clientPhone: document.getElementById('client-phone').value,
+            origin: document.getElementById('client-origin').value,
+            budget: document.getElementById('client-budget').value,
+            notes: document.getElementById('client-notes').value,
             imageUrl: uploadedImageUrl,
             paymentReceiptUrl: null,
             status: 'Pendiente de Comprobante',
@@ -3216,10 +2706,7 @@
     }
 
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            closeImageLightbox();
-            if (mobileMenu && !mobileMenu.classList.contains('hidden')) toggleMobileMenu();
-        }
+        if (e.key === 'Escape') closeImageLightbox();
     });
 
     function adminCalNavigate(delta) {
@@ -3691,7 +3178,7 @@
 
     function getGoogleCalendarUrl(b) {
         const title = encodeURIComponent(`Cita Tatuaje: ${b.clientName} (@${b.instagram})`);
-        const details = encodeURIComponent(`Idea: ${b.notes || 'Sin detalles'}\nTeléfono: ${escapeHTML(b.clientPhone || 'Sin teléfono')}\nPresupuesto: ${b.budget}\nOrigen: ${b.origin}`);
+        const details = encodeURIComponent(`Idea: ${b.notes || 'Sin detalles'}\nTeléfono: ${b.clientPhone || 'Sin teléfono'}\nPresupuesto: ${b.budget}\nOrigen: ${b.origin}`);
         const location = encodeURIComponent("Concepción, Chile");
 
         const fechaLimpia = b.date.replace(/-/g, '');
@@ -3781,22 +3268,17 @@
                 </button>
             ` : '';
 
-            const igRaw = normalizeInstagramHandle(b.instagram);
+            const igRaw = (b.instagram || '').trim().replace(/^@/, '');
             const igLink = igRaw
                 ? `<a href="https://instagram.com/${igRaw}" target="_blank" rel="noopener noreferrer" class="text-yorkaDarkAccent font-mono text-[11px] hover:underline inline-flex items-center gap-1 font-bold">
                     <i class="fa-brands fa-instagram text-[10px]"></i> @${igRaw}
                    </a>`
                 : `<span class="text-yorkaMuted font-mono text-[11px]">Sin Instagram</span>`;
 
-            const safeClientName = escapeHTML(b.clientName || '');
-            const safeNotes = escapeHTML(b.notes || 'Sin idea especificada');
-            const safeBudget = escapeHTML(b.budget || '');
-            const safeOrigin = escapeHTML(b.origin || '');
-            const safePhoneDisplay = escapeHTML(b.clientPhone || '');
             const phoneRaw = (b.clientPhone || '').replace(/\D/g, '');
             const phoneLink = phoneRaw
                 ? `<a href="https://wa.me/${phoneRaw}" target="_blank" rel="noopener noreferrer" class="text-emerald-600 font-mono text-[11px] hover:underline inline-flex items-center gap-1 font-bold">
-                    <i class="fa-brands fa-whatsapp text-[11px]"></i> ${safePhoneDisplay}
+                    <i class="fa-brands fa-whatsapp text-[11px]"></i> ${b.clientPhone}
                    </a>`
                 : `<span class="text-yorkaMuted font-mono text-[11px]">Sin teléfono</span>`;
 
@@ -3806,17 +3288,17 @@
                     <div class="text-yorkaDarkAccent text-[11px] font-semibold">${b.time}</div>
                 </td>
                 <td class="py-4 align-top pr-3">
-                    <div class="text-yorkaText font-semibold text-xs break-words">${safeClientName}</div>
+                    <div class="text-yorkaText font-semibold text-xs break-words">${b.clientName}</div>
                     <div class="flex flex-col gap-0.5 mt-1">
                         <div>${igLink}</div>
                         <div>${phoneLink}</div>
                     </div>
-                    <div class="text-yorkaMuted text-[11px] leading-relaxed break-words whitespace-pre-wrap mt-1.5 font-light">${safeNotes}</div>
+                    <div class="text-yorkaMuted text-[11px] leading-relaxed break-words whitespace-pre-wrap mt-1.5 font-light">${b.notes || 'Sin idea especificada'}</div>
                     <div class="flex flex-wrap gap-2">${imageButton}${receiptButton}</div>
                 </td>
                 <td class="py-4 text-xs align-top pr-2">
-                    <div class="text-yorkaText font-mono font-bold">${safeBudget}</div>
-                    <div class="text-yorkaMuted">${safeOrigin}</div>
+                    <div class="text-yorkaText font-mono font-bold">${b.budget}</div>
+                    <div class="text-yorkaMuted">${b.origin}</div>
                 </td>
                 <td class="py-4 align-top">${statusBadge}</td>
                 <td class="py-4 text-right align-top">
@@ -3955,22 +3437,15 @@
     const mobileBtn = document.getElementById('mobileBtn');
     const mobileMenu = document.getElementById('mobileMenu');
     function toggleMobileMenu() {
-        const willOpen = mobileMenu.classList.contains('hidden');
         mobileMenu.classList.toggle('hidden');
         mobileMenu.classList.toggle('flex');
-        mobileBtn?.setAttribute('aria-expanded', String(willOpen));
-        document.body.style.overflow = willOpen ? 'hidden' : '';
     }
     if (mobileBtn) mobileBtn.addEventListener('click', toggleMobileMenu);
 
     function toggleFaq(btn) {
         const content = btn.nextElementSibling;
         const icon = btn.querySelector('i');
-        const item = btn.closest('.faq-item');
-        const isOpen = Boolean(content.style.maxHeight);
-        btn.setAttribute('aria-expanded', String(!isOpen));
-        item?.classList.toggle('is-open', !isOpen);
-        if (isOpen) {
+        if (content.style.maxHeight) {
             content.style.maxHeight = null;
             icon.style.transform = 'rotate(0deg)';
         } else {
@@ -4000,68 +3475,8 @@
         }
     });
 
-
-    // Barra de progreso y navegación activa por sección
-    (function initPremiumNavigation() {
-        const progress = document.getElementById('scroll-progress');
-        const stickyCTA = document.getElementById('mobile-sticky-cta');
-        const landing = document.getElementById('landing-container');
-
-        const updateProgress = () => {
-            const max = document.documentElement.scrollHeight - window.innerHeight;
-            const pct = max > 0 ? Math.min(100, Math.max(0, (window.scrollY / max) * 100)) : 0;
-            if (progress) progress.style.width = `${pct}%`;
-            if (stickyCTA && landing) {
-                const isPublic = !landing.classList.contains('hidden');
-                stickyCTA.style.display = isPublic && window.innerWidth < 768 ? '' : 'none';
-            }
-        };
-        window.addEventListener('scroll', updateProgress, { passive: true });
-        window.addEventListener('resize', updateProgress, { passive: true });
-        updateProgress();
-
-        const sectionIds = ['estudio', 'disenos', 'portafolio', 'info', 'agendar', 'gestion-citas'];
-        const links = [...document.querySelectorAll('#public-nav-links a[href^="#"]')];
-        if ('IntersectionObserver' in window) {
-            const observer = new IntersectionObserver((entries) => {
-                const visible = entries
-                    .filter(entry => entry.isIntersecting)
-                    .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-                if (!visible) return;
-                links.forEach(link => {
-                    const active = link.getAttribute('href') === `#${visible.target.id}`;
-                    link.classList.toggle('active', active);
-                    if (active) link.setAttribute('aria-current', 'page');
-                    else link.removeAttribute('aria-current');
-                });
-            }, { rootMargin: '-25% 0px -60% 0px', threshold: [0.05, .2, .5] });
-            sectionIds.forEach(id => {
-                const section = document.getElementById(id);
-                if (section) observer.observe(section);
-            });
-        }
-    })();
-
-    // Normalización discreta de Instagram y presupuesto
-    (function initFormEnhancements() {
-        const instagram = document.getElementById('client-instagram');
-        const budget = document.getElementById('client-budget');
-        instagram?.addEventListener('blur', () => {
-            const handle = normalizeInstagramHandle(instagram.value);
-            instagram.value = handle ? `@${handle}` : '';
-        });
-        budget?.addEventListener('blur', () => {
-            const digits = budget.value.replace(/\D/g, '');
-            if (digits) budget.value = `$${Number(digits).toLocaleString('es-CL')}`;
-        });
-    })();
-
     window.addEventListener('DOMContentLoaded', async () => {
         renderDisenosCarousel();
-        document.querySelectorAll('img').forEach((img, index) => {
-            img.decoding = 'async';
-            if (index > 5 && !img.closest('#hero-bg-carousel')) img.loading = 'lazy';
-        });
         await loadDataFromSupabase(true);
 
         const today = getLocalDateString(new Date());
@@ -4080,7 +3495,7 @@
         renderAllViews();
 
         supabaseClient.auth.onAuthStateChange((_event, session) => {
-            if (session && session.user && session.user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
+            if (session && session.user && session.user.email === ADMIN_EMAIL) {
                 currentUser = { email: session.user.email, name: "Yorka Admin" };
             } else {
                 currentUser = null;
