@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#75111d">
     <title>Yorka Tatuajes | Blood Level Estudio & Agendamiento de Autor</title>
     <meta name="description" content="Estudio de tatuajes y arte corporal de autor por Yorka en Blood Level Estudio. Concepción, Chile.">
 
@@ -24,7 +25,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <!-- Tipografías de Alta Gama -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Manrope:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <!-- Tailwind CSS -->
@@ -37,28 +38,28 @@
             theme: {
                 extend: {
                     colors: {
-                        yorkaBg: '#ffffff',       /* Blanco puro - fondo principal */
-                        yorkaPanel: '#f7f4f1',    /* Panel gris cálido muy claro */
-                        yorkaCard: '#ffffff',     /* Blanco puro para tarjetas */
-                        yorkaBorder: '#e7e1da',   /* Borde fino gris cálido */
-                        yorkaBorderGold: '#c9a24d',/* Dorado editorial */
-                        yorkaText: '#181310',     /* Negro cálido para texto */
-                        yorkaMuted: '#766c64',    /* Gris cálido para texto secundario */
-                        yorkaAccent: '#a81c1c',   /* Rojo borgoña/vino elegante y suave */
-                        yorkaAccentHover: '#c82424',
-                        yorkaDarkAccent: '#7a1010',/* Rojo oscuro sobrio */
-                        yorkaGold: '#c9a24d',     /* Dorado champagne editorial */
+                        yorkaBg: '#fbf6f3',       /* Blanco puro - fondo principal */
+                        yorkaPanel: '#eadbd6',    /* Panel gris cálido muy claro */
+                        yorkaCard: '#fffdfb',     /* Blanco puro para tarjetas */
+                        yorkaBorder: '#d8c2bc',   /* Borde fino gris cálido */
+                        yorkaBorderGold: '#bca29e',/* Dorado editorial */
+                        yorkaText: '#302426',     /* Negro cálido para texto */
+                        yorkaMuted: '#766563',    /* Gris cálido para texto secundario */
+                        yorkaAccent: '#75111d',   /* Rojo borgoña/vino elegante y suave */
+                        yorkaAccentHover: '#921a2b',
+                        yorkaDarkAccent: '#551019',/* Rojo oscuro sobrio */
+                        yorkaGold: '#bca29e',     /* Dorado champagne editorial */
                         danger: '#dc2626',
                     },
                     fontFamily: {
-                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Manrope"', 'sans-serif'],
+                        serif: ['"Cormorant Garamond"', 'serif'],
                         mono: ['"Space Mono"', 'monospace'],
                     },
                     boxShadow: {
-                        'glass': '0 20px 40px -15px rgba(31, 22, 21, 0.05)',
-                        'card-hover': '0 20px 40px -10px rgba(168, 28, 28, 0.14)',
-                        'gold-glow': '0 0 25px rgba(201, 162, 77, 0.2)',
+                        'glass': '0 24px 70px -34px rgba(75, 28, 35, 0.28)',
+                        'card-hover': '0 28px 65px -30px rgba(117, 17, 29, 0.34)',
+                        'gold-glow': '0 0 28px rgba(188, 162, 158, 0.30)',
                     }
                 }
             }
@@ -67,19 +68,19 @@
 
     <style>
         body {
-            background-color: #ffffff;
-            color: #181310;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fffdfb;
+            color: #302426;
+            font-family: 'Manrope', sans-serif;
             overflow-x: hidden;
             scroll-behavior: smooth;
             -webkit-font-smoothing: antialiased;
         }
 
-        ::selection { background: #a81c1c; color: #ffffff; }
+        ::selection { background: #75111d; color: #fffdfb; }
         ::-webkit-scrollbar { width: 5px; height: 5px; }
-        ::-webkit-scrollbar-track { background: #ffffff; }
-        ::-webkit-scrollbar-thumb { background: #e7e1da; border-radius: 99px; }
-        ::-webkit-scrollbar-thumb:hover { background: #a81c1c; }
+        ::-webkit-scrollbar-track { background: #fffdfb; }
+        ::-webkit-scrollbar-thumb { background: #d8c2bc; border-radius: 99px; }
+        ::-webkit-scrollbar-thumb:hover { background: #75111d; }
 
         /* NAVBAR 100% TRANSPARENTE AL INICIO */
         .navbar { 
@@ -93,30 +94,30 @@
 
         /* EFECTO DE LIGERA SOMBRA SOLO AL HACER SCROLL HACIA ABAJO */
         .navbar.scrolled {
-            background-color: rgba(15, 12, 10, 0.88) !important;
+            background-color: rgba(69, 24, 32, 0.94) !important;
             backdrop-filter: blur(14px) !important;
             -webkit-backdrop-filter: blur(14px) !important;
-            border-bottom: 1px solid rgba(201, 162, 77, 0.25) !important;
+            border-bottom: 1px solid rgba(188, 162, 158, 0.34) !important;
             padding: 12px 0;
         }
 
         .nav-link { position: relative; padding-bottom: 4px; cursor: pointer; transition: color 0.3s ease; }
         .nav-link::after {
             content: ''; position: absolute; width: 0; height: 1.5px; bottom: 0; left: 50%;
-            background: linear-gradient(90deg, #a81c1c, #c9a24d); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); transform: translateX(-50%);
+            background: linear-gradient(90deg, #75111d, #bca29e); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); transform: translateX(-50%);
         }
         .nav-link:hover::after, .nav-link.active::after { width: 100%; }
 
         /* LOGO FIGURA ROJA */
         .yorka-logo-img {
             width: 38px; height: 38px; object-fit: contain;
-            filter: drop-shadow(0 4px 10px rgba(168, 28, 28, 0.45));
+            filter: drop-shadow(0 4px 10px rgba(117, 17, 29, 0.38));
             transition: transform 0.3s ease;
         }
         .yorka-logo-img:hover { transform: scale(1.1) rotate(5deg); }
 
         /* ACORDEÓN */
-        .faq-item { border-bottom: 1px solid #e7e1da; transition: all 0.3s ease; }
+        .faq-item { border-bottom: 1px solid #d8c2bc; transition: all 0.3s ease; }
         .faq-content { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
 
         /* CARRUSEL EDITORIAL */
@@ -125,85 +126,85 @@
         @keyframes fadeIn { from { opacity: 0; transform: scale(0.99); } to { opacity: 1; transform: scale(1); } }
         
         .carousel-dot {
-            width: 8px; height: 8px; border-radius: 50%; border: 1px solid #e7e1da; background-color: transparent; cursor: pointer; transition: all 0.3s;
+            width: 8px; height: 8px; border-radius: 50%; border: 1px solid #d8c2bc; background-color: transparent; cursor: pointer; transition: all 0.3s;
         }
-        .carousel-dot.active { background-color: #a81c1c; border-color: #c9a24d; transform: scale(1.35); }
+        .carousel-dot.active { background-color: #75111d; border-color: #bca29e; transform: scale(1.35); }
 
         /* TARJETAS CON ACABADO GLASS MINIMALIST */
         .action-card {
             background: rgba(255, 255, 255, 0.96);
             backdrop-filter: blur(16px);
-            border: 1px solid #e7e1da;
+            border: 1px solid #d8c2bc;
             box-shadow: 0 20px 45px -20px rgba(24, 19, 16, 0.15);
             transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
         }
         .action-card:hover {
             box-shadow: 0 25px 55px -18px rgba(168, 28, 28, 0.16);
-            border-color: #c9a24d;
+            border-color: #bca29e;
         }
 
         .btn-primary-action {
-            background: linear-gradient(135deg, #a81c1c 0%, #7a1010 100%);
-            color: #ffffff;
+            background: linear-gradient(135deg, #75111d 0%, #551019 100%);
+            color: #fffdfb;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 4px 20px rgba(168, 28, 28, 0.3);
+            box-shadow: 0 4px 20px rgba(117, 17, 29, 0.26);
             border: 1px solid rgba(201, 162, 77, 0.35);
         }
         .btn-primary-action:hover:not(:disabled) {
             transform: translateY(-2px);
-            box-shadow: 0 10px 28px rgba(168, 28, 28, 0.42);
-            background: linear-gradient(135deg, #c82424 0%, #8f1212 100%);
-            border-color: #c9a24d;
+            box-shadow: 0 10px 28px rgba(117, 17, 29, 0.34);
+            background: linear-gradient(135deg, #921a2b 0%, #64121e 100%);
+            border-color: #bca29e;
         }
 
         .slot-btn {
-            border: 1px solid #e7e1da;
-            background: #ffffff;
-            color: #181310;
+            border: 1px solid #d8c2bc;
+            background: #fffdfb;
+            color: #302426;
             transition: all 0.25s ease;
             font-weight: 500;
         }
         .slot-btn.selected {
-            background: #a81c1c;
-            color: #ffffff;
-            border-color: #c9a24d;
+            background: #75111d;
+            color: #fffdfb;
+            border-color: #bca29e;
             font-weight: 700;
             transform: scale(1.02);
-            box-shadow: 0 6px 18px rgba(168, 28, 28, 0.3);
+            box-shadow: 0 6px 18px rgba(117, 17, 29, 0.26);
         }
         .slot-btn:not(:disabled):hover {
-            border-color: #a81c1c;
-            background: #f7f4f1;
+            border-color: #75111d;
+            background: #eadbd6;
             transform: translateY(-1px);
         }
-        .slot-btn:disabled { opacity: 0.4; cursor: not-allowed; text-decoration: line-through; background: #f7f4f1; }
+        .slot-btn:disabled { opacity: 0.4; cursor: not-allowed; text-decoration: line-through; background: #eadbd6; }
 
         /* CALENDARIO PREMIUM MINIMAL */
         .cal-day {
             position: relative; aspect-ratio: 1 / 1; border-radius: 12px;
-            border: 1px solid #e7e1da; background: #ffffff;
+            border: 1px solid #d8c2bc; background: #fffdfb;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             gap: 2px; cursor: pointer; transition: all 0.25s ease; font-size: 12px;
-            font-weight: 500; color: #181310;
+            font-weight: 500; color: #302426;
         }
         .cal-day:not(.cal-disabled):hover {
-            border-color: #a81c1c; background: #f7f4f1; transform: translateY(-2px);
-            box-shadow: 0 4px 14px rgba(168, 28, 28, 0.15);
+            border-color: #75111d; background: #eadbd6; transform: translateY(-2px);
+            box-shadow: 0 4px 14px rgba(117, 17, 29, 0.16);
         }
         .cal-day.cal-selected {
-            background: #a81c1c; border-color: #c9a24d; color: #ffffff; font-weight: 700;
-            transform: scale(1.05); box-shadow: 0 6px 20px rgba(168, 28, 28, 0.35);
+            background: #75111d; border-color: #bca29e; color: #fffdfb; font-weight: 700;
+            transform: scale(1.05); box-shadow: 0 6px 20px rgba(117, 17, 29, 0.30);
         }
-        .cal-day.cal-today:not(.cal-selected) { border: 2px solid #a81c1c; font-weight: 700; color: #7a1010; }
-        .cal-day.cal-disabled { opacity: 0.4; cursor: not-allowed; background: #f7f4f1; border-color: transparent; }
+        .cal-day.cal-today:not(.cal-selected) { border: 2px solid #75111d; font-weight: 700; color: #551019; }
+        .cal-day.cal-disabled { opacity: 0.4; cursor: not-allowed; background: #eadbd6; border-color: transparent; }
         .cal-day.cal-empty { visibility: hidden; cursor: default; }
         .cal-dot { width: 5px; height: 5px; border-radius: 50%; position: absolute; bottom: 5px; }
         .cal-dot-green { background: #10b981; }
         .cal-dot-yellow { background: #f59e0b; }
         .cal-dot-red { background: #ef4444; }
         .cal-dot-gray { background: #9ca3af; }
-        .cal-day.cal-selected .cal-dot { background: #ffffff; }
+        .cal-day.cal-selected .cal-dot { background: #fffdfb; }
 
         /* TOASTS ELEGANTES */
         #toast-container {
@@ -211,7 +212,7 @@
             display: flex; flex-direction: column; gap: 12px; max-width: calc(100vw - 48px);
         }
         .toast {
-            background: #ffffff; border: 1px solid #e7e1da; color: #181310;
+            background: #fffdfb; border: 1px solid #d8c2bc; color: #302426;
             padding: 14px 18px; border-radius: 16px; font-size: 13px; font-weight: 500;
             display: flex; align-items: center; gap: 12px;
             box-shadow: 0 15px 40px rgba(24, 19, 16, 0.18); min-width: 260px; max-width: 380px;
@@ -220,11 +221,11 @@
         .toast.toast-show { transform: translateX(0); opacity: 1; }
         .toast.toast-success { border-left: 4px solid #10b981; }
         .toast.toast-error { border-left: 4px solid #ef4444; }
-        .toast.toast-info { border-left: 4px solid #a81c1c; }
+        .toast.toast-info { border-left: 4px solid #75111d; }
 
         /* TABS ADMIN */
-        .admin-tab-btn { transition: all 0.25s ease; border-bottom: 2px solid transparent; color: #766c64; }
-        .admin-tab-btn.active { color: #181310; font-weight: 700; border-bottom-color: #a81c1c; }
+        .admin-tab-btn { transition: all 0.25s ease; border-bottom: 2px solid transparent; color: #766563; }
+        .admin-tab-btn.active { color: #302426; font-weight: 700; border-bottom-color: #75111d; }
         .admin-tab-panel { display: none; }
         .admin-tab-panel.active { display: block; }
 
@@ -281,11 +282,365 @@
                 transition: none !important;
             }
         }
+
+
+        /* =========================================================
+           REDISEÑO EDITORIAL — PALETA ROSA EMPOLVADO / BORGOÑA
+           Inspirado en la referencia visual enviada por el cliente.
+           Mantiene intacta la lógica de agenda y Supabase.
+        ========================================================== */
+        :root {
+            --y-ivory: #fffdfb;
+            --y-cream: #fbf6f3;
+            --y-blush: #eadbd6;
+            --y-blush-soft: #f2e8e4;
+            --y-dusty: #bca29e;
+            --y-taupe: #8e7a78;
+            --y-wine: #75111d;
+            --y-wine-dark: #451820;
+            --y-wine-deep: #551019;
+            --y-ink: #302426;
+            --y-muted: #766563;
+            --y-line: #d8c2bc;
+        }
+
+        html { background: var(--y-cream); }
+        body {
+            background: var(--y-cream);
+            color: var(--y-ink);
+            letter-spacing: -0.005em;
+        }
+
+        /* Franja superior inspirada en las líneas del diseño de referencia */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0 0 auto 0;
+            height: 3px;
+            z-index: 999999;
+            background: linear-gradient(90deg, var(--y-wine) 0 38%, var(--y-dusty) 38% 62%, var(--y-wine) 62% 100%);
+            pointer-events: none;
+        }
+
+        .navbar {
+            padding-top: 24px;
+        }
+        .navbar.scrolled {
+            background: rgba(69, 24, 32, .94) !important;
+            border-bottom: 1px solid rgba(216, 194, 188, .26) !important;
+            box-shadow: 0 14px 42px rgba(45, 12, 18, .14);
+        }
+        .navbar .font-serif,
+        footer .font-serif {
+            font-family: 'Cormorant Garamond', serif !important;
+        }
+        .navbar > div > div:first-child > span {
+            font-style: italic;
+            font-weight: 600 !important;
+            letter-spacing: -0.025em !important;
+        }
+        .nav-link::after {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--y-dusty), transparent);
+        }
+
+        #mobileMenu {
+            background: rgba(69, 24, 32, .985) !important;
+        }
+
+        /* Hero: composición editorial en lugar de texto flotando directamente sobre la foto */
+        #estudio {
+            background-color: var(--y-wine-dark) !important;
+        }
+        #estudio::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            background:
+                radial-gradient(circle at 50% 38%, transparent 0 30%, rgba(45, 10, 16, .12) 64%, rgba(45, 10, 16, .36) 100%);
+        }
+        .hero-editorial-card {
+            width: min(92vw, 890px);
+            padding: clamp(1.8rem, 4vw, 3rem) clamp(1.2rem, 4vw, 2.8rem) clamp(1.8rem, 4vw, 2.8rem);
+            background: transparent;
+            color: var(--y-cream);
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            overflow: visible;
+        }
+        .hero-editorial-card::before {
+            content: none;
+            display: none;
+        }
+        .hero-editorial-card::after {
+            content: none;
+        }
+        .hero-editorial-card > * { position: relative; z-index: 2; }
+        .hero-editorial-card .text-white,
+        .hero-editorial-card .text-white\/80,
+        .hero-editorial-card .text-white\/90 {
+            color: var(--y-cream) !important;
+            text-shadow: 0 8px 26px rgba(28, 5, 10, .35) !important;
+        }
+        .hero-editorial-card .bg-black\/40 {
+            background: rgba(69, 24, 32, .36) !important;
+        }
+        .hero-editorial-card .border-white\/40,
+        .hero-editorial-card .border-white\/25 {
+            border-color: rgba(255, 253, 251, .26) !important;
+        }
+        .hero-editorial-card h1 {
+            color: var(--y-cream) !important;
+            font-size: clamp(3.7rem, 8.2vw, 6.8rem) !important;
+            line-height: .88 !important;
+            font-style: italic;
+            font-weight: 600 !important;
+            letter-spacing: -.055em !important;
+            text-shadow: 0 12px 32px rgba(28, 5, 10, .32) !important;
+            margin-top: .3rem;
+        }
+        .hero-editorial-card > span {
+            color: rgba(255, 253, 251, .86) !important;
+            font-style: normal !important;
+            letter-spacing: .20em !important;
+            font-size: .68rem !important;
+        }
+        .hero-editorial-card > p {
+            color: rgba(255, 253, 251, .88) !important;
+            font-weight: 400 !important;
+            max-width: 34rem;
+        }
+        .hero-editorial-card > div:first-child {
+            color: var(--y-cream) !important;
+            border-color: rgba(255, 253, 251, .24) !important;
+        }
+        .hero-editorial-card a[href="#disenos"] {
+            background: rgba(255, 253, 251, .08) !important;
+            color: var(--y-cream) !important;
+            border-color: rgba(255, 253, 251, .24) !important;
+            box-shadow: none !important;
+        }
+        .hero-editorial-card a[href="#disenos"]:hover {
+            background: rgba(255, 253, 251, .16) !important;
+            border-color: rgba(255, 253, 251, .42) !important;
+        }
+        .hero-clean-links {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem 1.5rem;
+            margin-top: 1.25rem;
+        }
+        .hero-clean-links a {
+            color: rgba(255, 253, 251, .94) !important;
+            font-family: 'Manrope', sans-serif !important;
+            font-size: .8rem !important;
+            font-weight: 600 !important;
+            letter-spacing: .18em !important;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: none !important;
+            background: transparent !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            display: inline-flex;
+            align-items: center;
+            gap: .55rem;
+            position: relative;
+        }
+        .hero-clean-links a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -6px;
+            height: 1px;
+            background: rgba(255,253,251,.55);
+            transform: scaleX(.75);
+            transform-origin: center;
+            transition: transform .25s ease, background .25s ease;
+        }
+        .hero-clean-links a:hover::after {
+            transform: scaleX(1);
+            background: rgba(255,253,251,.9);
+        }
+        .hero-clean-links a i {
+            color: rgba(255,253,251,.78) !important;
+        }
+
+        /* Secciones con ritmo editorial alternado */
+        #artista, #portafolio, #agendar, #gestion-citas { background: var(--y-cream) !important; }
+        #disenos, #info, #pago-directo { background: var(--y-blush-soft) !important; }
+
+        main section {
+            border-color: rgba(216, 194, 188, .68) !important;
+        }
+        main section > img[alt^="Esquina"] {
+            opacity: .12 !important;
+        }
+        main section .font-serif {
+            font-family: 'Cormorant Garamond', serif !important;
+        }
+        main section h2 {
+            font-weight: 600 !important;
+            letter-spacing: -.035em;
+            line-height: .98;
+        }
+        main section h3,
+        main section h4 {
+            letter-spacing: -.018em;
+        }
+        main section .font-mono.uppercase,
+        main section span.font-mono.uppercase {
+            letter-spacing: .20em !important;
+        }
+
+        /* Tarjetas: menos “app”, más estudio/editorial */
+        .action-card {
+            background: rgba(255,253,251,.95) !important;
+            border: 1px solid rgba(216,194,188,.88) !important;
+            border-radius: 18px !important;
+            box-shadow: 0 24px 70px -38px rgba(69,24,32,.34) !important;
+        }
+        .action-card::before {
+            content: '';
+            position: absolute;
+            inset: 0 24px auto;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(117,17,29,.50), rgba(188,162,158,.68), transparent);
+            opacity: .58;
+            pointer-events: none;
+            z-index: 30;
+        }
+        .action-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(117,17,29,.28) !important;
+            box-shadow: 0 30px 80px -36px rgba(117,17,29,.34) !important;
+        }
+
+        .faq-item {
+            background: rgba(255,253,251,.86) !important;
+            border: 1px solid rgba(216,194,188,.82) !important;
+            border-radius: 14px !important;
+            box-shadow: 0 14px 36px -30px rgba(69,24,32,.30);
+        }
+
+        /* Botones principales */
+        .btn-primary-action {
+            background: linear-gradient(135deg, #75111d 0%, #551019 100%) !important;
+            color: #fffdfb !important;
+            border: 1px solid rgba(188,162,158,.60) !important;
+            border-radius: 10px !important;
+            box-shadow: 0 12px 30px -16px rgba(117,17,29,.58) !important;
+        }
+        .btn-primary-action:hover:not(:disabled) {
+            background: linear-gradient(135deg, #861426 0%, #64121e 100%) !important;
+            box-shadow: 0 18px 36px -17px rgba(117,17,29,.62) !important;
+            transform: translateY(-2px);
+        }
+
+        input, textarea, select {
+            border-color: rgba(216,194,188,.95) !important;
+            background-color: rgba(255,253,251,.92) !important;
+        }
+        input:focus, textarea:focus, select:focus {
+            border-color: rgba(117,17,29,.52) !important;
+            box-shadow: 0 0 0 3px rgba(117,17,29,.07);
+        }
+
+        /* Calendario más refinado */
+        .cal-day {
+            border-radius: 10px;
+            border-color: rgba(216,194,188,.88);
+            background: rgba(255,253,251,.90);
+        }
+        .cal-day:not(.cal-disabled):hover {
+            border-color: rgba(117,17,29,.42);
+            background: var(--y-blush-soft);
+            box-shadow: 0 10px 24px -18px rgba(117,17,29,.48);
+        }
+        .cal-day.cal-selected,
+        .slot-btn.selected {
+            background: var(--y-wine) !important;
+            border-color: var(--y-dusty) !important;
+            color: var(--y-ivory) !important;
+            box-shadow: 0 12px 26px -16px rgba(117,17,29,.60) !important;
+        }
+        .slot-btn {
+            border-radius: 9px;
+            background: rgba(255,253,251,.90);
+            border-color: rgba(216,194,188,.9);
+        }
+
+        .carousel-dot {
+            border-color: rgba(117,17,29,.30);
+        }
+        .carousel-dot.active {
+            background: var(--y-wine);
+            border-color: var(--y-dusty);
+        }
+
+        /* Galería: bordes menos redondeados y sombra suave */
+        #portafolio [class*="rounded-2xl"][onclick*="openImageLightbox"],
+        #disenos-carousel-container [class*="rounded-2xl"] {
+            border-radius: 12px !important;
+        }
+
+        footer {
+            background: var(--y-blush) !important;
+            border-color: var(--y-line) !important;
+        }
+
+        /* Toasts y modales dentro de la misma dirección visual */
+        .toast {
+            background: rgba(255,253,251,.98) !important;
+            border-color: rgba(216,194,188,.96) !important;
+            color: var(--y-ink) !important;
+            border-radius: 12px !important;
+            box-shadow: 0 20px 50px -24px rgba(69,24,32,.38) !important;
+        }
+        #receipt-upload-modal > div,
+        #client-manage-modal > div,
+        #success-modal > div,
+        #reset-modal > div,
+        #confirm-modal > div,
+        #bulk-slot-modal > div,
+        #single-slot-modal > div {
+            border-color: rgba(216,194,188,.92) !important;
+        }
+
+        /* Fotos de la artista */
+        #artista-photo-carousel {
+            border-radius: 14px !important;
+            border-color: rgba(117,17,29,.25) !important;
+            box-shadow: 0 32px 70px -40px rgba(69,24,32,.55) !important;
+        }
+
+        @media (max-width: 767px) {
+            .navbar { padding-top: 16px; }
+            .hero-editorial-card {
+                width: min(94vw, 620px);
+                padding-top: 3.2rem;
+                border-radius: 2px;
+            }
+            .hero-editorial-card h1 {
+                font-size: clamp(3rem, 16vw, 4.8rem) !important;
+            }
+            main section > img[alt^="Esquina"] { opacity: .07 !important; }
+            .action-card { border-radius: 14px !important; }
+        }
+
     </style>
 </head>
 
 
-<body class="relative min-h-screen bg-[#0f0c0a]">
+<body class="relative min-h-screen bg-[#451820]">
 
 <!-- LÍNEA SUPERIOR DECORATIVA MINIMAL -->
 <div class="fixed top-0 left-0 w-full h-[3px] bg-gradient-to-r from-yorkaAccent via-yorkaGold via-50% to-yorkaAccent z-50"></div>
@@ -345,7 +700,7 @@
 </nav>
 
 <!-- MENÚ MÓVIL EDITORIAL DE ALTA GAMA -->
-<div id="mobileMenu" class="fixed inset-0 bg-black/95 backdrop-blur-2xl z-50 hidden flex-col justify-center items-center gap-5 text-white px-6">
+<div id="mobileMenu" class="fixed inset-0 bg-black/95 backdrop-blur-2xl z-50 hidden flex-col justify-center items-center gap-5 font-serif text-2xl text-white px-6">
     <button onclick="toggleMobileMenu()" class="absolute top-6 right-6 text-2xl text-white/70 hover:text-white p-2">
         <i class="fa-solid fa-xmark"></i>
     </button>
@@ -354,34 +709,29 @@
         <span class="font-serif text-xl text-white tracking-widest uppercase block">Yorka Tatuajes</span>
         <span class="text-yorkaGold text-xs font-serif block mt-1 tracking-widest">✦ BLOOD LEVEL ESTUDIO ✦</span>
     </div>
-
-    <!-- Todas las opciones usan la misma tipografía, tamaño y peso -->
-    <a href="#estudio" onclick="showPublicLanding(); toggleMobileMenu();" class="mobile-link font-serif text-2xl font-normal text-white hover:text-yorkaGold transition-colors">Estudio & Artista</a>
-    <a href="#disenos" onclick="showPublicLanding(); toggleMobileMenu();" class="mobile-link font-serif text-2xl font-normal text-white hover:text-yorkaGold transition-colors">Diseños Disponibles</a>
-    <a href="#portafolio" onclick="showPublicLanding(); toggleMobileMenu();" class="mobile-link font-serif text-2xl font-normal text-white hover:text-yorkaGold transition-colors">Portafolio</a>
-    <a href="#info" onclick="showPublicLanding(); toggleMobileMenu();" class="mobile-link font-serif text-2xl font-normal text-white hover:text-yorkaGold transition-colors">Información</a>
-    <a href="#agendar" onclick="showPublicLanding(); toggleMobileMenu();" class="mobile-link font-serif text-2xl font-normal text-white hover:text-yorkaGold transition-colors">Reserva</a>
-
-    <a href="#gestion-citas" onclick="showPublicLanding(); toggleMobileMenu();" class="mobile-link font-serif text-2xl font-normal text-white hover:text-yorkaGold transition-colors flex items-center gap-2">
+    <a href="#estudio" onclick="showPublicLanding(); toggleMobileMenu();" class="hover:text-yorkaGold mobile-link transition-colors">Estudio & Artista</a>
+    <a href="#disenos" onclick="showPublicLanding(); toggleMobileMenu();" class="hover:text-yorkaGold mobile-link transition-colors">Diseños Disponibles</a>
+    <a href="#portafolio" onclick="showPublicLanding(); toggleMobileMenu();" class="hover:text-yorkaGold mobile-link transition-colors">Portafolio</a>
+    <a href="#info" onclick="showPublicLanding(); toggleMobileMenu();" class="hover:text-yorkaGold mobile-link transition-colors font-mono text-xl">Información</a>
+    <a href="#agendar" onclick="showPublicLanding(); toggleMobileMenu();" class="hover:text-yorkaGold mobile-link transition-colors">Reserva</a>
+    <a href="#gestion-citas" onclick="showPublicLanding(); toggleMobileMenu();" class="hover:text-yorkaGold text-white mobile-link transition-colors flex items-center gap-2 text-xl font-serif">
         <i class="fa-solid fa-calendar-check text-base text-yorkaGold"></i>
         <span>Mis Citas</span>
     </a>
-
-    <button onclick="openReceiptModal(); toggleMobileMenu();" class="mobile-link font-serif text-2xl font-normal text-white hover:text-yorkaGold transition-colors flex items-center gap-2">
-        <i class="fa-solid fa-receipt text-base text-yorkaGold"></i>
+    <button onclick="openReceiptModal(); toggleMobileMenu();" class="hover:text-yorkaGold text-yorkaGold transition-colors flex items-center gap-2 text-xl font-serif mt-1">
+        <i class="fa-solid fa-receipt text-base"></i>
         <span>Subir Comprobante</span>
     </button>
-
-    <button onclick="handleAdminNavClick(); toggleMobileMenu();" class="mobile-link font-serif text-2xl font-normal text-white hover:text-yorkaGold transition-colors flex items-center gap-2 mt-2 pt-4 border-t border-white/20 w-56 justify-center">
-        <i class="fa-solid fa-user-gear text-base text-yorkaGold"></i>
+    <button onclick="handleAdminNavClick(); toggleMobileMenu();" class="hover:text-yorkaGold mobile-link text-white/50 transition-colors flex items-center gap-2 text-sm font-mono mt-2 pt-4 border-t border-white/20 w-48 justify-center">
+        <i class="fa-solid fa-user-gear text-sm"></i>
         <span id="mobile-admin-label">Panel Admin</span>
     </button>
 </div>
 
 <!-- VISTA PÚBLICA -->
-<div id="landing-container" class="relative z-10 bg-[#0f0c0a]">
+<div id="landing-container" class="relative z-10 bg-[#451820]">
     <!-- HERO SECTION (PORTADA - SIN ORNAMENTOS DE ESQUINA) -->
-    <header id="estudio" class="relative w-full pt-36 pb-20 md:pt-48 md:pb-32 px-6 text-center overflow-hidden min-h-[100dvh] flex items-center justify-center bg-[#0f0c0a]">
+    <header id="estudio" class="relative w-full pt-36 pb-20 md:pt-48 md:pb-32 px-6 text-center overflow-hidden min-h-[100dvh] flex items-center justify-center bg-[#451820]">
 
         <!-- ROTACIÓN DE IMÁGENES DE FONDO -->
         <div id="hero-bg-carousel" class="absolute inset-0 z-0">
@@ -391,15 +741,10 @@
         </div>
 
         <!-- VELO TRANSLÚCIDO SUAVE -->
-        <div class="absolute inset-0 z-0 pointer-events-none" style="background: linear-gradient(180deg, rgba(15,12,10,0.55) 0%, rgba(15,12,10,0.3) 35%, rgba(15,12,10,0.78) 80%, rgba(15,12,10,1) 100%);"></div>
+        <div class="absolute inset-0 z-0 pointer-events-none" style="background: linear-gradient(180deg, rgba(69,24,32,0.58) 0%, rgba(69,24,32,0.34) 35%, rgba(69,24,32,0.76) 80%, rgba(69,24,32,0.98) 100%);"></div>
 
-        <div class="relative z-10 max-w-4xl mx-auto">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-yorkaGold/50 text-white text-[10px] font-mono uppercase tracking-widest mb-7 shadow-xs">
-                <span class="w-2 h-2 rounded-full bg-yorkaAccent animate-pulse"></span>
-                <span>Blood Level Estudio • Concepción, Chile</span>
-            </div>
-
-            <span class="block font-sans text-xs sm:text-sm italic text-white/80 tracking-[0.2em] uppercase mb-3">Arte Corporal & Diseños de Autor</span>
+        <div class="hero-editorial-card relative z-10 max-w-4xl mx-auto">
+            <span class="block font-sans text-xs sm:text-sm italic text-white/80 tracking-[0.2em] uppercase mb-3">Blood Level Estudio • Concepción, Chile</span>
 
             <h1 class="font-serif text-4xl sm:text-6xl md:text-8xl text-yorkaAccent font-normal tracking-tight leading-[1.05] mb-6 drop-shadow-[0_4px_25px_rgba(0,0,0,0.7)]">
                 Yorka Tatuajes
@@ -411,17 +756,13 @@
                 <span class="w-12 h-px bg-gradient-to-l from-transparent via-yorkaGold to-yorkaAccent"></span>
             </div>
 
-            <p class="font-sans text-xs sm:text-sm md:text-base text-white/90 leading-relaxed max-w-xl mx-auto font-medium mb-10 drop-shadow-sm px-2">
+            <p class="font-sans text-xs sm:text-sm md:text-base text-white/90 leading-relaxed max-w-xl mx-auto font-medium mb-6 drop-shadow-sm px-2">
                 Especializada en proyectos personalizados e ilustración fina en piel. Reserva tu sesión en Blood Level Estudio en la agenda interactiva a continuación.
             </p>
 
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="#agendar" class="btn-primary-action w-full sm:w-auto inline-flex items-center justify-center gap-3 font-mono text-xs font-bold px-8 py-4 rounded-2xl uppercase tracking-widest text-white">
-                    <i class="fa-solid fa-calendar-check text-sm text-yorkaGold"></i> Solicitar Cita
-                </a>
-                <a href="#disenos" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 font-mono text-xs font-semibold px-7 py-4 rounded-2xl uppercase tracking-wider text-white bg-white/10 backdrop-blur-md border border-white/40 hover:border-yorkaGold hover:bg-white/20 transition shadow-xs">
-                    Ver Diseños <i class="fa-solid fa-arrow-down text-[10px] text-yorkaGold"></i>
-                </a>
+            <div class="hero-clean-links">
+                <a href="#agendar"><i class="fa-solid fa-calendar-check text-sm"></i>Solicitar cita</a>
+                <a href="#disenos"><i class="fa-solid fa-arrow-down text-[10px]"></i>Ver diseños</a>
             </div>
         </div>
     </header>
