@@ -328,7 +328,9 @@ body > div.fixed.top-0.left-0.w-full.h-\[3px\]{height:2px!important;background:v
 /* Hero de video: dramático solo donde corresponde */
 #estudio{background:#2a1119!important;min-height:100svh!important;text-align:center!important}
 #hero-bg-carousel .hero-bg-slide{display:none!important}
+#hero-bg-carousel.video-unavailable .hero-bg-slide:first-of-type{display:block!important;opacity:1!important}
 .yorka-hero-video{display:block!important;width:100%!important;height:100%!important;object-fit:cover!important;opacity:.72!important;filter:none!important;transform:none!important}
+#hero-bg-carousel.video-unavailable .yorka-hero-video{display:none!important}
 #estudio > .absolute.inset-0.z-0.pointer-events-none{background:rgba(31,10,18,.56)!important}
 #estudio h1{font-family:'Playfair Display',serif!important;color:#fff!important;font-size:clamp(3.7rem,8.5vw,7.5rem)!important;line-height:.94!important;letter-spacing:-.035em!important;font-weight:500!important;text-shadow:0 4px 26px rgba(0,0,0,.22)!important}
 #estudio h1 span{color:var(--y-red)!important}
@@ -667,8 +669,9 @@ footer .footer-instagram-link:hover i{color:#a50f2d!important}
 
         <!-- ROTACIÓN DE IMÁGENES DE FONDO -->
         <div id="hero-bg-carousel" class="absolute inset-0 z-0">
-            <video autoplay muted loop playsinline class="yorka-hero-video absolute inset-0 w-full h-full object-cover" aria-label="Video del estudio Yorka Tatuajes">
+            <video autoplay muted loop playsinline webkit-playsinline preload="metadata" poster="assets/imagen1.jpeg" class="yorka-hero-video absolute inset-0 w-full h-full object-cover" aria-label="Video del estudio Yorka Tatuajes">
                 <source src="assets/video1.mp4" type="video/mp4">
+                Tu navegador no puede reproducir este video.
             </video>
             <div class="hero-bg-slide active" style="background-image: url('assets/imagen1.jpeg');"></div>
             <div class="hero-bg-slide" style="background-image: url('assets/imagen3.jpeg');"></div>
@@ -3712,6 +3715,50 @@ footer .footer-instagram-link:hover i{color:#a50f2d!important}
         mobileMenu.classList.toggle('flex');
     }
     if (mobileBtn) mobileBtn.addEventListener('click', toggleMobileMenu);
+
+    /* VIDEO HERO: compatibilidad y respaldo para iOS, Android y ahorro de datos */
+    (function setupHeroVideo() {
+        const container = document.getElementById('hero-bg-carousel');
+        const video = container && container.querySelector('.yorka-hero-video');
+        if (!container || !video) return;
+
+        // Safari/iOS exige que estas propiedades esten activas antes de play().
+        video.muted = true;
+        video.defaultMuted = true;
+        video.playsInline = true;
+        video.setAttribute('muted', '');
+        video.setAttribute('playsinline', '');
+        video.setAttribute('webkit-playsinline', '');
+
+        const showFallback = () => container.classList.add('video-unavailable');
+        const showVideo = () => container.classList.remove('video-unavailable');
+        const tryPlay = () => {
+            if (document.hidden || video.ended) return;
+            const playAttempt = video.play();
+            if (playAttempt && typeof playAttempt.then === 'function') {
+                playAttempt.then(showVideo).catch(showFallback);
+            }
+        };
+
+        video.addEventListener('playing', showVideo);
+        video.addEventListener('error', showFallback);
+        video.addEventListener('stalled', showFallback);
+        video.addEventListener('canplay', tryPlay, { once: true });
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) video.pause();
+            else tryPlay();
+        });
+
+        // Si el autoplay fue bloqueado, el primer gesto permite reintentarlo.
+        const retryAfterGesture = () => {
+            tryPlay();
+            document.removeEventListener('pointerdown', retryAfterGesture);
+            document.removeEventListener('touchstart', retryAfterGesture);
+        };
+        document.addEventListener('pointerdown', retryAfterGesture, { passive: true });
+        document.addEventListener('touchstart', retryAfterGesture, { passive: true });
+        tryPlay();
+    })();
 
     function toggleFaq(btn) {
         const content = btn.nextElementSibling;
